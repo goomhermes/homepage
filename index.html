@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://raw.githubusercontent.com data: blob:;">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日本 Voxel World</title>
+<title>굼마의 집</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
@@ -480,6 +480,14 @@ water.rotation.x = -Math.PI / 2;
 water.position.set(-8, 0.05, 8);
 scene.add(water);
 
+// Sun
+let sunAngle = 0;
+const sunGeometry = new THREE.SphereGeometry(3, 32, 32);
+const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffdd44 });
+const sunMesh = new THREE.Mesh(sunGeometry, sunMaterial);
+sunMesh.position.set(50, 30, 0);
+scene.add(sunMesh);
+
 // Interactive objects tracking
 const interactiveObjects = [];
 const objectInfo = {
@@ -563,6 +571,8 @@ models.forEach((config, index) => {
       model.userData.category = config.category;
       model.userData.originalY = config.pos[1];
       model.userData.originalScale = config.scale;
+      model.userData.currentScale = config.scale;
+      model.userData.currentY = config.pos[1];
       
       // Enable shadows
       model.traverse((child) => {
@@ -617,6 +627,8 @@ function createFallbackScene() {
     cube.userData.category = config.category;
     cube.userData.originalY = 1;
     cube.userData.originalScale = config.scale;
+    cube.userData.currentScale = config.scale;
+    cube.userData.currentY = 1;
     scene.add(cube);
     interactiveObjects.push(cube);
   });
@@ -665,18 +677,16 @@ function onClick(event) {
 function selectObject(obj) {
   // Deselect previous
   if (selectedObject && selectedObject !== obj) {
-    animateScale(selectedObject, selectedObject.userData.originalScale);
-    animateY(selectedObject, selectedObject.userData.originalY);
+    const prev = selectedObject;
+    animateScale(prev, prev.userData.currentScale);
+    animateY(prev, prev.userData.currentY);
   }
-  
   selectedObject = obj;
   const category = obj.userData.category;
   const info = objectInfo[category] || objectInfo.default;
-  
-  // Animate selection
-  animateScale(obj, obj.userData.originalScale * 1.2);
-  animateY(obj, obj.userData.originalY + 1);
-  
+  // Animate selection (relative to current state)
+  animateScale(obj, obj.userData.currentScale * 1.2);
+  animateY(obj, obj.userData.currentY + 1);
   // Show info panel
   document.getElementById('info-title').textContent = info.title;
   document.getElementById('info-text').textContent = info.text;
@@ -688,8 +698,8 @@ function selectObject(obj) {
 
 function deselectObject() {
   if (selectedObject) {
-    animateScale(selectedObject, selectedObject.userData.originalScale);
-    animateY(selectedObject, selectedObject.userData.originalY);
+    animateScale(selectedObject, selectedObject.userData.currentScale);
+    animateY(selectedObject, selectedObject.userData.currentY);
     selectedObject = null;
   }
   document.getElementById('info-panel').classList.remove('visible');
@@ -782,16 +792,16 @@ function updateHover() {
     if (obj.userData.category && obj !== selectedObject) {
       if (hoveredObject !== obj) {
         if (hoveredObject && hoveredObject !== selectedObject) {
-          animateScale(hoveredObject, hoveredObject.userData.originalScale);
+          animateScale(hoveredObject, hoveredObject.userData.currentScale);
         }
         hoveredObject = obj;
-        animateScale(obj, obj.userData.originalScale * 1.05);
+        animateScale(obj, obj.userData.currentScale * 1.05);
         document.body.style.cursor = 'pointer';
       }
     }
   } else {
     if (hoveredObject && hoveredObject !== selectedObject) {
-      animateScale(hoveredObject, hoveredObject.userData.originalScale);
+      animateScale(hoveredObject, hoveredObject.userData.currentScale);
     }
     hoveredObject = null;
     document.body.style.cursor = 'default';
@@ -809,13 +819,13 @@ function animate() {
   // Animate water
   water.material.opacity = 0.6 + Math.sin(time * 2) * 0.1;
   
-  // Gentle floating animation for objects
-  interactiveObjects.forEach((obj, i) => {
-    if (obj !== selectedObject) {
-      obj.position.y = obj.userData.originalY + Math.sin(time + i) * 0.1;
-    }
-    obj.rotation.y += 0.001;
-  });
+  // Sun orbit
+  if (sunMesh) {
+    sunAngle += 0.003;
+    sunMesh.position.x = Math.cos(sunAngle) * 50;
+    sunMesh.position.z = Math.sin(sunAngle) * 50;
+    sunMesh.position.y = 30 + Math.sin(sunAngle) * 5;
+  }
   
   // Update hover effects
   updateHover();
@@ -913,6 +923,8 @@ document.getElementById('ed-place').addEventListener('click', (e) => {
     model.userData.originalY = 0;
     model.userData.originalScale = scale;
     model.userData.isEditable = true;
+    model.userData.currentScale = scale;
+    model.userData.currentY = 0;
     model.traverse((child) => {
       if (child.isMesh) {
         child.castShadow = true;
@@ -990,7 +1002,11 @@ window.addEventListener('click', (event) => {
 
 // Live-update selected object when sliders change
 edScale.addEventListener('input', () => {
-  if (editSelectedObj) editSelectedObj.scale.setScalar(parseFloat(edScale.value));
+  if (editSelectedObj) {
+    const s = parseFloat(edScale.value);
+    editSelectedObj.scale.setScalar(s);
+    editSelectedObj.userData.currentScale = s;
+  }
 });
 edRot.addEventListener('input', () => {
   if (editSelectedObj) editSelectedObj.rotation.y = THREE.MathUtils.degToRad(parseFloat(edRot.value));
