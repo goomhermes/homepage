@@ -217,6 +217,111 @@
     to { transform: rotate(360deg); }
   }
   
+  /* Edit Mode */
+  #edit-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(45, 90, 45, 0.3);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    color: #2d5a2d;
+    font-size: 1.3rem;
+    cursor: pointer;
+    z-index: 20;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #edit-toggle:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(45, 90, 45, 0.6);
+    transform: scale(1.1);
+  }
+  #edit-toggle.active {
+    background: rgba(45, 90, 45, 0.85);
+    color: #fff;
+    border-color: #2d5a2d;
+  }
+  #edit-panel {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    width: 260px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(45, 90, 45, 0.25);
+    border-radius: 12px;
+    padding: 16px;
+    z-index: 20;
+    pointer-events: auto;
+    display: none;
+    font-size: 0.85rem;
+    color: #2d5a2d;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  #edit-panel.visible { display: block; }
+  #edit-panel h4 {
+    margin: 0 0 10px 0;
+    font-size: 0.95rem;
+    color: #2d5a2d;
+    border-bottom: 1px solid rgba(45,90,45,0.15);
+    padding-bottom: 6px;
+  }
+  #edit-panel label {
+    display: block;
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+  #edit-panel select,
+  #edit-panel input[type=range] {
+    width: 100%;
+    margin-top: 3px;
+  }
+  #edit-panel select {
+    padding: 4px;
+    border-radius: 6px;
+    border: 1px solid rgba(45,90,45,0.25);
+    background: #fff;
+    font-size: 0.8rem;
+  }
+  #edit-panel input[type=range] { accent-color: #2d5a2d; }
+  #edit-panel .val {
+    font-weight: 400;
+    color: #5a8a5a;
+    float: right;
+  }
+  #edit-panel button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 7px 0;
+    border-radius: 8px;
+    border: 1px solid rgba(45,90,45,0.3);
+    background: rgba(45,90,45,0.08);
+    color: #2d5a2d;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #edit-panel button:hover { background: rgba(45,90,45,0.18); }
+  #edit-panel button.danger {
+    color: #c92a2a;
+    border-color: rgba(201,42,42,0.3);
+    background: rgba(201,42,42,0.06);
+  }
+  #edit-panel button.danger:hover { background: rgba(201,42,42,0.15); }
+  .edit-selected-outline {
+    outline: 2px solid #ff6b6b;
+    outline-offset: 2px;
+  }
+
   /* Particle effects */
   .sakura-petal {
     position: fixed;
@@ -271,6 +376,23 @@
     <h3 id="info-title">Welcome</h3>
     <p id="info-text">Explore this peaceful voxel world inspired by Japanese aesthetics.</p>
   </div>
+</div>
+
+<button id="edit-toggle" title="Edit Mode">✏️</button>
+<div id="edit-panel">
+  <h4>✏️ Edit Mode</h4>
+  <label>Asset</label>
+  <select id="ed-asset"></select>
+  <label>Scale <span class="val" id="ed-scale-val">1.0</span></label>
+  <input type="range" id="ed-scale" min="0.2" max="5" step="0.1" value="1">
+  <label>Rotate Z <span class="val" id="ed-rot-val">0°</span></label>
+  <input type="range" id="ed-rot" min="0" max="360" step="1" value="0">
+  <label>Position X <span class="val" id="ed-x-val">0</span></label>
+  <input type="range" id="ed-x" min="-40" max="40" step="0.5" value="0">
+  <label>Position Z <span class="val" id="ed-z-val">0</span></label>
+  <input type="range" id="ed-z" min="-40" max="40" step="0.5" value="0">
+  <button id="ed-place">Place Object</button>
+  <button id="ed-delete" class="danger">Delete Selected</button>
 </div>
 
 <script type="importmap">
@@ -717,6 +839,169 @@ animate();
 setTimeout(() => {
   document.getElementById('loading').classList.add('hidden');
 }, 8000);
+
+// ═══════════════════════════════════════════
+// EDIT MODE
+// ═══════════════════════════════════════════
+let editMode = false;
+let editSelectedObj = null;
+const editBtn = document.getElementById('edit-toggle');
+const editPanel = document.getElementById('edit-panel');
+const edAsset = document.getElementById('ed-asset');
+const edScale = document.getElementById('ed-scale');
+const edRot = document.getElementById('ed-rot');
+const edX = document.getElementById('ed-x');
+const edZ = document.getElementById('ed-z');
+const edScaleVal = document.getElementById('ed-scale-val');
+const edRotVal = document.getElementById('ed-rot-val');
+const edXVal = document.getElementById('ed-x-val');
+const edZVal = document.getElementById('ed-z-val');
+
+// All available GLB assets
+const allAssets = [
+  'bamboo-1.glb','bamboo-2.glb','big-sakura-bonsai.glb',
+  'bonbori-clVUEgVMIiX.glb','bonbori-dcnV-eqevIB.glb',
+  'castle-gate.glb','cherry-tree.glb','japanese-room.glb',
+  'japanese-stone-lamp.glb','japanese-torii.glb','koi-fish.glb',
+  'mount-fuji.glb','pagoda-1.glb','pagoda-2.glb','pagoda-3.glb',
+  'post-lantern.glb','red-lantern.glb','sakura-tree.glb',
+  'shrine-a68qNnAC4m-.glb','shrine-tFxdxO5clk.glb',
+  'stonepath-5BPCPOycxC.glb','stonepath-gYhoEOKItJ.glb',
+  'temple-1.glb','temple-2.glb','temple-3.glb',
+  'torii-gate-1.glb','torii-gate-2.glb','wooden-fortress-gate.glb'
+];
+allAssets.forEach(a => {
+  const opt = document.createElement('option');
+  opt.value = a;
+  opt.textContent = a.replace('.glb','').replace(/-/g,' ');
+  edAsset.appendChild(opt);
+});
+
+// Slider value displays
+edScale.addEventListener('input', () => { edScaleVal.textContent = parseFloat(edScale.value).toFixed(1); });
+edRot.addEventListener('input', () => { edRotVal.textContent = edRot.value + '°'; });
+edX.addEventListener('input', () => { edXVal.textContent = parseFloat(edX.value).toFixed(1); });
+edZ.addEventListener('input', () => { edZVal.textContent = parseFloat(edZ.value).toFixed(1); });
+
+// Toggle edit mode
+editBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  editMode = !editMode;
+  editBtn.classList.toggle('active', editMode);
+  editPanel.classList.toggle('visible', editMode);
+  if (!editMode) {
+    deselectEditObject();
+    controls.enabled = true;
+  }
+});
+
+// Place object
+document.getElementById('ed-place').addEventListener('click', (e) => {
+  e.stopPropagation();
+  const url = './' + edAsset.value;
+  const scale = parseFloat(edScale.value);
+  const rotZ = THREE.MathUtils.degToRad(parseFloat(edRot.value));
+  const posX = parseFloat(edX.value);
+  const posZ = parseFloat(edZ.value);
+
+  loader.load(url, (gltf) => {
+    const model = gltf.scene;
+    model.position.set(posX, 0, posZ);
+    model.scale.setScalar(scale);
+    model.rotation.z = rotZ;
+    model.userData.category = 'edit-placed';
+    model.userData.originalY = 0;
+    model.userData.originalScale = scale;
+    model.userData.isEditable = true;
+    model.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    scene.add(model);
+    interactiveObjects.push(model);
+    selectEditObject(model);
+  });
+});
+
+// Delete selected
+document.getElementById('ed-delete').addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (editSelectedObj && editSelectedObj.userData.isEditable) {
+    scene.remove(editSelectedObj);
+    const idx = interactiveObjects.indexOf(editSelectedObj);
+    if (idx > -1) interactiveObjects.splice(idx, 1);
+    deselectEditObject();
+  }
+});
+
+function selectEditObject(obj) {
+  deselectEditObject();
+  editSelectedObj = obj;
+  controls.enabled = false;
+  // Update sliders to match object
+  edScale.value = obj.scale.x;
+  edScaleVal.textContent = obj.scale.x.toFixed(1);
+  const rotDeg = THREE.MathUtils.radToDeg(obj.rotation.z);
+  edRot.value = Math.round(rotDeg);
+  edRotVal.textContent = Math.round(rotDeg) + '°';
+  edX.value = obj.position.x;
+  edXVal.textContent = obj.position.x.toFixed(1);
+  edZ.value = obj.position.z;
+  edZVal.textContent = obj.position.z.toFixed(1);
+}
+
+function deselectEditObject() {
+  editSelectedObj = null;
+  controls.enabled = true;
+}
+
+// When in edit mode, click on ground to place at XZ, click on editable to select
+const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+const intersectionPoint = new THREE.Vector3();
+
+// Override onClick for edit mode
+const origOnClick = onClick;
+window.removeEventListener('click', onClick);
+window.addEventListener('click', (event) => {
+  if (!editMode) { origOnClick(event); return; }
+
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+
+  // Check if clicking an editable object
+  const editables = interactiveObjects.filter(o => o.userData.isEditable);
+  const hits = raycaster.intersectObjects(editables, true);
+  if (hits.length > 0) {
+    let obj = hits[0].object;
+    while (obj.parent && !obj.userData.isEditable) obj = obj.parent;
+    if (obj.userData.isEditable) { selectEditObject(obj); return; }
+  }
+
+  // Otherwise, place on ground at click position
+  if (raycaster.ray.intersectPlane(groundPlane, intersectionPoint)) {
+    edX.value = Math.max(-40, Math.min(40, intersectionPoint.x));
+    edXVal.textContent = parseFloat(edX.value).toFixed(1);
+    edZ.value = Math.max(-40, Math.min(40, intersectionPoint.z));
+    edZVal.textContent = parseFloat(edZ.value).toFixed(1);
+  }
+});
+
+// Live-update selected object when sliders change
+edScale.addEventListener('input', () => {
+  if (editSelectedObj) editSelectedObj.scale.setScalar(parseFloat(edScale.value));
+});
+edRot.addEventListener('input', () => {
+  if (editSelectedObj) editSelectedObj.rotation.z = THREE.MathUtils.degToRad(parseFloat(edRot.value));
+});
+edX.addEventListener('input', () => {
+  if (editSelectedObj) editSelectedObj.position.x = parseFloat(edX.value);
+});
+edZ.addEventListener('input', () => {
+  if (editSelectedObj) editSelectedObj.position.z = parseFloat(edZ.value);
+});
 </script>
 
 </body>
