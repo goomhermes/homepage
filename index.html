@@ -370,7 +370,7 @@
   <a class="esl-link" style="top:186px" href="공부방계획chatgpt정리.html">🤖 공부방계획 ChatGPT</a>
   <a class="esl-link" style="top:224px" href="공부방계획gemini정리.html">💎 공부방계획 Gemini</a>
   <a class="esl-link" style="top:262px" href="공부방계획hermes정리.html">🔶 공부방계획 Hermes</a>
-  <div id="title">日本世界</div>
+  <div id="title">굼마의 집</div>
   <div id="hint">drag to orbit · click objects to interact · scroll to zoom</div>
   <div id="info-panel">
     <h3 id="info-title">Welcome</h3>
@@ -393,6 +393,16 @@
   <input type="range" id="ed-z" min="-40" max="40" step="0.5" value="0">
   <button id="ed-place">Place Object</button>
   <button id="ed-delete" class="danger">Delete Selected</button>
+</div>
+
+<!-- Passcode Keypad -->
+<div id="keypad-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:24px;width:280px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+    <h3 style="margin:0 0 12px;color:#333;font-size:1.1rem;">🔑 Editor Passcode</h3>
+    <div id="keypad-display" style="font-size:1.8rem;letter-spacing:0.4em;margin:12px 0;padding:8px;background:#f0f0f0;border-radius:8px;min-height:2.4rem;color:#333;"></div>
+    <div id="keypad-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0;"></div>
+    <div style="color:#888;font-size:0.75rem;margin-top:8px;">Press ESC to cancel</div>
+  </div>
 </div>
 
 <script type="importmap">
@@ -867,6 +877,107 @@ const edRotVal = document.getElementById('ed-rot-val');
 const edXVal = document.getElementById('ed-x-val');
 const edZVal = document.getElementById('ed-z-val');
 
+// ─── Passcode Keypad ──────────────────────
+const PASSCODE = '7138956';
+let keypadInput = '';
+const keypadOverlay = document.getElementById('keypad-overlay');
+const keypadDisplay = document.getElementById('keypad-display');
+const keypadGrid = document.getElementById('keypad-grid');
+const DOTS = { 1:'•', 2:'••', 3:'•••', 4:'••••', 5:'•••••', 6:'••••••', 7:'•••••••' };
+
+// Build keypad buttons
+[1,2,3,4,5,6,7,8,9,'C',0,'⌫'].forEach(k => {
+  const btn = document.createElement('button');
+  btn.textContent = k;
+  btn.style.cssText = 'font-size:1.3rem;padding:14px;border:1px solid #ddd;border-radius:10px;background:#fafafa;cursor:pointer;transition:background 0.15s;';
+  btn.onmouseenter = () => btn.style.background = '#e8e8e8';
+  btn.onmouseleave = () => btn.style.background = '#fafafa';
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (k === 'C') { keypadInput = ''; }
+    else if (k === '⌫') { keypadInput = keypadInput.slice(0, -1); }
+    else if (keypadInput.length < PASSCODE.length) { keypadInput += k; }
+    keypadDisplay.textContent = keypadInput.replace(/./g, '•').padEnd(PASSCODE.length, ' ');
+    if (keypadInput === PASSCODE) {
+      keypadOverlay.style.display = 'none';
+      keypadInput = '';
+      enableEditMode();
+    }
+  });
+  keypadGrid.appendChild(btn);
+});
+
+function showKeypad() {
+  keypadInput = '';
+  keypadDisplay.textContent = '';
+  keypadOverlay.style.display = 'flex';
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && keypadOverlay.style.display === 'flex') {
+    keypadOverlay.style.display = 'none';
+  }
+});
+
+// ─── Editor Mode ──────────────────────────
+function enableEditMode() {
+  editMode = true;
+  editBtn.classList.add('active');
+  editPanel.classList.add('visible');
+}
+function disableEditMode() {
+  editMode = false;
+  editBtn.classList.remove('active');
+  editPanel.classList.remove('visible');
+  deselectEditObject();
+  controls.enabled = true;
+}
+
+// ─── LocalStorage Persistence ─────────────
+const STORAGE_KEY = 'voxel-editor-objects';
+function getSavedObjects() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; }
+}
+function saveAllObjects() {
+  const list = [];
+  interactiveObjects.forEach(obj => {
+    list.push({
+      asset: obj.userData.assetFile || null,
+      x: obj.position.x,
+      y: obj.position.y,
+      z: obj.position.z,
+      scale: obj.userData.currentScale,
+      rotY: obj.rotation.y,
+      category: obj.userData.category
+    });
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+}
+function restoreSavedObjects() {
+  const saved = getSavedObjects();
+  if (saved.length === 0) return;
+  saved.forEach(s => {
+    if (!s.asset) return; // skip fallback cubes
+    loader.load('./' + s.asset, (gltf) => {
+      const model = gltf.scene;
+      model.position.set(s.x, s.y || 0, s.z);
+      model.scale.setScalar(s.scale);
+      model.rotation.y = s.rotY || 0;
+      model.userData.category = 'edit-placed';
+      model.userData.originalY = 0;
+      model.userData.originalScale = s.scale;
+      model.userData.currentScale = s.scale;
+      model.userData.currentY = s.y || 0;
+      model.userData.assetFile = s.asset;
+      model.userData.isEditable = true;
+      model.traverse((child) => { if (child.isMesh) { child.castShadow = true; child.receiveShadow = true; } });
+      scene.add(model);
+      interactiveObjects.push(model);
+    });
+  });
+}
+// Restore on load
+restoreSavedObjects();
+
 // All available GLB assets
 const allAssets = [
   'bamboo-1.glb','bamboo-2.glb','big-sakura-bonsai.glb',
@@ -896,12 +1007,10 @@ edZ.addEventListener('input', () => { edZVal.textContent = parseFloat(edZ.value)
 // Toggle edit mode
 editBtn.addEventListener('click', (e) => {
   e.stopPropagation();
-  editMode = !editMode;
-  editBtn.classList.toggle('active', editMode);
-  editPanel.classList.toggle('visible', editMode);
-  if (!editMode) {
-    deselectEditObject();
-    controls.enabled = true;
+  if (editMode) {
+    disableEditMode();
+  } else {
+    showKeypad();
   }
 });
 
@@ -925,6 +1034,7 @@ document.getElementById('ed-place').addEventListener('click', (e) => {
     model.userData.isEditable = true;
     model.userData.currentScale = scale;
     model.userData.currentY = 0;
+    model.userData.assetFile = edAsset.value;
     model.traverse((child) => {
       if (child.isMesh) {
         child.castShadow = true;
@@ -933,6 +1043,7 @@ document.getElementById('ed-place').addEventListener('click', (e) => {
     });
     scene.add(model);
     interactiveObjects.push(model);
+    saveAllObjects();
     selectEditObject(model);
   });
 });
@@ -944,6 +1055,7 @@ document.getElementById('ed-delete').addEventListener('click', (e) => {
     scene.remove(editSelectedObj);
     const idx = interactiveObjects.indexOf(editSelectedObj);
     if (idx > -1) interactiveObjects.splice(idx, 1);
+    saveAllObjects();
     deselectEditObject();
   }
 });
@@ -1006,16 +1118,17 @@ edScale.addEventListener('input', () => {
     const s = parseFloat(edScale.value);
     editSelectedObj.scale.setScalar(s);
     editSelectedObj.userData.currentScale = s;
+    saveAllObjects();
   }
 });
 edRot.addEventListener('input', () => {
-  if (editSelectedObj) editSelectedObj.rotation.y = THREE.MathUtils.degToRad(parseFloat(edRot.value));
+  if (editSelectedObj) { editSelectedObj.rotation.y = THREE.MathUtils.degToRad(parseFloat(edRot.value)); saveAllObjects(); }
 });
 edX.addEventListener('input', () => {
-  if (editSelectedObj) editSelectedObj.position.x = parseFloat(edX.value);
+  if (editSelectedObj) { editSelectedObj.position.x = parseFloat(edX.value); saveAllObjects(); }
 });
 edZ.addEventListener('input', () => {
-  if (editSelectedObj) editSelectedObj.position.z = parseFloat(edZ.value);
+  if (editSelectedObj) { editSelectedObj.position.z = parseFloat(edZ.value); saveAllObjects(); }
 });
 </script>
 
