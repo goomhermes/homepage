@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course 1 Blueprint — The Whispering Forest</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap');
+
+  :root {
+    --forest-deep: #1a2e1a;
+    --forest-mid: #2d4a2d;
+    --forest-light: #4a7c4a;
+    --gold: #d4a853;
+    --gold-light: #f0d68a;
+    --cream: #faf6ee;
+    --warm-white: #f5f0e6;
+    --text: #2c2c2c;
+    --text-light: #6b6b6b;
+    --accent-red: #c0392b;
+    --accent-blue: #2980b9;
+    --accent-green: #27ae60;
+    --accent-orange: #e67e22;
+    --accent-purple: #8e44ad;
+    --accent-pink: #e84393;
+    --shadow: 0 2px 20px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0ebe1;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── SLIDE SYSTEM ── */
+  .slide {
+    min-height: 100vh;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    border-bottom: 3px solid rgba(0,0,0,0.06);
+  }
+
+  .slide-dark {
+    background: var(--forest-deep);
+    color: #fff;
+  }
+  .slide-dark .text-muted { color: rgba(255,255,255,0.5); }
+  .slide-dark .card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
+  .slide-dark .card h3 { color: var(--gold-light); }
+  .slide-dark .stat-num { color: var(--gold-light); }
+
+  .slide-cream { background: var(--cream); }
+  .slide-warm { background: var(--warm-white); }
+
+  /* ── TYPOGRAPHY ── */
+  .slide-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--forest-light);
+    margin-bottom: 12px;
+  }
+  .slide-dark .slide-label { color: var(--gold); }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: var(--forest-deep);
+  }
+  .slide-dark h1 { color: #fff; }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    color: var(--text-light);
+    max-width: 640px;
+    line-height: 1.7;
+  }
+  .slide-dark .subtitle { color: rgba(255,255,255,0.6); }
+
+  .text-muted { color: var(--text-light); font-size: 13px; }
+  .text-sm { font-size: 13px; }
+  .text-xs { font-size: 11px; }
+
+  /* ── GRID LAYOUTS ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .card-accent {
+    border-left: 4px solid var(--gold);
+  }
+
+  /* ── STATS ── */
+  .stat { text-align: center; padding: 24px 16px; }
+  .stat-num {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--forest-deep);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-light);
+  }
+
+  /* ── TIMELINE / BAR CHARTS ── */
+  .bar-chart { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; }
+  .bar-label { width: 130px; font-size: 13px; font-weight: 600; text-align: right; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 32px; background: rgba(0,0,0,0.04); border-radius: 6px; overflow: hidden; position: relative; }
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    transition: width 0.6s ease;
+  }
+  .slide-dark .bar-track { background: rgba(255,255,255,0.08); }
+
+  /* ── SESSION BLOCKS ── */
+  .session-blocks { display: flex; gap: 4px; border-radius: 10px; overflow: hidden; height: 56px; }
+  .session-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+    font-weight: 700;
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.2;
+    position: relative;
+  }
+  .session-block span { font-size: 9px; font-weight: 400; opacity: 0.8; }
+
+  /* ── CHAPTER CARDS ── */
+  .chapter-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .chapter-header {
+    padding: 24px 24px 16px;
+    color: #fff;
+    position: relative;
+  }
+  .chapter-header h3 { font-size: 20px; margin-bottom: 4px; }
+  .chapter-header .weeks { font-size: 12px; opacity: 0.8; }
+  .chapter-body { padding: 20px 24px; }
+  .chapter-body ul { list-style: none; }
+  .chapter-body li {
+    padding: 6px 0;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    gap: 8px;
+  }
+  .chapter-body li:last-child { border: none; }
+  .week-num {
+    font-weight: 700;
+    color: var(--text-light);
+    min-width: 46px;
+    font-size: 12px;
+  }
+
+  /* ── REWARD PILLARS ── */
+  .reward-pillar {
+    text-align: center;
+    padding: 24px 16px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  .reward-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 12px;
+  }
+
+  /* ── TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    border-bottom: 2px solid rgba(0,0,0,0.08);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    vertical-align: top;
+  }
+  tr:last-child td { border: none; }
+
+  /* ── TAGS ── */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(0,0,0,0.05);
+    margin: 2px 2px;
+  }
+  .tag-gold { background: var(--gold-light); color: #7a5c1f; }
+  .tag-green { background: #d5f5e3; color: #1e8449; }
+  .tag-blue { background: #d6eaf8; color: #1a5276; }
+  .tag-red { background: #fadbd8; color: #922b21; }
+  .tag-purple { background: #e8daef; color: #6c3483; }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; }
+  .flow-step {
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    min-width: 100px;
+  }
+  .flow-arrow {
+    font-size: 18px;
+    color: var(--text-light);
+    padding: 0 4px;
+  }
+
+  /* ── UI MOCKUP FRAME ── */
+  .phone-frame {
+    width: 280px;
+    height: 500px;
+    background: #1a1a2e;
+    border-radius: 32px;
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    margin: 0 auto;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #2d5a3d 0%, #1a3a28 100%);
+    border-radius: 22px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 24px;
+    background: #1a1a2e;
+    border-radius: 0 0 14px 14px;
+  }
+  .phone-screen .scene-emoji { font-size: 48px; margin-bottom: 12px; }
+  .phone-screen h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .phone-screen p { font-size: 11px; opacity: 0.7; }
+  .phone-btn {
+    margin-top: 16px;
+    padding: 8px 24px;
+    background: var(--gold);
+    color: var(--forest-deep);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* ── MINI LEGEND ── */
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin: 16px 0;
+  }
+
+  /* ── TECH FEATURE GRID ── */
+  .tech-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .tech-card .tech-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .tech-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+  }
+  .tech-card p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ── FOOTER ── */
+  .slide-footer {
+    position: absolute;
+    bottom: 24px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-light);
+  }
+  .slide-dark .slide-footer { color: rgba(255,255,255,0.3); }
+
+  /* ── PRINT ── */
+  @media print {
+    .slide { min-height: auto; page-break-inside: avoid; padding: 40px; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .slide { padding: 40px 28px; }
+    h1 { font-size: 36px; }
+    h2 { font-size: 28px; }
+    .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+    .stat-num { font-size: 36px; }
+    .session-blocks { height: auto; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 1: COVER -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-dark" style="justify-content: center; align-items: center; text-align: center;">
+  <div class="slide-label" style="margin-bottom: 20px;">Course 1 Blueprint</div>
+  <h1 style="font-size: 64px; margin-bottom: 20px;">The Whispering Forest</h1>
+  <div class="divider" style="margin: 0 auto 20px;"></div>
+  <p class="subtitle" style="text-align: center; max-width: 520px; margin: 0 auto;">
+    A next-generation immersive ESL curriculum for Grades 1–3.<br>
+    Built inside a story. Designed for wonder.
+  </p>
+  <div style="margin-top: 48px; display: flex; gap: 40px; justify-content: center;">
+    <div class="stat">
+      <div class="stat-num" style="font-size: 36px;">20</div>
+      <div class="stat-label" style="color: rgba(255,255,255,0.5);">Weeks</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="font-size: 36px;">40</div>
+      <div class="stat-label" style="color: rgba(255,255,255,0.5);">Sessions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="font-size: 36px;">4</div>
+      <div class="stat-label" style="color: rgba(255,255,255,0.5);">Chapters</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="font-size: 36px;">5</div>
+      <div class="stat-label" style="color: rgba(255,255,255,0.5);">Companions</div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Confidential — Office of the Academic Director</span>
+    <span>Draft v1.0</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 2: THE CORE IDEA -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-cream">
+  <div class="slide-label">The Core Idea</div>
+  <h2>Not a course. A world they return to.</h2>
+  <p class="subtitle" style="margin-bottom: 36px;">
+    English is not taught in isolation — it is discovered inside a story. Children aren't "doing lessons." They're rescuing the Enchanted Library.
+  </p>
+  <div class="grid-3" style="max-width: 900px;">
+    <div class="card card-accent">
+      <h3>📖 The Story</h3>
+      <p class="text-sm" style="margin-top: 8px;">Five small creatures find a broken Library in a magical forest. Its books lost their words in a mysterious storm. The creatures must find the lost words, learn them, and restore the Library page by page.</p>
+    </div>
+    <div class="card card-accent">
+      <h3>🧠 Why Narrative Works</h3>
+      <p class="text-sm" style="margin-top: 8px;">7-to-9-year-olds absorb through meaning, emotion, and story — not isolated skills. Narrative creates intrinsic motivation, natural repetition, and embedded social-emotional learning.</p>
+    </div>
+    <div class="card card-accent">
+      <h3>🌍 The World</h3>
+      <p class="text-sm" style="margin-top: 8px;">Each Chapter is one room of the Library. Each Lesson is a quest inside that room. Progress is visible — the world literally restores as children learn.</p>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>2 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 3: AT A GLANCE -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-warm">
+  <div class="slide-label">At a Glance</div>
+  <h2>Course 1 by the Numbers</h2>
+  <div style="margin-top: 32px;">
+    <div class="grid-5" style="max-width: 900px;">
+      <div class="stat">
+        <div class="stat-num">20</div>
+        <div class="stat-label">Weeks</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2×</div>
+        <div class="stat-label">Per Week</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">50</div>
+        <div class="stat-label">Min / Session</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Micro-Blocks</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Max Min / Block</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 40px;">
+    <h3 style="margin-bottom: 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light);">The Breathing Rhythm — Every Session</h3>
+    <div class="session-blocks" style="max-width: 900px;">
+      <div class="session-block" style="flex: 7; background: #27ae60;">
+        1<span>The Threshold</span>
+      </div>
+      <div class="session-block" style="flex: 12; background: #2980b9;">
+        2<span>The Discovery</span>
+      </div>
+      <div class="session-block" style="flex: 15; background: #e67e22;">
+        3<span>The Workshop</span>
+      </div>
+      <div class="session-block" style="flex: 12; background: #8e44ad;">
+        4<span>The Stage</span>
+      </div>
+      <div class="session-block" style="flex: 7; background: #2d4a2d;">
+        5<span>The Clearing</span>
+      </div>
+    </div>
+    <div class="legend" style="margin-top: 10px;">
+      <div class="legend-item"><div class="legend-dot" style="background: #27ae60;"></div>5–7 min warm-up</div>
+      <div class="legend-item"><div class="legend-dot" style="background: #2980b9;"></div>10–12 min input</div>
+      <div class="legend-item"><div class="legend-dot" style="background: #e67e22;"></div>12–15 min practice</div>
+      <div class="legend-item"><div class="legend-dot" style="background: #8e44ad;"></div>10–12 min production</div>
+      <div class="legend-item"><div class="legend-dot" style="background: #2d4a2d;"></div>5–7 min reflection</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; padding: 16px 20px; background: #fff; border-radius: 10px; border-left: 4px solid var(--gold); max-width: 900px;">
+    <strong>⚡ Non-negotiable:</strong> Between every Block 2 and Block 3 — a <strong>60-second Movement Minute</strong> (stand, stretch, clap, move). Resets the attention clock. Built into every session.
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>3 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 4: CHAPTER ARCHITECTURE -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-cream">
+  <div class="slide-label">Chapter Architecture</div>
+  <h2>Four Rooms. One Journey.</h2>
+  <p class="subtitle" style="margin-bottom: 32px;">The Spiral Ramp — each Chapter revisits and deepens prior language at a higher altitude.</p>
+
+  <div class="grid-2" style="max-width: 1100px;">
+    <!-- Chapter 1 -->
+    <div class="chapter-card">
+      <div class="chapter-header" style="background: linear-gradient(135deg, #27ae60, #1e8449);">
+        <div class="weeks">Weeks 1–4</div>
+        <h3>🚪 Chapter 1: The Entrance Gate</h3>
+      </div>
+      <div class="chapter-body">
+        <p class="text-sm text-muted" style="margin-bottom: 10px;">The creatures meet. They learn each other's names and open the gate together.</p>
+        <ul>
+          <li><span class="week-num">Wk 1</span> Hello & Goodbye — greetings, introductions</li>
+          <li><span class="week-num">Wk 2</span> Who Am I? — "I am ___", identity</li>
+          <li><span class="week-num">Wk 3</span> What Do You See? — "I see a ___", basic nouns</li>
+          <li><span class="week-num">Wk 4</span> Open the Gate! — review + milestone</li>
+        </ul>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-green">🔑 Golden Key</span>
+          <span class="tag tag-green">Gate Opening Ceremony</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 2 -->
+    <div class="chapter-card">
+      <div class="chapter-header" style="background: linear-gradient(135deg, #2980b9, #1a5276);">
+        <div class="weeks">Weeks 5–9</div>
+        <h3>🎨 Chapter 2: The Rainbow Room</h3>
+      </div>
+      <div class="chapter-body">
+        <p class="text-sm text-muted" style="margin-bottom: 10px;">Faded paintings on the walls. The creatures find lost color-words to restore them.</p>
+        <ul>
+          <li><span class="week-num">Wk 5</span> Colors in the Dark — color vocabulary</li>
+          <li><span class="week-num">Wk 6</span> Big & Small — size words</li>
+          <li><span class="week-num">Wk 7</span> What Color Is It? — questions + answers</li>
+          <li><span class="week-num">Wk 8</span> I Like… / I Don't Like… — preferences</li>
+          <li><span class="week-num">Wk 9</span> The Color Feast — creative review</li>
+        </ul>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-blue">🖌️ Painter's Brush</span>
+          <span class="tag tag-blue">Color Playground</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 3 -->
+    <div class="chapter-card">
+      <div class="chapter-header" style="background: linear-gradient(135deg, #e67e22, #d35400);">
+        <div class="weeks">Weeks 10–14</div>
+        <h3>🌳 Chapter 3: The Family Tree</h3>
+      </div>
+      <div class="chapter-body">
+        <p class="text-sm text-muted" style="margin-bottom: 10px;">A giant tree with empty frames. The creatures fill in the people they love.</p>
+        <ul>
+          <li><span class="week-num">Wk 10</span> This Is My Family — family vocabulary</li>
+          <li><span class="week-num">Wk 11</span> He Is… / She Is… — pronouns + identity</li>
+          <li><span class="week-num">Wk 12</span> How Many? — numbers 1–10</li>
+          <li><span class="week-num">Wk 13</span> Where Is…? — prepositions</li>
+          <li><span class="week-num">Wk 14</span> Our Big Family — collaborative story</li>
+        </ul>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-red">🍃 Memory Leaf</span>
+          <span class="tag tag-red">Family Story Maker</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 4 -->
+    <div class="chapter-card">
+      <div class="chapter-header" style="background: linear-gradient(135deg, #8e44ad, #6c3483);">
+        <div class="weeks">Weeks 15–19</div>
+        <h3>⏰ Chapter 4: The Daily Clock</h3>
+      </div>
+      <div class="chapter-body">
+        <p class="text-sm text-muted" style="margin-bottom: 10px;">A giant broken clock. Time is frozen. The creatures restart it with their daily routines.</p>
+        <ul>
+          <li><span class="week-num">Wk 15</span> Morning, Afternoon, Night — time of day</li>
+          <li><span class="week-num">Wk 16</span> I Wake Up… — daily routine verbs</li>
+          <li><span class="week-num">Wk 17</span> I Can… / I Can't… — ability</li>
+          <li><span class="week-num">Wk 18</span> What Time Is It? — telling time</li>
+          <li><span class="week-num">Wk 19</span> A Day in the Forest — full narration</li>
+        </ul>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-purple">🕰️ Golden Hour Hand</span>
+          <span class="tag tag-purple">My Perfect Day</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; padding: 16px 20px; background: var(--forest-deep); border-radius: 10px; max-width: 1100px; color: #fff;">
+    <strong style="color: var(--gold-light);">🏆 Week 20: The Grand Re-Opening Ceremony</strong>
+    <p class="text-sm" style="color: rgba(255,255,255,0.7); margin-top: 4px;">Library Passport revisit → Multi-chapter challenge → 30-second Librarian's Speech → <strong>Master Librarian Badge</strong></p>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>4 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 5: REWARD ARCHITECTURE -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-warm">
+  <div class="slide-label">Motivation System</div>
+  <h2>Narrative Incentive Layering</h2>
+  <p class="subtitle" style="margin-bottom: 32px;">We reject extrinsic-only motivation. No competitive leaderboards. No lives that run out. No penalty for mistakes.</p>
+
+  <div class="grid-4" style="max-width: 1000px;">
+    <div class="reward-pillar">
+      <div class="reward-icon" style="background: #d5f5e3;">🌍</div>
+      <h3>World Restoration</h3>
+      <p class="text-sm text-muted" style="margin-top: 6px;">Every skill learned restores part of the Library. Colors return to paintings. The clock ticks. Progress is <em>visible</em>.</p>
+    </div>
+    <div class="reward-pillar">
+      <div class="reward-icon" style="background: #fdebd0;">🦊</div>
+      <h3>Companion Bond</h3>
+      <p class="text-sm text-muted" style="margin-top: 6px;">Each child chooses a creature. It learns alongside them — makes mistakes, asks questions, celebrates growth. Emotional connection.</p>
+    </div>
+    <div class="reward-pillar">
+      <div class="reward-icon" style="background: #fadbd8;">🗝️</div>
+      <h3>Collectible Artifacts</h3>
+      <p class="text-sm text-muted" style="margin-top: 6px;">Earned at each Chapter's end. Narrative meaning — each unlocks a bonus creative activity. Not random. Earned.</p>
+    </div>
+    <div class="reward-pillar">
+      <div class="reward-icon" style="background: #d6eaf8;">📘</div>
+      <h3>Library Passport</h3>
+      <p class="text-sm text-muted" style="margin-top: 6px;">A digital stamp book. By Week 20, every room is marked "restored." A visual record of the entire journey.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 28px; padding: 14px 20px; background: #fff; border-radius: 10px; border-left: 4px solid var(--accent-red); max-width: 1000px;">
+    <strong>🚫 Deliberately Excluded:</strong>
+    <span class="text-sm" style="margin-left: 8px;">Time pressure · Competitive leaderboards · "Lives" system · Penalty for mistakes · Streaks that punish absence</span>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>5 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 6: THE FIVE COMPANIONS -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-cream">
+  <div class="slide-label">Character Design</div>
+  <h2>The Five Companions</h2>
+  <p class="subtitle" style="margin-bottom: 32px;">Each creature has a distinct personality expressed through micro-animations and AI-driven behavior.</p>
+
+  <div class="grid-5" style="max-width: 1000px;">
+    <div class="card" style="text-align: center; padding: 28px 16px;">
+      <div style="font-size: 40px; margin-bottom: 8px;">🦉</div>
+      <h3>The Owl</h3>
+      <p class="text-sm text-muted" style="margin-top: 4px;">Wise, shy. Introduces new structures. Blinks slowly.</p>
+      <div style="margin-top: 10px;"><span class="tag tag-gold">Wisdom</span></div>
+    </div>
+    <div class="card" style="text-align: center; padding: 28px 16px;">
+      <div style="font-size: 40px; margin-bottom: 8px;">🦊</div>
+      <h3>The Fox</h3>
+      <p class="text-sm text-muted" style="margin-top: 4px;">Curious, energetic. Leads activities. Bounces on toes.</p>
+      <div style="margin-top: 10px;"><span class="tag tag-gold">Energy</span></div>
+    </div>
+    <div class="card" style="text-align: center; padding: 28px 16px;">
+      <div style="font-size: 40px; margin-bottom: 8px;">🐰</div>
+      <h3>The Rabbit</h3>
+      <p class="text-sm text-muted" style="margin-top: 4px;">Gentle, careful. Guides practice. Wiggles nose.</p>
+      <div style="margin-top: 10px;"><span class="tag tag-gold">Patience</span></div>
+    </div>
+    <div class="card" style="text-align: center; padding: 28px 16px;">
+      <div style="font-size: 40px; margin-bottom: 8px;">🦌</div>
+      <h3>The Deer</h3>
+      <p class="text-sm text-muted" style="margin-top: 4px;">Tall, kind. Reflects with the child. Tilts head gently.</p>
+      <div style="margin-top: 10px;"><span class="tag tag-gold">Kindness</span></div>
+    </div>
+    <div class="card" style="text-align: center; padding: 28px 16px;">
+      <div style="font-size: 40px; margin-bottom: 8px;">🦔</div>
+      <h3>The Hedgehog</h3>
+      <p class="text-sm text-muted" style="margin-top: 4px;">Small, brave. Asks to be taught. Flips the power dynamic.</p>
+      <div style="margin-top: 10px;"><span class="tag tag-gold">Courage</span></div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>6 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 7: UI/UX DESIGN LANGUAGE -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-dark">
+  <div class="slide-label">Design Language</div>
+  <h2>The App as a Living World</h2>
+  <p class="subtitle" style="margin-bottom: 36px;">Not a series of screens — a continuous, explorable environment. Studio Ghibli meets Apple.</p>
+
+  <div class="grid-2" style="max-width: 1000px;">
+    <div class="grid-2" style="grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div class="tech-card">
+        <div class="tech-icon">🎨</div>
+        <h4>Art Style</h4>
+        <p>Soft hand-painted watercolor. Paper texture. Warm palette. No harsh outlines.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">✨</div>
+        <h4>Animations</h4>
+        <p>Physics-based. Elements have weight. Elastic lag. Gentle momentum. Nothing is instant.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🔊</div>
+        <h4>Sound Design</h4>
+        <p>Ambient forest soundscape per room. Satisfying tap responses. Professional child voice-overs.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">📄</div>
+        <h4>Transitions</h4>
+        <p>3D page-fold metaphor. Pages have depth. Reinforces the "living book" throughout.</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="tech-card" style="margin-bottom: 16px;">
+        <h4>🧭 Navigation — No Menus, Only Doors</h4>
+        <p style="margin-top: 8px;">
+          <strong>The Foyer</strong> — Home. Tap a creature to enter their chapter.<br><br>
+          <strong>Chapter Rooms</strong> — Explorable spaces. Current lesson glows. Completed work becomes background scenery.<br><br>
+          <strong>The Passport</strong> — Tap your creature companion. See your journey.<br><br>
+          <strong>The Clearing</strong> — End-of-session meadow. Calm reflection.
+        </p>
+      </div>
+      <div class="tech-card">
+        <h4>🔤 Typography</h4>
+        <p>Custom rounded sans-serif for ESL legibility. Korean in complementary style. L1 support toggleable, never forced.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>7 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 8: SAMPLE LESSON OVERVIEW -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-cream">
+  <div class="slide-label">Lesson Deep-Dive</div>
+  <h2>Anatomy of One Session</h2>
+  <p class="subtitle" style="margin-bottom: 28px;">
+    <strong>Session 7 — "What Color Is It?"</strong> &nbsp;
+    <span class="tag tag-blue">Chapter 2</span> <span class="tag tag-gold">Week 2</span>
+  </p>
+  <p style="font-size: 14px; color: var(--text-light); margin-bottom: 24px; max-width: 700px;">
+    Core target: "What color is this?" / "It's [color]." — reinforced color vocabulary with phonics connection.
+  </p>
+
+  <div style="display: flex; flex-direction: column; gap: 16px; max-width: 1000px;">
+    <!-- Block 1 -->
+    <div style="display: flex; gap: 16px; align-items: stretch;">
+      <div style="min-width: 44px; height: 44px; background: #27ae60; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 18px; flex-shrink: 0;">1</div>
+      <div class="card" style="flex: 1; border-left: 4px solid #27ae60;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+          <h3>The Threshold</h3>
+          <span class="text-xs text-muted">7 min</span>
+        </div>
+        <p class="text-sm" style="margin-top: 6px;"><strong>"Spotlight Hunt"</strong> — The Rainbow Room is dark. The child drags a flashlight across the screen, revealing hidden color fragments in the paintings. Pure discovery, zero pressure. Review of prior color vocabulary.</p>
+      </div>
+    </div>
+
+    <!-- Block 2 -->
+    <div style="display: flex; gap: 16px; align-items: stretch;">
+      <div style="min-width: 44px; height: 44px; background: #2980b9; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 18px; flex-shrink: 0;">2</div>
+      <div class="card" style="flex: 1; border-left: 4px solid #2980b9;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+          <h3>The Discovery</h3>
+          <span class="text-xs text-muted">12 min</span>
+        </div>
+        <p class="text-sm" style="margin-top: 6px;"><strong>"The Question Mark Painting"</strong> — A blank canvas at the back of the room. The owl introduces "What color is this?" with words appearing one-by-one in light. Child repeats (voice recorded, layered with owl). Owl demonstrates with 3 colors. Then 6 mini-canvases for guided practice — child speaks, app recognizes, canvas bursts with color.</p>
+      </div>
+    </div>
+
+    <!-- Movement Minute -->
+    <div style="display: flex; gap: 16px; align-items: stretch;">
+      <div style="min-width: 44px; display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 20px; flex-shrink: 0;">⚡</div>
+      <div style="flex: 1; padding: 10px 16px; background: #fef9e7; border-radius: 10px; border-left: 4px solid var(--gold); display: flex; align-items: center;">
+        <p class="text-sm"><strong>Movement Minute</strong> — "Stand up! Touch something RED! Something BLUE! Something GREEN!" — Physical reset.</p>
+      </div>
+    </div>
+
+    <!-- Block 3 -->
+    <div style="display: flex; gap: 16px; align-items: stretch;">
+      <div style="min-width: 44px; height: 44px; background: #e67e22; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 18px; flex-shrink: 0;">3</div>
+      <div class="card" style="flex: 1; border-left: 4px solid #e67e22;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+          <h3>The Workshop</h3>
+          <span class="text-xs text-muted">15 min</span>
+        </div>
+        <p class="text-sm" style="margin-top: 6px;"><strong>"The Color Mixing Studio"</strong> — Drag-and-drop painting (elastic paint physics). 3 rounds: fill a flower (red petals, green stem), a butterfly (orange + purple, must speak before placing), a sunset (multi-color, full Q&A). Then <strong>"Color Detective"</strong> — riddles that lead to hidden objects in the room. Self-paced, no penalty.</p>
+      </div>
+    </div>
+
+    <!-- Block 4 -->
+    <div style="display: flex; gap: 16px; align-items: stretch;">
+      <div style="min-width: 44px; height: 44px; background: #8e44ad; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 18px; flex-shrink: 0;">4</div>
+      <div class="card" style="flex: 1; border-left: 4px solid #8e44ad;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+          <h3>The Stage</h3>
+          <span class="text-xs text-muted">12 min</span>
+        </div>
+        <p class="text-sm" style="margin-top: 6px;"><strong>"The Rainbow Reporter"</strong> — Child becomes a journalist. Asks the fox "What color is this?", then reports to the audience. Voice gets a "reporter" audio filter. Generates a 5-second animated news clip. Repeat for 3 objects. Dual-screen mode available for pairs.</p>
+      </div>
+    </div>
+
+    <!-- Block 5 -->
+    <div style="display: flex; gap: 16px; align-items: stretch;">
+      <div style="min-width: 44px; height: 44px; background: #2d4a2d; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 18px; flex-shrink: 0;">5</div>
+      <div class="card" style="flex: 1; border-left: 4px solid #2d4a2d;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+          <h3>The Clearing</h3>
+          <span class="text-xs text-muted">7 min</span>
+        </div>
+        <p class="text-sm" style="margin-top: 6px;"><strong>"Sunset in the Rainbow Room"</strong> — The creatures sit in a circle. Owl asks what color you like most. Child records their answer. A color droplet floats down → transforms into a paint palette for the Passport. Fox whispers a teaser for tomorrow's lesson.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>8 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 9: UI MOCKUP -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-dark" style="align-items: center; text-align: center;">
+  <div class="slide-label">Visual Concept</div>
+  <h2 style="margin-bottom: 8px;">The Rainbow Room — In-Session View</h2>
+  <p class="subtitle" style="text-align: center; margin-bottom: 36px;">Soft watercolor aesthetic. Ambient forest sounds. Companion at the side. No menus — just the world.</p>
+
+  <div style="display: flex; gap: 60px; align-items: center; justify-content: center; flex-wrap: wrap;">
+    <!-- Phone mockup -->
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="phone-notch"></div>
+        <div style="position: absolute; top: 40px; left: 16px; font-size: 10px; opacity: 0.5;">📘 Session 7</div>
+        <div style="position: absolute; top: 40px; right: 16px; font-size: 10px; opacity: 0.5;">🦊</div>
+        <div class="scene-emoji">🎨</div>
+        <h4>What color is this?</h4>
+        <p style="margin-top: 8px;">Tap to answer with your voice!</p>
+        <div style="display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; justify-content: center;">
+          <div style="width: 36px; height: 36px; background: #e74c3c; border-radius: 8px;"></div>
+          <div style="width: 36px; height: 36px; background: #3498db; border-radius: 8px;"></div>
+          <div style="width: 36px; height: 36px; background: #2ecc71; border-radius: 8px;"></div>
+          <div style="width: 36px; height: 36px; background: #f1c40f; border-radius: 8px;"></div>
+          <div style="width: 36px; height: 36px; background: #9b59b6; border-radius: 8px;"></div>
+        </div>
+        <div class="phone-btn">🎤 Tap to Speak</div>
+      </div>
+    </div>
+
+    <!-- Feature callouts -->
+    <div style="text-align: left; max-width: 360px;">
+      <div style="margin-bottom: 20px;">
+        <h4 style="color: var(--gold-light); font-size: 13px;">🎨 Watercolor World</h4>
+        <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px;">Hand-painted aesthetic. Every tap creates a gentle ripple. Colors deepen as the session progresses.</p>
+      </div>
+      <div style="margin-bottom: 20px;">
+        <h4 style="color: var(--gold-light); font-size: 13px;">🦊 Companion Present</h4>
+        <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px;">Always at the side. Reacts to the child's voice with micro-animations. Celebrates, encourages, waits.</p>
+      </div>
+      <div style="margin-bottom: 20px;">
+        <h4 style="color: var(--gold-light); font-size: 13px;">🎤 Voice-First Input</h4>
+        <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px;">No keyboard. Children speak. The app listens, recognizes, and responds with sound and animation.</p>
+      </div>
+      <div>
+        <h4 style="color: var(--gold-light); font-size: 13px;">✨ Ambient Sound</h4>
+        <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px;">Subtle forest soundscape. Distant birds. Rustling leaves. Soft chimes on correct answers.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>9 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 10: TECHNOLOGY FEATURES -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-cream">
+  <div class="slide-label">Technology</div>
+  <h2>Immersive Features</h2>
+  <p class="subtitle" style="margin-bottom: 32px;">State-of-the-art interactive features designed specifically for 7-to-9-year-old ESL learners.</p>
+
+  <div class="grid-2" style="max-width: 1000px;">
+    <div class="card" style="border-top: 4px solid var(--accent-blue);">
+      <h3>🎤 AI Speech Feedback</h3>
+      <ul style="list-style: none; margin-top: 10px;">
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">✓ Trained on Korean-accented child English</li>
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">✓ Partial credit — "It… red" counts with gentle model</li>
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">✓ Syllable-level visual rhythm guide</li>
+        <li style="padding: 5px 0; font-size: 13px;">✓ Scaffolded accuracy curve — early tolerance → gentle growth</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top: 4px solid var(--accent-green);">
+      <h3>🌍 Persistent World</h3>
+      <ul style="list-style: none; margin-top: 10px;">
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">✓ Environment remembers your progress</li>
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">✓ Companions subtly grow (scarf, glasses…)</li>
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">✓ Seasonal awareness (optional, date-based)</li>
+        <li style="padding: 5px 0; font-size: 13px;">✓ Completed work becomes visible scenery</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top: 4px solid var(--accent-orange);">
+      <h3>⚡ Micro-Challenges</h3>
+      <ul style="list-style: none; margin-top: 10px;">
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">Letter Catch — tap the right falling letters</li>
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">Sound Match — correct word vs. silly distortion</li>
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">Pattern Painter — complete a color sequence</li>
+        <li style="padding: 5px 0; font-size: 13px;">Memory Splash — classic match game, language-wrapped</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top: 4px solid var(--accent-purple);">
+      <h3>🤖 Companion AI</h3>
+      <ul style="list-style: none; margin-top: 10px;">
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">✓ Responds using only taught vocabulary</li>
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">✓ Personality-consistent (fox = energetic, owl = wise)</li>
+        <li style="padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04);">✓ Hedgehog asks "Can you teach me?" — role flip</li>
+        <li style="padding: 5px 0; font-size: 13px;">✓ Graceful error recovery — never "I don't understand"</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>10 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 11: ACCESSIBILITY -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-warm">
+  <div class="slide-label">Inclusivity</div>
+  <h2>Accessibility & Scaffolding</h2>
+  <p class="subtitle" style="margin-bottom: 28px;">Every child belongs here. No exceptions.</p>
+
+  <div class="grid-3" style="max-width: 900px;">
+    <div class="card">
+      <h3>👁️ Visual</h3>
+      <ul style="list-style: none; margin-top: 8px;">
+        <li style="padding: 4px 0; font-size: 13px;">• Dyslexia-friendly font toggle (OpenDyslexic)</li>
+        <li style="padding: 4px 0; font-size: 13px;">• High-contrast mode</li>
+        <li style="padding: 4px 0; font-size: 13px;">• Screen reader compatible</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🧠 Cognitive</h3>
+      <ul style="list-style: none; margin-top: 8px;">
+        <li style="padding: 4px 0; font-size: 13px;">• Reduced motion mode</li>
+        <li style="padding: 4px 0; font-size: 13px;">• Session timer with gentle reminders</li>
+        <li style="padding: 4px 0; font-size: 13px;">• Self-paced activities (no speed pressure)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🌐 Language</h3>
+      <ul style="list-style: none; margin-top: 8px;">
+        <li style="padding: 4px 0; font-size: 13px;">• Korean L1 support (toggled, never forced)</li>
+        <li style="padding: 4px 0; font-size: 13px;">• "?" icon for help — child-initiated only</li>
+        <li style="padding: 4px 0; font-size: 13px;">• Immersive default with opt-in translation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>11 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 12: SPIRAL RAMP VISUAL -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-cream">
+  <div class="slide-label">Progression Model</div>
+  <h2>The Spiral Ramp</h2>
+  <p class="subtitle" style="margin-bottom: 32px;">Language doesn't advance in a straight line — it spirals deeper with each revisit.</p>
+
+  <div style="max-width: 900px;">
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">Ch.1 Gate</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: 20%; background: linear-gradient(90deg, #27ae60, #2ecc71);">4 weeks</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Ch.2 Rainbow</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: 25%; background: linear-gradient(90deg, #2980b9, #3498db);">5 weeks</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Ch.3 Family</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: 25%; background: linear-gradient(90deg, #e67e22, #f39c12);">5 weeks</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Ch.4 Clock</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: 25%; background: linear-gradient(90deg, #8e44ad, #9b59b6);">5 weeks</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">🏆 Finale</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: 5%; background: linear-gradient(90deg, var(--gold), #f0d68a); color: var(--forest-deep);">Wk</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 36px; max-width: 900px;">
+    <h3 style="margin-bottom: 14px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light);">Language Targets by Chapter</h3>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 120px;">Chapter</th>
+          <th>Core Structures</th>
+          <th>Vocabulary Domain</th>
+          <th>Skill Focus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag tag-green">Ch. 1</span></td>
+          <td>"I am ___." "This is ___."</td>
+          <td>Greetings, identity, nouns</td>
+          <td>Listening + repeating</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-blue">Ch. 2</span></td>
+          <td>"What color is this?" "It's ___."</td>
+          <td>Colors, sizes, preferences</td>
+          <td>Question + answer pattern</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-red">Ch. 3</span></td>
+          <td>"This is my ___." "He/She is ___."</td>
+          <td>Family, numbers, prepositions</td>
+          <td>Descriptive sentences</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-purple">Ch. 4</span></td>
+          <td>"I can ___." "What time is it?"</td>
+          <td>Daily routines, time, ability</td>
+          <td>Narration + sequencing</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>12 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 13: WEEKLY GRID -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-dark">
+  <div class="slide-label">Master Pacing</div>
+  <h2>20-Week Session Map</h2>
+  <p class="subtitle" style="margin-bottom: 28px;">Every session's focus at a glance. 2 sessions per week × 20 weeks = 40 total.</p>
+
+  <div style="max-width: 1000px; overflow-x: auto;">
+    <table style="min-width: 800px;">
+      <thead>
+        <tr>
+          <th style="color: rgba(255,255,255,0.4);">Week</th>
+          <th style="color: rgba(255,255,255,0.4);">Session A</th>
+          <th style="color: rgba(255,255,255,0.4);">Session B</th>
+          <th style="color: rgba(255,255,255,0.4);">Milestone</th>
+        </tr>
+      </thead>
+      <tbody style="font-size: 12px;">
+        <tr><td style="color: rgba(255,255,255,0.4);">1</td><td>Hello & Goodbye</td><td>My Name Is</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">2</td><td>I Am a ___</td><td>Identity Practice</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">3</td><td>I See a ___</td><td>Forest Nouns</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">4</td><td>Review</td><td>Open the Gate!</td><td style="color: #2ecc71; font-weight: 600;">🔑 Gate Opens</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">5</td><td>Colors Intro</td><td>Colors in the Dark</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">6</td><td>Big & Small</td><td>Size Practice</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">7</td><td>What Color Is It?</td><td>Color Q&A</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">8</td><td>I Like…</td><td>I Don't Like…</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">9</td><td>Color Review</td><td>The Color Feast</td><td style="color: #3498db; font-weight: 600;">🖌️ Mural Painted</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">10</td><td>Family Vocab</td><td>This Is My Family</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">11</td><td>He Is… / She Is…</td><td>Matching Game</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">12</td><td>Numbers 1–10</td><td>How Many?</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">13</td><td>Where Is…?</td><td>Prepositions</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">14</td><td>Review</td><td>Our Big Family</td><td style="color: #e67e22; font-weight: 600;">🍃 Tree Blooms</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">15</td><td>Time of Day</td><td>Morning/Afternoon/Night</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">16</td><td>Daily Verbs</td><td>I Wake Up…</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">17</td><td>I Can…</td><td>I Can't…</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">18</td><td>What Time Is It?</td><td>Setting the Clock</td><td>—</td></tr>
+        <tr><td style="color: rgba(255,255,255,0.4);">19</td><td>A Perfect Day</td><td>Full Narration</td><td style="color: #9b59b6; font-weight: 600;">🕰️ Clock Ticks</td></tr>
+        <tr style="background: rgba(212,168,83,0.15);">
+          <td style="color: var(--gold-light); font-weight: 700;">20</td>
+          <td style="color: var(--gold-light);">Library Passport Review</td>
+          <td style="color: var(--gold-light);">Grand Re-Opening</td>
+          <td style="color: var(--gold-light); font-weight: 700;">🏆 Master Librarian</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-footer">
+    <span>Course 1 Blueprint</span>
+    <span>13 / 14</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 14: CLOSING -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide-dark" style="justify-content: center; align-items: center; text-align: center;">
+  <div class="slide-label" style="margin-bottom: 20px;">The Vision</div>
+  <h1 style="font-size: 44px; max-width: 680px; margin: 0 auto 24px;">The measure of success is not test scores.</h1>
+  <p style="font-size: 18px; color: rgba(255,255,255,0.5); max-width: 560px; margin: 0 auto 48px; line-height: 1.8;">
+    It is the child who opens the app unprompted.<br>
+    The child who tells their parent about the fox.<br>
+    The child who says <em>"What color is this?"</em> to a stranger — and means it.
+  </p>
+  <div style="display: flex; gap: 40px; justify-content: center; margin-bottom: 48px;">
+    <div style="text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">🦊</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 600;">THE FOX</div>
+    </div>
+    <div style="text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">🦉</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 600;">THE OWL</div>
+    </div>
+    <div style="text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">🐰</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 600;">THE RABBIT</div>
+    </div>
+    <div style="text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">🦌</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 600;">THE DEER</div>
+    </div>
+    <div style="text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">🦔</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 600;">THE HEDGEHOG</div>
+    </div>
+  </div>
+  <div class="divider" style="margin: 0 auto 24px;"></div>
+  <p style="font-size: 13px; color: rgba(255,255,255,0.3);">
+    Course 1 Blueprint — The Whispering Forest — Draft v1.0<br>
+    Office of the Academic Director · Confidential
+  </p>
+</section>
+
+</body>
+</html>

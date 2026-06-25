@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>초등 영어 공부방 운영 자료 정리본</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --paper: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --line: #d9dee8;
+      --head: #eef3ff;
+      --accent: #274c77;
+      --accent2: #5b7c99;
+      --soft: #f1f5f9;
+      --warn: #fff7ed;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo",
+                   "Noto Sans KR", "Malgun Gothic", Arial, sans-serif;
+      line-height: 1.68;
+      word-break: keep-all;
+    }
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    header {
+      background: linear-gradient(135deg, #1f3b57, #426d91);
+      color: #fff;
+      border-radius: 24px;
+      padding: 42px 42px 36px;
+      box-shadow: 0 18px 40px rgba(31, 59, 87, 0.22);
+      margin-bottom: 30px;
+    }
+    header h1 {
+      margin: 0 0 12px;
+      font-size: 2.15rem;
+      line-height: 1.25;
+      letter-spacing: -0.04em;
+    }
+    header p {
+      margin: 0;
+      color: rgba(255,255,255,0.88);
+      font-size: 1.02rem;
+      max-width: 860px;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff;
+      font-size: 0.88rem;
+    }
+    nav {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 24px;
+      margin: 26px 0;
+    }
+    nav h2 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      color: var(--accent);
+    }
+    nav ol {
+      margin: 0;
+      columns: 2;
+      padding-left: 22px;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav a:hover { text-decoration: underline; }
+    section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 30px;
+      margin: 22px 0;
+    }
+    h2 {
+      margin: 0 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--head);
+      color: var(--accent);
+      font-size: 1.55rem;
+      letter-spacing: -0.03em;
+    }
+    h3 {
+      margin: 24px 0 10px;
+      color: #263b50;
+      font-size: 1.18rem;
+      letter-spacing: -0.02em;
+    }
+    h4 {
+      margin: 20px 0 8px;
+      color: #34495e;
+      font-size: 1rem;
+    }
+    p { margin: 10px 0; }
+    ul, ol { margin-top: 8px; padding-left: 24px; }
+    li { margin: 5px 0; }
+    .lead {
+      font-size: 1.04rem;
+      color: #374151;
+    }
+    .note {
+      background: var(--soft);
+      border-left: 5px solid var(--accent2);
+      padding: 16px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+    .warning {
+      background: var(--warn);
+      border-left: 5px solid #d97706;
+      padding: 16px 18px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin: 18px 0;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      background: #fbfcff;
+    }
+    .card strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 16px 0 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 740px;
+      background: #fff;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 12px 14px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th:last-child, td:last-child { border-right: none; }
+    tr:last-child td { border-bottom: none; }
+    th {
+      background: var(--head);
+      color: #22384f;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    tbody tr:nth-child(even) td { background: #fbfdff; }
+    .small { font-size: 0.92rem; color: #4b5563; }
+    .tag {
+      display: inline-block;
+      margin: 2px 4px 2px 0;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #edf2f7;
+      color: #31465b;
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin: 14px 0;
+    }
+    footer {
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 28px 0 0;
+    }
+    @media (max-width: 820px) {
+      .page { padding: 20px 14px 50px; }
+      header { padding: 30px 24px; border-radius: 18px; }
+      header h1 { font-size: 1.65rem; }
+      nav ol { columns: 1; }
+      section { padding: 22px 18px; }
+      .grid, .two-col { grid-template-columns: 1fr; }
+      table { min-width: 680px; }
+    }
+    @media print {
+      body { background: #fff; }
+      .page { max-width: none; padding: 0; }
+      header, section, nav { box-shadow: none; border-radius: 0; }
+      nav a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>초등 영어 공부방 운영 자료 정리본</h1>
+      <p>
+        첨부 TXT의 내용을 공부방 운영·커리큘럼 설계·교재 선정 자료로 재구성한 HTML 문서입니다.
+        중복 설명, 대화형 후속 질문, 관계없는 응답 문구는 제거하고, 표로 정리 가능한 항목은 표 형식으로 변환했습니다.
+      </p>
+      <div class="meta">
+        <span class="pill">대상: 초등 1~6학년 영어 공부방</span>
+        <span class="pill">형태: 주택형·소규모 공부방 기준</span>
+        <span class="pill">초점: 저학년 파닉스, 중학년 리딩·기초문법, 초6 중등 대비</span>
+        <span class="pill">포함: ESL 교재·미국 ELD 참고자료</span>
+      </div>
+    </header>
+
+    <nav>
+      <h2>목차</h2>
+      <ol>
+        <li><a href="#summary">핵심 요약</a></li>
+        <li><a href="#principles">공부방 운영 기본 구조</a></li>
+        <li><a href="#grade-comparison">학년군별 운영 전략 비교</a></li>
+        <li><a href="#grade12">초등 1~2학년 영어 수업</a></li>
+        <li><a href="#phonics">저학년 파닉스 수업 설계</a></li>
+        <li><a href="#grade34">초등 3~4학년 영어 수업</a></li>
+        <li><a href="#grade6">초등 6학년 영어 수업</a></li>
+        <li><a href="#test-prep">초6 시험 대비 프로그램 샘플</a></li>
+        <li><a href="#letsgo">Let's Go 1 활용 수업 계획</a></li>
+        <li><a href="#esl">미국 ESL/ELD 참고 구조</a></li>
+        <li><a href="#textbooks">교재·리소스 비교</a></li>
+        <li><a href="#implementation">운영 적용안</a></li>
+      </ol>
+    </nav>
+
+    <section id="summary">
+      <h2>1. 핵심 요약</h2>
+      <p class="lead">
+        전체 자료의 중심 주제는 <strong>초등 영어 공부방을 학년 발달 단계에 맞게 설계하는 방법</strong>입니다.
+        저학년은 영어 친밀감과 파닉스, 중학년은 읽기·쓰기와 기초문법, 6학년은 중학교 영어 연착륙과 내신형 학습을 목표로 삼는 구조가 적합합니다.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <strong>1~2학년</strong>
+          영어를 공부 과목으로 밀어붙이기보다 소리, 노래, 놀이, 그림책, TPR 활동을 통해 친밀감과 기초 음가를 형성합니다.
+        </div>
+        <div class="card">
+          <strong>3~4학년</strong>
+          학교 영어가 본격화되는 시기입니다. 파닉스를 완성하고 리딩, 기초 문법, 받아쓰기, 짧은 문장 쓰기로 전환합니다.
+        </div>
+        <div class="card">
+          <strong>6학년</strong>
+          중학교 입학 전 브릿지 과정입니다. 중등 어휘, 문법, 독해, 쓰기, 듣기, 수행평가 대비가 핵심입니다.
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>정리 기준:</strong> 원문에 포함된 반복 설명, “알겠습니다”, “필요하시면…” 같은 대화형 문장, 직접적인 공부방 설계와 관련 없는 후속 질문은 제거했습니다.
+        미국 ESL/ELD 자료는 국내 공부방 교재 선정과 수업 방식 참고자료로 활용 가능한 범위만 남겼습니다.
+      </div>
+    </section>
+
+    <section id="principles">
+      <h2>2. 공부방 운영 기본 구조</h2>
+      <p>
+        한국의 주택형 공부방은 학원과 과외의 중간 형태입니다. 특히 초등학생 대상 공부방은 학습 지도와 돌봄 기능을 함께 수행하는 경우가 많으며,
+        소규모 수업과 개별 피드백이 핵심 경쟁력입니다.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>운영 요소</th>
+              <th>핵심 내용</th>
+              <th>공부방 적용 포인트</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>수업 규모</td>
+              <td>보통 10명 이내 소규모 그룹</td>
+              <td>학생별 수준·성향 파악, 1:1 피드백, 학부모 상담에 유리</td>
+            </tr>
+            <tr>
+              <td>분위기</td>
+              <td>가정적이고 안정적인 학습 환경</td>
+              <td>저학년 적응, 학습 거부감 완화, 장기 등록 유지에 도움</td>
+            </tr>
+            <tr>
+              <td>관리 방식</td>
+              <td>숙제 확인, 알림장, 준비물, 학습 습관까지 관리</td>
+              <td>맞벌이 가정 대상 홍보 포인트로 활용 가능</td>
+            </tr>
+            <tr>
+              <td>수업 방식</td>
+              <td>개념 설명 + 문제 풀이 + 개별 코칭</td>
+              <td>학년이 높아질수록 테스트와 오답 관리 비중 확대</td>
+            </tr>
+            <tr>
+              <td>평가</td>
+              <td>단어 시험, 주간 테스트, 월말 평가</td>
+              <td>성취도 리포트, 학부모 공유, 반 이동 기준으로 활용</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>공통 운영 원칙</h3>
+      <ul>
+        <li><strong>학년별 목표를 분리</strong>해야 합니다. 1~2학년에게 중등식 문법을 강요하거나, 6학년을 놀이 중심으로만 운영하면 효과가 떨어집니다.</li>
+        <li><strong>반복 구조</strong>가 필요합니다. 매 수업은 복습, 핵심 수업, 활동, 확인, 과제로 이어지는 예측 가능한 흐름을 갖는 것이 좋습니다.</li>
+        <li><strong>평가와 보상은 학년별로 다르게</strong> 적용합니다. 저학년은 스티커·칭찬, 고학년은 점수·오답노트·누적 테스트가 더 적합합니다.</li>
+        <li><strong>교재 하나에 의존하지 않고</strong> 코스북, 리딩북, 문법서, 워크시트, 플래시카드, 듣기자료를 목적별로 조합합니다.</li>
+      </ul>
+    </section>
+
+    <section id="grade-comparison">
+      <h2>3. 학년군별 운영 전략 비교</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>학년군</th>
+              <th>핵심 포지션</th>
+              <th>주요 목표</th>
+              <th>수업 방식</th>
+              <th>성과 지표</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>초등 1~2학년</td>
+              <td>영어 친밀감 형성기</td>
+              <td>알파벳, 파닉스 기초, 기초 어휘, 듣기 반응, 자신감</td>
+              <td>노래, 챈트, 게임, 그림책, TPR, 만들기</td>
+              <td>영어 소리 따라 하기, 간단한 인사, CVC 단어 읽기, 수업 참여도</td>
+            </tr>
+            <tr>
+              <td>초등 3~4학년</td>
+              <td>체계적 학습 전환기</td>
+              <td>파닉스 완성, 짧은 리딩, 기초 문법, 문장 쓰기, 단어 암기 습관</td>
+              <td>리딩+문법+쓰기 결합, 받아쓰기, 짧은 발표</td>
+              <td>짧은 문단 독해, 문법 문제 풀이, 단어 테스트, 2~3문장 쓰기</td>
+            </tr>
+            <tr>
+              <td>초등 5학년</td>
+              <td>고학년 실력 확장기</td>
+              <td>독해량 확대, 문법 체계화, 기초 쓰기, 듣기·말하기 유지</td>
+              <td>레벨 리딩, 문법 교재, 주간 테스트, 프로젝트형 말하기</td>
+              <td>긴 문장 해석, 문단 요약, 기본 시제·품사 이해</td>
+            </tr>
+            <tr>
+              <td>초등 6학년</td>
+              <td>중등 영어 브릿지</td>
+              <td>중등 어휘, 중1 문법, 독해 정확도, 서술형·수행평가 대비</td>
+              <td>문법·독해 중심, 오답 관리, 모의고사, 쓰기·듣기 병행</td>
+              <td>중1 유형 문법·독해 성취도, 단어 누적 암기, 서술형 문장 작성</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="grade12">
+      <h2>4. 초등 1~2학년 영어 수업</h2>
+      <p>
+        1~2학년 공부방은 보육과 교육이 결합된 에듀케어 성격이 강합니다. 영어 수업의 목표는 시험 대비가 아니라,
+        영어를 재미있는 소리와 놀이로 경험하게 하는 것입니다.
+      </p>
+
+      <h3>4.1 핵심 특징</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>특징</th>
+              <th>내용</th>
+              <th>수업 설계 의미</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>학습 습관 형성</td>
+              <td>정해진 시간에 앉기, 숙제 확인, 알림장 관리</td>
+              <td>영어 자체보다 공부 루틴 형성이 우선</td>
+            </tr>
+            <tr>
+              <td>놀이 중심</td>
+              <td>노래, 챈트, 게임, 율동, 만들기</td>
+              <td>5~15분 단위로 활동 전환 필요</td>
+            </tr>
+            <tr>
+              <td>기초 통합 교육</td>
+              <td>한글, 받아쓰기, 기초 연산, 영어를 함께 관리하는 경우 많음</td>
+              <td>영어 수업도 학교생활 적응과 연결되어야 함</td>
+            </tr>
+            <tr>
+              <td>긍정적 관계</td>
+              <td>칭찬, 격려, 스티커 보상, 친밀한 교사 관계</td>
+              <td>수업 만족도와 장기 지속에 직접 영향</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.2 학습 목표</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>영역</th>
+              <th>목표</th>
+              <th>예시 활동</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>알파벳·파닉스</td>
+              <td>대소문자 구분, 대표 음가 인식, 소리와 글자 연결</td>
+              <td>Alphabet Chant, 자석 글자, 알파벳 카드 게임</td>
+            </tr>
+            <tr>
+              <td>어휘</td>
+              <td>색깔, 숫자, 동물, 가족, 음식, 신체 등 100~200개 기본 단어</td>
+              <td>플래시카드, 빙고, 그림 매칭</td>
+            </tr>
+            <tr>
+              <td>듣기</td>
+              <td>간단한 교실 지시어 이해</td>
+              <td>“Stand up”, “Clap your hands” TPR 활동</td>
+            </tr>
+            <tr>
+              <td>말하기</td>
+              <td>간단한 인사와 자기표현</td>
+              <td>“Hello”, “My name is…”, “Thank you” 역할극</td>
+            </tr>
+            <tr>
+              <td>정서</td>
+              <td>영어에 대한 친밀감과 자신감 형성</td>
+              <td>노래, 그림책, 퍼펫 대화, 칭찬 스티커</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.3 50분 수업 구성 예시</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>시간</th>
+              <th>활동</th>
+              <th>세부 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0~5분</td>
+              <td>Warm-up & Greeting</td>
+              <td>Hello Song, 날짜·날씨·기분 묻기, 영어 수업 모드 전환</td>
+            </tr>
+            <tr>
+              <td>5~20분</td>
+              <td>Phonics & Vocabulary</td>
+              <td>알파벳 노래, 지난 음가 복습, 오늘의 파닉스 규칙과 단어 소개</td>
+            </tr>
+            <tr>
+              <td>20~35분</td>
+              <td>Story & Song</td>
+              <td>그림책 읽기, 관련 노래·챈트, TPR 활동</td>
+            </tr>
+            <tr>
+              <td>35~45분</td>
+              <td>Game & Worksheet</td>
+              <td>빙고, 카드 뒤집기, 줄 긋기, 색칠하기, 알파벳 쓰기</td>
+            </tr>
+            <tr>
+              <td>45~50분</td>
+              <td>Wrap-up & Reward</td>
+              <td>핵심 내용 복습, 칭찬 스티커, Goodbye Song</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.4 추천 자료</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>자료 유형</th>
+              <th>예시</th>
+              <th>활용 방식</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>주교재</td>
+              <td>First Friends, Phonics Fun Readers, Smart Phonics</td>
+              <td>알파벳·파닉스·기초 회화의 체계적 진행</td>
+            </tr>
+            <tr>
+              <td>노래·영상</td>
+              <td>Super Simple Songs, Pinkfong, Cocomelon, English Singsing</td>
+              <td>소리 노출, 율동, 반복 표현 학습</td>
+            </tr>
+            <tr>
+              <td>그림책</td>
+              <td>Brown Bear, Brown Bear, Go Away Big Green Monster, Eric Carle 도서</td>
+              <td>반복 문장, 그림 단서, 자연스러운 어휘 습득</td>
+            </tr>
+            <tr>
+              <td>교구</td>
+              <td>플래시카드, 퍼펫, 자석 글자, 알파벳 블록</td>
+              <td>시각·촉각·신체 활동을 통한 다중 감각 학습</td>
+            </tr>
+            <tr>
+              <td>보상 시스템</td>
+              <td>스티커판, 도장, 미션 카드</td>
+              <td>참여도와 성취감 강화</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="phonics">
+      <h2>5. 저학년 파닉스 수업 설계</h2>
+      <p>
+        파닉스는 단어를 통암기하는 수업이 아니라, 소리와 글자의 관계를 체득하게 하는 과정입니다.
+        저학년 수업에서는 시각, 청각, 신체 움직임을 함께 사용하는 다중 감각 방식이 효과적입니다.
+      </p>
+
+      <h3>5.1 파닉스 단계</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>단계</th>
+              <th>학습 내용</th>
+              <th>목표</th>
+              <th>예시</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1단계</td>
+              <td>알파벳 인지</td>
+              <td>이름, 모양, 대표 음가 익히기</td>
+              <td>A/a, B/b, C/c, /æ/, /b/, /k/</td>
+            </tr>
+            <tr>
+              <td>2단계</td>
+              <td>단모음과 CVC 단어</td>
+              <td>자음-모음-자음 구조 읽기</td>
+              <td>cat, pen, pig, dog, cup</td>
+            </tr>
+            <tr>
+              <td>3단계</td>
+              <td>장모음과 Magic e</td>
+              <td>짧은 모음과 긴 모음 차이 이해</td>
+              <td>cap/cape, kit/kite</td>
+            </tr>
+            <tr>
+              <td>4단계</td>
+              <td>이중자음·이중모음</td>
+              <td>복잡한 단어 읽기 확장</td>
+              <td>sh, ch, th, ee, oa</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.2 Short a 50분 수업 시나리오</h3>
+      <p><strong>오늘의 목표:</strong> 알파벳 a의 단모음 소리 /æ/를 인지하고 cat, hat, mat을 읽고 쓸 수 있다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>시간</th>
+              <th>활동</th>
+              <th>교사 행동</th>
+              <th>수업 효과</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0~5분</td>
+              <td>Hello Song & Alphabet Chant</td>
+              <td>노래와 율동으로 수업 시작, A a /æ/ apple 형태로 전체 음가 복습</td>
+              <td>분위기 조성, 기존 학습 회상</td>
+            </tr>
+            <tr>
+              <td>5~15분</td>
+              <td>Short a 소리 소개</td>
+              <td>큰 a 카드 제시, 입 모양을 과장해 /æ/ 반복, ant·apple 제스처 연결</td>
+              <td>시각·청각·신체 감각으로 음가 각인</td>
+            </tr>
+            <tr>
+              <td>15~30분</td>
+              <td>Blending Practice</td>
+              <td>c-a-t를 분절해 /k/ /æ/ /t/ 읽고 점차 빠르게 연결하여 cat 완성</td>
+              <td>단어를 조합해 읽는 원리 이해</td>
+            </tr>
+            <tr>
+              <td>30~45분</td>
+              <td>Flyswatter Game & Worksheet</td>
+              <td>cat, hat, mat 그림·단어 카드를 벽에 붙이고 듣는 단어를 파리채로 치게 함</td>
+              <td>듣기 반응, 단어 인식, 몰입도 강화</td>
+            </tr>
+            <tr>
+              <td>45~50분</td>
+              <td>Wrap-up & Reward</td>
+              <td>오늘 읽은 단어를 다시 읽고 칭찬 스티커 제공</td>
+              <td>성취감 형성, 다음 수업 기대감 강화</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.3 파닉스 핵심 교구</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>유형</th>
+              <th>교구</th>
+              <th>목적</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>시각 자료</td>
+              <td>알파벳 카드, 그림 카드, 단어 카드, 파닉스 포스터</td>
+              <td>소리와 글자의 연결을 눈으로 확인</td>
+            </tr>
+            <tr>
+              <td>청각 자료</td>
+              <td>파닉스 노래, 챈트 음원, 리더스북 오디오</td>
+              <td>반복 청취와 발음 모방</td>
+            </tr>
+            <tr>
+              <td>신체 교구</td>
+              <td>파리채, 주사위, 자석 글자, 클레이, 미니 보드</td>
+              <td>움직임과 조작 활동으로 집중력 유지</td>
+            </tr>
+            <tr>
+              <td>읽기 자료</td>
+              <td>Bob Books, Phonics Fun Readers, 놀이형 워크시트</td>
+              <td>기초 읽기 성공 경험 제공</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="grade34">
+      <h2>6. 초등 3~4학년 영어 수업</h2>
+      <p>
+        3~4학년은 학교 영어가 정규 교과로 시작되고, 영어를 놀이가 아니라 과목으로 인식하기 시작하는 시기입니다.
+        따라서 공부방은 놀이 중심에서 체계적 학습으로 넘어가는 다리 역할을 해야 합니다.
+      </p>
+
+      <h3>6.1 주요 목표</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>영역</th>
+              <th>목표</th>
+              <th>구체 활동</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>파닉스</td>
+              <td>이중모음·이중자음까지 익혀 처음 보는 단어도 읽기</td>
+              <td>단어 가족, 리더스북, 음가 복습 테스트</td>
+            </tr>
+            <tr>
+              <td>문법</td>
+              <td>명사, 동사, 형용사, be동사, 일반동사, 단수·복수, 현재·과거 기초</td>
+              <td>그림 중심 문법 교재, 문장 변환 연습</td>
+            </tr>
+            <tr>
+              <td>리딩</td>
+              <td>5~8문장 정도의 짧은 문단 읽고 주제 파악</td>
+              <td>음원 듣기, 따라 읽기, 문장별 해석, comprehension 문제</td>
+            </tr>
+            <tr>
+              <td>쓰기</td>
+              <td>배운 단어와 문법을 사용해 단순 문장 만들기</td>
+              <td>Sentence Building, 받아쓰기, 2~3문장 발표문</td>
+            </tr>
+            <tr>
+              <td>학습 습관</td>
+              <td>단어 암기와 숙제 수행의 기초 확립</td>
+              <td>주간 단어 리스트, 워크북, 미니 테스트</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.2 60분 수업 구성 예시</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>시간</th>
+              <th>활동</th>
+              <th>세부 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0~10분</td>
+              <td>Review & Daily Test</td>
+              <td>지난 문법·표현 복습, 단어 15~20개 테스트, 간단한 Q&A</td>
+            </tr>
+            <tr>
+              <td>10~30분</td>
+              <td>Reading & Listening</td>
+              <td>본문 음원 듣기, 따라 읽기, 주요 단어 확인, 문장별 해석</td>
+            </tr>
+            <tr>
+              <td>30~50분</td>
+              <td>Grammar & Writing</td>
+              <td>리딩 지문 속 문장으로 문법 설명, 연습문제 풀이, 문장 만들기</td>
+            </tr>
+            <tr>
+              <td>50~60분</td>
+              <td>Activity & Wrap-up</td>
+              <td>단어·문법 게임, 숙제 안내, 칭찬 스티커, 마무리</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.3 추천 교재·자료</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>영역</th>
+              <th>예시 교재·자료</th>
+              <th>활용 목적</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>코스북</td>
+              <td>Everybody Up, Let's Go, English Land</td>
+              <td>듣기·말하기·읽기·쓰기 균형 학습</td>
+            </tr>
+            <tr>
+              <td>리딩</td>
+              <td>Bricks Reading, Reading Explorer Foundations, Reading Juice for Kids</td>
+              <td>레벨별 읽기 훈련과 문장 해석</td>
+            </tr>
+            <tr>
+              <td>문법</td>
+              <td>My First Grammar, Grammar Friends, Grammar Space Kids</td>
+              <td>그림과 활동 중심의 기초 문법 도입</td>
+            </tr>
+            <tr>
+              <td>어휘</td>
+              <td>주교재 단어, 뜯어먹는 초등 영단어</td>
+              <td>주간 암기와 단어 테스트</td>
+            </tr>
+            <tr>
+              <td>보충</td>
+              <td>Reading Gate, Raz-Kids, 자체 워크시트, Dictation</td>
+              <td>가정 학습, 반복 학습, 듣기·스펠링 강화</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="grade6">
+      <h2>7. 초등 6학년 영어 수업</h2>
+      <p>
+        초등 6학년 영어 공부방은 중학교 입학을 앞둔 브릿지 과정입니다.
+        초등 과정의 구멍을 메우면서 중1 영어 내신에 필요한 어휘, 문법, 독해, 쓰기, 듣기 훈련을 시작해야 합니다.
+      </p>
+
+      <h3>7.1 학습 목표</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>영역</th>
+              <th>목표</th>
+              <th>세부 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>어휘</td>
+              <td>초등 필수 어휘 완성 + 중학 기본 어휘 선행</td>
+              <td>초등 800단어 점검, 중1 핵심 어휘 500~700개 단계적 암기</td>
+            </tr>
+            <tr>
+              <td>문법</td>
+              <td>중1 내신 대비 문법 기초 확립</td>
+              <td>품사, 5형식, 시제, 조동사, to부정사·동명사 기초</td>
+            </tr>
+            <tr>
+              <td>독해</td>
+              <td>200~300단어 내외 지문 해석과 주제 파악</td>
+              <td>문장 구조 분석, 중심 내용 찾기, 문제 유형별 접근</td>
+            </tr>
+            <tr>
+              <td>쓰기</td>
+              <td>기초 영작과 서술형 대비</td>
+              <td>문장 만들기, 짧은 글쓰기, 문법 활용 작문</td>
+            </tr>
+            <tr>
+              <td>듣기·말하기</td>
+              <td>수행평가와 학교 활동 대비</td>
+              <td>쉐도잉, 인터뷰, 자기소개, 그림 묘사, 짧은 발표</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>7.2 주 3회 커리큘럼 예시</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>요일</th>
+              <th>수업 초점</th>
+              <th>주요 활동</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>월요일</td>
+              <td>Grammar Day</td>
+              <td>새 문법 개념 설명, 예문 분석, 문제 풀이, 오답 확인</td>
+            </tr>
+            <tr>
+              <td>수요일</td>
+              <td>Reading Day</td>
+              <td>독해 지문 분석, 구문 독해, 문제 유형별 풀이</td>
+            </tr>
+            <tr>
+              <td>금요일</td>
+              <td>Review & Writing/Listening Day</td>
+              <td>주간 테스트, 영작, 듣기 평가, 누적 복습</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>7.3 90분 수업 구성 예시</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>시간</th>
+              <th>활동</th>
+              <th>세부 설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0~15분</td>
+              <td>Review & Daily Test</td>
+              <td>전 시간 내용 구두 확인, 단어 20~30개 테스트, 영작형 확인</td>
+            </tr>
+            <tr>
+              <td>15~45분</td>
+              <td>Grammar</td>
+              <td>핵심 문법 설명 15분, 예문·문제 풀이 15분, 틀린 문제 개별 첨삭</td>
+            </tr>
+            <tr>
+              <td>45~75분</td>
+              <td>Reading</td>
+              <td>본문 음원 청취, 단어·숙어 확인, 문장별 해석, comprehension 문제</td>
+            </tr>
+            <tr>
+              <td>75~90분</td>
+              <td>Wrap-up & Homework</td>
+              <td>핵심 요약, 숙제 안내, 단어·문법·독해 과제 확인</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>7.4 초6 공부방 목표 유형</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>목표 유형</th>
+              <th>내용</th>
+              <th>주요 대상</th>
+              <th>수업 강조점</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>중등 선행</td>
+              <td>중1 성적 대비, 문법·독해 중심</td>
+              <td>대부분의 초6 학생</td>
+              <td>중1 문법, 중등 어휘, 독해 정확도</td>
+            </tr>
+            <tr>
+              <td>내신 대비</td>
+              <td>중학교 수행·지필 평가 대비</td>
+              <td>사립중·중상위권 학생</td>
+              <td>단어시험, 문장쓰기, 문법 활용 작문</td>
+            </tr>
+            <tr>
+              <td>경시·인증시험</td>
+              <td>영어 말하기대회, TOEFL Primary/Junior, Cambridge YLE/KET/PET</td>
+              <td>상위권 학생</td>
+              <td>듣기, 말하기, 인터뷰, 발표</td>
+            </tr>
+            <tr>
+              <td>사고력·쓰기</td>
+              <td>요약, 의견 쓰기, 에세이, 토론</td>
+              <td>독서력이 높은 학생</td>
+              <td>논픽션 리딩, 요약문, 주장문</td>
+            </tr>
+            <tr>
+              <td>자신감 강화</td>
+              <td>영어 기초 부족 학생의 성취감 확보</td>
+              <td>영어에 흥미가 낮은 학생</td>
+              <td>소리내어 읽기, 기초 문장, 작은 성공 경험</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>7.5 추천 교재·자료</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>영역</th>
+              <th>자료 예시</th>
+              <th>용도</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>문법</td>
+              <td>Grammar Zone 기초편, My Next Grammar, 능률 주니어 그래머, Grammar Joy Start, Grammar Inside Level 1</td>
+              <td>중학 입문 문법 체계화</td>
+            </tr>
+            <tr>
+              <td>독해</td>
+              <td>Bricks Reading, Reading Expert, Reading Juice for Teens, Reading Sketch, Jump Up Reading</td>
+              <td>레벨별 지문 독해와 구문 분석</td>
+            </tr>
+            <tr>
+              <td>어휘</td>
+              <td>뜯어먹는 초등 영단어, 능률보카 초반부, Word Master 초등 기본, 자체 단어장</td>
+              <td>초등 필수어휘와 중등 기본어휘 암기</td>
+            </tr>
+            <tr>
+              <td>듣기</td>
+              <td>EBS 중학 듣기, 교재 MP3, 중등 듣기 기초</td>
+              <td>중1 듣기와 수행평가 대비</td>
+            </tr>
+            <tr>
+              <td>보충</td>
+              <td>자체 문법 프린트, 중1 기출 변형 문제, Daily Writing Topics</td>
+              <td>오답 보완, 내신형 쓰기·서술형 대비</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="test-prep">
+      <h2>8. 초6 영어 시험 대비 프로그램 샘플</h2>
+
+      <h3>8.1 운영 개요</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>구성</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>대상</td>
+              <td>초등 6학년, 중1 영어 내신 상위권을 목표로 하는 학생, 문법·독해·쓰기 기반이 필요한 학생</td>
+            </tr>
+            <tr>
+              <td>운영 시간</td>
+              <td>주 3회, 회당 90분, 월·수·금 운영</td>
+            </tr>
+            <tr>
+              <td>정원</td>
+              <td>4~6명 소그룹</td>
+            </tr>
+            <tr>
+              <td>핵심 구성</td>
+              <td>문법, 독해, 어휘, 듣기, 쓰기, 말하기, 수행평가 대비</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>8.2 4개월 커리큘럼</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>월차</th>
+              <th>주제</th>
+              <th>학습 내용</th>
+              <th>평가 및 과제</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1개월차</td>
+              <td>문법 집중</td>
+              <td>품사, 현재·과거·미래 시제, be동사와 일반동사, 명령문·의문문</td>
+              <td>문법 테스트, 주간 문장쓰기 숙제</td>
+            </tr>
+            <tr>
+              <td>2개월차</td>
+              <td>독해 집중</td>
+              <td>문장 구조 분석, 짧은 지문 독해, 문제 유형별 접근, 주제·요지 파악</td>
+              <td>주간 독해 문제지, 요약쓰기 과제</td>
+            </tr>
+            <tr>
+              <td>3개월차</td>
+              <td>듣기+어휘</td>
+              <td>중등 교과 어휘, 듣기 유형, 정보 찾기, 대화문, 쉐도잉</td>
+              <td>매일 단어테스트, 듣기 녹음 숙제</td>
+            </tr>
+            <tr>
+              <td>4개월차</td>
+              <td>수행형 평가 & 종합</td>
+              <td>자기소개, 인터뷰 대본, 의견 표현 쓰기, 중간·기말 유형 문제풀이</td>
+              <td>모의 수행평가, 종합 모의고사</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>8.3 1회 90분 수업 구성</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>시간</th>
+              <th>내용</th>
+              <th>방식</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>10분</td>
+              <td>어휘 테스트</td>
+              <td>전날·전시간 암기 점검</td>
+            </tr>
+            <tr>
+              <td>20분</td>
+              <td>문법 수업</td>
+              <td>교재 + 판서 정리 + 예문 분석</td>
+            </tr>
+            <tr>
+              <td>25분</td>
+              <td>독해 또는 듣기</td>
+              <td>교재 지문 해석 또는 듣고 문제 풀기</td>
+            </tr>
+            <tr>
+              <td>20분</td>
+              <td>쓰기 또는 말하기</td>
+              <td>문장쓰기, 롤플레이, 자기소개, 그림 묘사</td>
+            </tr>
+            <tr>
+              <td>15분</td>
+              <td>복습퀴즈 + 숙제 안내</td>
+              <td>당일 성취도 확인, 과제 제시</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>8.4 평가 체계</h3>
+      <ul>
+        <li><strong>주간 평가:</strong> 단어, 문법, 독해 미니 테스트</li>
+        <li><strong>월간 평가:</strong> 누적 모의고사, 중1 유형 반영</li>
+        <li><strong>수행평가:</strong> 자기소개, 그림 묘사, 짧은 영어 인터뷰</li>
+        <li><strong>과제:</strong> 단어 20~30개, 듣기 1회분, 짧은 에세이 5문장, 독해 지문 복습, 문법 정리노트</li>
+      </ul>
+    </section>
+
+    <section id="letsgo">
+      <h2>9. Let's Go 1 활용 수업 계획</h2>
+      <p>
+        Let's Go 1은 초등 저학년 영어 입문용 코스북으로 활용하기 좋습니다. 노래, 챈트, 대화, 기초 문법을 결합해
+        주 2회, 회당 60분, 약 4개월 과정으로 운영할 수 있습니다.
+      </p>
+
+      <h3>9.1 수업 철학</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>원칙</th>
+              <th>내용</th>
+              <th>적용 방식</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Fun First</td>
+              <td>영어를 공부가 아니라 즐거운 활동으로 경험하게 함</td>
+              <td>게임, 노래, 율동, 칭찬 보상</td>
+            </tr>
+            <tr>
+              <td>Repetition for Mastery</td>
+              <td>새로운 내용을 많이 넣기보다 배운 표현을 반복해 체화</td>
+              <td>역할극, 카드게임, 노래 가사 변형</td>
+            </tr>
+            <tr>
+              <td>4대 영역 통합</td>
+              <td>듣기, 말하기, 읽기, 쓰기를 한 수업 안에서 자극</td>
+              <td>Talk, Sing, Learn, Move 코너 활용</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>9.2 16주 과정 예시</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>주차</th>
+              <th>세션</th>
+              <th>주요 학습 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1주</td>
+              <td>1~2</td>
+              <td>Unit 1: Things for School — 인사, 이름 묻기, 사물 이름</td>
+            </tr>
+            <tr>
+              <td>2주</td>
+              <td>3~4</td>
+              <td>Unit 1 마무리 + Unit 2: Colors and Shapes — 사물 묻고 답하기, 색깔</td>
+            </tr>
+            <tr>
+              <td>3주</td>
+              <td>5~6</td>
+              <td>Unit 2 마무리 + Review Units 1~2 — 색깔 묘사와 총복습</td>
+            </tr>
+            <tr>
+              <td>4주</td>
+              <td>7~8</td>
+              <td>Unit 3: At the Store — 친구 소개, 복수형</td>
+            </tr>
+            <tr>
+              <td>5주</td>
+              <td>9~10</td>
+              <td>Unit 3 마무리 + Unit 4: People at Home — 숫자, 가족</td>
+            </tr>
+            <tr>
+              <td>6주</td>
+              <td>11~12</td>
+              <td>Unit 4 마무리 + Review Units 3~4 — 가족 묘사와 총복습</td>
+            </tr>
+            <tr>
+              <td>7주</td>
+              <td>13~14</td>
+              <td>Unit 5: Birthday and Toys — 나이, 생일, 선물</td>
+            </tr>
+            <tr>
+              <td>8주</td>
+              <td>15~16</td>
+              <td>Unit 5 마무리 + Unit 6: Outdoors — 능력 묻기, 날씨</td>
+            </tr>
+            <tr>
+              <td>9~16주</td>
+              <td>17~32</td>
+              <td>동일 패턴으로 후속 유닛 진행: 한 유닛 3세션 + 두 유닛 후 Review</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>9.3 표준 60분 수업 템플릿</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>시간</th>
+              <th>활동</th>
+              <th>세부 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0~5분</td>
+              <td>Warm-up & Review</td>
+              <td>Hello Song, 날씨·기분 묻기, 지난 표현 카드놀이</td>
+            </tr>
+            <tr>
+              <td>5~20분</td>
+              <td>Main Lesson 1</td>
+              <td>Let's Talk 또는 Let's Learn, 음원 듣고 따라 말하기, 역할극</td>
+            </tr>
+            <tr>
+              <td>20~35분</td>
+              <td>Activity/Game 1</td>
+              <td>Mystery Box, 카드 뒤집기, 공 던지기 등</td>
+            </tr>
+            <tr>
+              <td>35~50분</td>
+              <td>Main Lesson 2</td>
+              <td>Let's Sing, Let's Learn Some More, Let's Move, TPR</td>
+            </tr>
+            <tr>
+              <td>50~55분</td>
+              <td>Worksheet/Workbook</td>
+              <td>줄 긋기, 색칠하기, 쓰기, 1:1 확인</td>
+            </tr>
+            <tr>
+              <td>55~60분</td>
+              <td>Wrap-up & Goodbye</td>
+              <td>오늘 배운 표현 요약, 스티커, 숙제 안내, Goodbye Song</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>9.4 Unit 1 세션별 세부안</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>세션</th>
+              <th>목표</th>
+              <th>준비물</th>
+              <th>주요 활동</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Session 1</td>
+              <td>Hello, My name is…, What's your name? 표현 익히기</td>
+              <td>이름표, 퍼펫, 소프트볼, 플래시카드</td>
+              <td>Hello Song, 퍼펫 자기소개, 역할극, 공 던지기 이름 묻기 게임</td>
+            </tr>
+            <tr>
+              <td>Session 2</td>
+              <td>What's this? It's a… / Is this a…? Yes/No 표현 익히기</td>
+              <td>Mystery Box, 교실 사물, 플래시카드</td>
+              <td>물건 꺼내기, 눈 감고 사물 맞히기, Yes/No 패턴 연습, 워크북</td>
+            </tr>
+            <tr>
+              <td>Session 3</td>
+              <td>Stand up, Sit down 등 명령문과 Unit 1 총정리</td>
+              <td>단어카드, 그림카드, 주사위, 게임판</td>
+              <td>Teacher Says, 듣기 활동, Unit 1 Review 보드게임, 스티커 보상</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="esl">
+      <h2>10. 미국 ESL/ELD 참고 구조</h2>
+      <p>
+        미국 공립학교의 저학년 ESL/ELD 방식은 국내 공부방의 저학년 영어 수업 설계에 참고할 수 있습니다.
+        핵심은 언어 습득, 초기 문해력, 학과목 어휘, 교실 문화 적응을 함께 다루는 것입니다.
+      </p>
+
+      <h3>10.1 미국 저학년 ESL/ELD 핵심 구조</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>영역</th>
+              <th>내용</th>
+              <th>국내 공부방 적용 가능성</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>목표</td>
+              <td>기초 의사소통, 학업 영어, 문해력, 학교문화 적응</td>
+              <td>저학년 영어 친밀감과 교실 루틴 형성에 활용</td>
+            </tr>
+            <tr>
+              <td>운영 모델</td>
+              <td>Pull-out, Push-in, Dual-language 또는 Bilingual 프로그램</td>
+              <td>공부방은 Pull-out 소그룹 방식에 가장 가까움</td>
+            </tr>
+            <tr>
+              <td>듣기·말하기</td>
+              <td>교실 지시어, 기본 질문, 발음, 역할극</td>
+              <td>TPR, 퍼펫, 상황극으로 적용 가능</td>
+            </tr>
+            <tr>
+              <td>읽기</td>
+              <td>음소 인식, 파닉스, sight words, 그림책</td>
+              <td>파닉스와 리더스북 수업에 직접 연결</td>
+            </tr>
+            <tr>
+              <td>쓰기</td>
+              <td>이름 쓰기, 라벨링, 간단한 문장, 그림+캡션</td>
+              <td>저학년 워크시트와 미니북 제작에 적합</td>
+            </tr>
+            <tr>
+              <td>평가</td>
+              <td>배치 테스트, 연간 언어능력 평가, 관찰·포트폴리오</td>
+              <td>공부방에서는 월간 포트폴리오와 수행 체크리스트로 변환 가능</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>10.2 1학년 beginner ESL 주간 계획 참고안</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>요일</th>
+              <th>초점</th>
+              <th>활동</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>월요일</td>
+              <td>Listening & Speaking</td>
+              <td>Hello Song, classroom objects, TPR, “This is my ___.”</td>
+            </tr>
+            <tr>
+              <td>화요일</td>
+              <td>Reading</td>
+              <td>M/I 음가, sight words I/my, 그림책 읽기</td>
+            </tr>
+            <tr>
+              <td>수요일</td>
+              <td>Writing</td>
+              <td>“My name is ___.” 쓰기, 교실 물건 그림과 라벨링</td>
+            </tr>
+            <tr>
+              <td>목요일</td>
+              <td>Vocabulary & Conversation</td>
+              <td>happy/sad/mad, “I feel ___.”, 교실 물건 찾기</td>
+            </tr>
+            <tr>
+              <td>금요일</td>
+              <td>Review & Project</td>
+              <td>그림 빙고, My Classroom booklet, 자기소개 말하기</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="textbooks">
+      <h2>11. 교재·리소스 비교</h2>
+      <p>
+        원문에 등장한 영어 교재와 ESL/ELD 자료를 공부방 적용 관점으로 정리했습니다.
+      </p>
+
+      <h3>11.1 어린이 ESL·코스북</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>교재</th>
+              <th>적합 대상</th>
+              <th>강점</th>
+              <th>공부방 활용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Let's Go</td>
+              <td>초등 저학년~중학년</td>
+              <td>회화, 노래, 게임, 파닉스 구성</td>
+              <td>저학년 메인 코스북으로 적합</td>
+            </tr>
+            <tr>
+              <td>Super Minds</td>
+              <td>초등 전반</td>
+              <td>스토리, 창의력, 사고력, 사회적 가치</td>
+              <td>활동형·스토리형 수업에 적합</td>
+            </tr>
+            <tr>
+              <td>Everybody Up</td>
+              <td>초등 3~4학년</td>
+              <td>실생활 연결, 노래, 자기표현 활동</td>
+              <td>4대 영역 균형 수업에 적합</td>
+            </tr>
+            <tr>
+              <td>Oxford Discover</td>
+              <td>초등 중·고학년</td>
+              <td>Big Question 기반 탐구형 수업</td>
+              <td>사고력·쓰기 확장반에 적합</td>
+            </tr>
+            <tr>
+              <td>Our World</td>
+              <td>초등 전반</td>
+              <td>사진, 영상, 세계문화, 콘텐츠 기반 학습</td>
+              <td>시각자료와 주제 중심 수업에 적합</td>
+            </tr>
+            <tr>
+              <td>Find Out</td>
+              <td>초등 전반</td>
+              <td>Big Question, 실제 자료, 영상 클립</td>
+              <td>탐구형 프로젝트 수업에 활용 가능</td>
+            </tr>
+            <tr>
+              <td>Welcome to Our World</td>
+              <td>유아~초1</td>
+              <td>노래와 단순 활동 중심</td>
+              <td>영어 입문반에 적합</td>
+            </tr>
+            <tr>
+              <td>Mouse and Me!</td>
+              <td>유아~초1</td>
+              <td>퍼펫, 사회정서, 스토리</td>
+              <td>놀이·돌봄형 수업에 적합</td>
+            </tr>
+            <tr>
+              <td>Little Pockets</td>
+              <td>2~5세 또는 매우 어린 학습자</td>
+              <td>간단한 대화, 노래, 챈트</td>
+              <td>초1 이전 또는 영어 완전 입문자용</td>
+            </tr>
+            <tr>
+              <td>Show and Tell</td>
+              <td>초등 저·중학년</td>
+              <td>발표, 자신감, Oxford Discover 준비</td>
+              <td>짧은 발표·말하기반에 적합</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>11.2 미국 초등 ESL/ELD 주요 자료</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>자료</th>
+              <th>대상</th>
+              <th>특징</th>
+              <th>공부방 적용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>National Geographic Learning Our World</td>
+              <td>K~5</td>
+              <td>주제 중심, 풍부한 시각자료, 글로벌 콘텐츠</td>
+              <td>어휘·문화·리딩 확장 자료</td>
+            </tr>
+            <tr>
+              <td>Reach</td>
+              <td>K~6</td>
+              <td>학업 영어와 문해력 중심</td>
+              <td>고학년 리딩·사회/과학 어휘 확장</td>
+            </tr>
+            <tr>
+              <td>Wonders for English Learners</td>
+              <td>K~5</td>
+              <td>ELA와 연계된 ELD 수업</td>
+              <td>학교식 리딩과 어휘 스캐폴딩 참고</td>
+            </tr>
+            <tr>
+              <td>Benchmark Advance ELD</td>
+              <td>K~6</td>
+              <td>Designated/Integrated ELD 모두 지원</td>
+              <td>수준별 언어 목표 설계 참고</td>
+            </tr>
+            <tr>
+              <td>Oxford Picture Dictionary for Kids</td>
+              <td>K~3</td>
+              <td>그림 중심 주제 어휘</td>
+              <td>완전 초보·저학년 어휘 수업에 유용</td>
+            </tr>
+            <tr>
+              <td>Reading A-Z / Raz-Kids</td>
+              <td>K~5</td>
+              <td>레벨 리더스와 온라인 퀴즈</td>
+              <td>리딩 숙제와 독서량 관리</td>
+            </tr>
+            <tr>
+              <td>Jolly Phonics / Fundations</td>
+              <td>초기 문해력</td>
+              <td>체계적 파닉스</td>
+              <td>파닉스 커리큘럼 보조 자료</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>11.3 교재 선택 기준</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>기준</th>
+              <th>확인할 점</th>
+              <th>판단 방향</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>연령·수준</td>
+              <td>학생의 학년, 영어 노출 경험, 읽기 수준</td>
+              <td>너무 쉬우면 지루하고, 너무 어려우면 이탈 가능</td>
+            </tr>
+            <tr>
+              <td>수업 스타일</td>
+              <td>회화형, 리딩형, 문법형, 탐구형 중 무엇이 중심인지</td>
+              <td>공부방의 브랜드 포지션과 맞춰야 함</td>
+            </tr>
+            <tr>
+              <td>흥미 요소</td>
+              <td>그림, 노래, 스토리, 게임, 실제 사진, 주제 다양성</td>
+              <td>저학년일수록 흥미 요소가 중요</td>
+            </tr>
+            <tr>
+              <td>구성품</td>
+              <td>Teacher's Book, Workbook, audio/video, digital materials</td>
+              <td>준비 시간을 줄이고 수업 완성도를 높임</td>
+            </tr>
+            <tr>
+              <td>비용</td>
+              <td>교재비, 워크북, 온라인 사용료</td>
+              <td>학부모 부담과 장기 운영비를 함께 고려</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="implementation">
+      <h2>12. 운영 적용안</h2>
+
+      <h3>12.1 공부방 반 구성 권장안</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>반 이름 예시</th>
+              <th>대상</th>
+              <th>주당 수업</th>
+              <th>핵심 교재·자료</th>
+              <th>관리 포인트</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Phonics Starter</td>
+              <td>초1~2 또는 영어 입문자</td>
+              <td>주 2회, 50~60분</td>
+              <td>Smart Phonics, Phonics Fun Readers, 플래시카드</td>
+              <td>소리-글자 연결, 노래·게임, 스티커 보상</td>
+            </tr>
+            <tr>
+              <td>Reading Bridge</td>
+              <td>초3~4</td>
+              <td>주 2~3회, 60~70분</td>
+              <td>Let's Go, Everybody Up, Bricks Reading, My First Grammar</td>
+              <td>단어 테스트, 짧은 문장 쓰기, 리딩 루틴</td>
+            </tr>
+            <tr>
+              <td>Middle School Prep</td>
+              <td>초6</td>
+              <td>주 3회, 90분</td>
+              <td>Grammar Inside, Bricks/Reading Expert, Word Master</td>
+              <td>문법·독해 오답관리, 월간 평가, 중1 유형 대비</td>
+            </tr>
+            <tr>
+              <td>Speaking & Project</td>
+              <td>초3~6 선택반</td>
+              <td>주 1회, 60분</td>
+              <td>Show and Tell, Oxford Discover, 자체 발표자료</td>
+              <td>자기소개, 그림 묘사, 짧은 발표, 포트폴리오</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>12.2 학부모 커뮤니케이션 자료로 활용할 문장</h3>
+      <div class="note">
+        <p><strong>저학년반:</strong> 영어를 시험 과목으로 시작하지 않고, 노래·게임·그림책·파닉스를 통해 영어 소리에 익숙해지도록 지도합니다.</p>
+        <p><strong>중학년반:</strong> 파닉스에서 리딩으로 넘어가는 시기이므로, 읽기·쓰기·기초문법을 균형 있게 잡아 영어 학습의 기반을 만듭니다.</p>
+        <p><strong>6학년반:</strong> 중학교 영어에 자연스럽게 적응할 수 있도록 중등 어휘, 문법, 독해, 서술형 쓰기, 듣기·말하기 수행평가를 함께 준비합니다.</p>
+      </div>
+
+      <h3>12.3 수업 품질 관리 체크리스트</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>체크 내용</th>
+              <th>주기</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>출석·참여</td>
+              <td>출석, 지각, 수업 집중도, 활동 참여도 기록</td>
+              <td>매 수업</td>
+            </tr>
+            <tr>
+              <td>어휘</td>
+              <td>단어 테스트 점수, 누적 오답 단어 관리</td>
+              <td>주 1~3회</td>
+            </tr>
+            <tr>
+              <td>리딩</td>
+              <td>음독 유창성, 문장 해석, comprehension 정답률</td>
+              <td>주 1회</td>
+            </tr>
+            <tr>
+              <td>문법</td>
+              <td>개념 이해, 문제풀이 정확도, 오답노트 완성도</td>
+              <td>주 1회</td>
+            </tr>
+            <tr>
+              <td>쓰기</td>
+              <td>문장 구조, 철자, 문법 적용, 짧은 글 완성도</td>
+              <td>격주~월 1회</td>
+            </tr>
+            <tr>
+              <td>학부모 공유</td>
+              <td>진도, 테스트 결과, 숙제 이행, 다음 목표 안내</td>
+              <td>월 1회</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>12.4 제거·정리한 내용</h3>
+      <ul>
+        <li>대화형 후속 질문: “원하시면 만들어드릴 수 있습니다” 유형의 문장 제거</li>
+        <li>대기 문구: “조사해드리겠습니다”, “잠시만 기다려주세요” 등 제거</li>
+        <li>중복 설명: 초6 목표, 저학년 놀이 중심 설명, 교재 소개의 반복 내용 통합</li>
+        <li>관련성 낮은 일반 질문: 실제 공부방 운영안으로 바로 전환되지 않는 질문 문장 제거</li>
+        <li>영문 자료: 국내 공부방에 적용 가능한 ESL/ELD 구조와 교재 정보만 요약 보존</li>
+      </ul>
+    </section>
+
+    <footer>
+      첨부 TXT 기반 정리본 · HTML 문서 · 중복/불필요 문장 제거 및 표 형식 재구성
+    </footer>
+  </main>
+</body>
+</html>

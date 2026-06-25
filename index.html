@@ -110,6 +110,29 @@
     border-color: rgba(201, 42, 42, 0.6);
     transform: scale(1.05);
   }
+
+  .esl-link {
+    position: absolute;
+    left: 30px;
+    color: #1864ab;
+    font-size: 0.85rem;
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid rgba(24, 100, 171, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    opacity: 0;
+    animation: fadeIn 2s ease 2s forwards;
+  }
+
+  .esl-link:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(24, 100, 171, 0.6);
+    transform: scale(1.05);
+  }
   
   #info-panel {
     position: absolute;
@@ -237,6 +260,11 @@
 <div id="ui-overlay">
   <a id="zarathustra-link" href="zarathustra.html">📖 Thus Spake Zarathustra</a>
   <a id="child-clothing-link" href="child-clothing-psychology.html">🧒 옷 선택과 심리발달</a>
+  <a class="esl-link" style="top:110px" href="plan1.html">📋 Plan 1</a>
+  <a class="esl-link" style="top:148px" href="plan2.html">📋 Plan 2</a>
+  <a class="esl-link" style="top:186px" href="공부방계획chatgpt정리.html">🤖 공부방계획 ChatGPT</a>
+  <a class="esl-link" style="top:224px" href="공부방계획gemini정리.html">💎 공부방계획 Gemini</a>
+  <a class="esl-link" style="top:262px" href="공부방계획hermes정리.html">🔶 공부방계획 Hermes</a>
   <div id="title">日本世界</div>
   <div id="hint">drag to orbit · click objects to interact · scroll to zoom</div>
   <div id="info-panel">
