@@ -385,7 +385,7 @@
   <select id="ed-asset"></select>
   <label>Scale <span class="val" id="ed-scale-val">1.0</span></label>
   <input type="range" id="ed-scale" min="0.2" max="5" step="0.1" value="1">
-  <label>Rotate Z <span class="val" id="ed-rot-val">0°</span></label>
+  <label>Rotate Y <span class="val" id="ed-rot-val">0°</span></label>
   <input type="range" id="ed-rot" min="0" max="360" step="1" value="0">
   <label>Position X <span class="val" id="ed-x-val">0</span></label>
   <input type="range" id="ed-x" min="-40" max="40" step="0.5" value="0">
@@ -900,7 +900,7 @@ document.getElementById('ed-place').addEventListener('click', (e) => {
   e.stopPropagation();
   const url = './' + edAsset.value;
   const scale = parseFloat(edScale.value);
-  const rotZ = THREE.MathUtils.degToRad(parseFloat(edRot.value));
+  const rotY = THREE.MathUtils.degToRad(parseFloat(edRot.value));
   const posX = parseFloat(edX.value);
   const posZ = parseFloat(edZ.value);
 
@@ -908,7 +908,7 @@ document.getElementById('ed-place').addEventListener('click', (e) => {
     const model = gltf.scene;
     model.position.set(posX, 0, posZ);
     model.scale.setScalar(scale);
-    model.rotation.z = rotZ;
+    model.rotation.y = rotY;
     model.userData.category = 'edit-placed';
     model.userData.originalY = 0;
     model.userData.originalScale = scale;
@@ -928,7 +928,7 @@ document.getElementById('ed-place').addEventListener('click', (e) => {
 // Delete selected
 document.getElementById('ed-delete').addEventListener('click', (e) => {
   e.stopPropagation();
-  if (editSelectedObj && editSelectedObj.userData.isEditable) {
+  if (editSelectedObj) {
     scene.remove(editSelectedObj);
     const idx = interactiveObjects.indexOf(editSelectedObj);
     if (idx > -1) interactiveObjects.splice(idx, 1);
@@ -943,7 +943,7 @@ function selectEditObject(obj) {
   // Update sliders to match object
   edScale.value = obj.scale.x;
   edScaleVal.textContent = obj.scale.x.toFixed(1);
-  const rotDeg = THREE.MathUtils.radToDeg(obj.rotation.z);
+  const rotDeg = THREE.MathUtils.radToDeg(obj.rotation.y);
   edRot.value = Math.round(rotDeg);
   edRotVal.textContent = Math.round(rotDeg) + '°';
   edX.value = obj.position.x;
@@ -972,12 +972,11 @@ window.addEventListener('click', (event) => {
   raycaster.setFromCamera(mouse, camera);
 
   // Check if clicking an editable object
-  const editables = interactiveObjects.filter(o => o.userData.isEditable);
-  const hits = raycaster.intersectObjects(editables, true);
+  const hits = raycaster.intersectObjects(interactiveObjects, true);
   if (hits.length > 0) {
     let obj = hits[0].object;
-    while (obj.parent && !obj.userData.isEditable) obj = obj.parent;
-    if (obj.userData.isEditable) { selectEditObject(obj); return; }
+    while (obj.parent && !obj.userData.category) obj = obj.parent;
+    if (obj) { selectEditObject(obj); return; }
   }
 
   // Otherwise, place on ground at click position
@@ -994,7 +993,7 @@ edScale.addEventListener('input', () => {
   if (editSelectedObj) editSelectedObj.scale.setScalar(parseFloat(edScale.value));
 });
 edRot.addEventListener('input', () => {
-  if (editSelectedObj) editSelectedObj.rotation.z = THREE.MathUtils.degToRad(parseFloat(edRot.value));
+  if (editSelectedObj) editSelectedObj.rotation.y = THREE.MathUtils.degToRad(parseFloat(edRot.value));
 });
 edX.addEventListener('input', () => {
   if (editSelectedObj) editSelectedObj.position.x = parseFloat(edX.value);
