@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>세금·교육청·업체등록 인터넷 Crosscheck</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin:0; background:#f3f6f9; color:#1f2937; font-family:"Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif; line-height:1.62; }
+    header { background:#ffffff; border-bottom:1px solid #d8e0ea; }
+    .wrap { max-width:1180px; margin:0 auto; padding:28px; }
+    h1 { margin:0; font-size:30px; line-height:1.25; letter-spacing:0; }
+    h2 { margin:0 0 12px; font-size:22px; letter-spacing:0; }
+    h3 { margin:22px 0 8px; font-size:17px; letter-spacing:0; }
+    p { margin:0 0 12px; }
+    .sub,.note { color:#667085; font-size:14px; }
+    nav { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+    nav a { color:#24466f; background:#fff; border:1px solid #d8e0ea; border-radius:6px; padding:7px 10px; text-decoration:none; font-size:13px; }
+    section { background:#fff; border:1px solid #d8e0ea; border-radius:8px; padding:22px; margin-top:18px; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .metric { border:1px solid #d8e0ea; background:#f8fafc; border-radius:8px; padding:14px; }
+    .metric strong { display:block; color:#1f5d8f; font-size:28px; line-height:1.1; }
+    .metric span { display:block; color:#667085; font-size:13px; margin-top:4px; }
+    .callout { border-left:5px solid #177d68; background:#f0faf6; border-radius:6px; padding:14px 16px; margin:12px 0; }
+    .callout.warn { border-left-color:#b57614; background:#fff8ed; }
+    table { width:100%; border-collapse:collapse; margin:10px 0 14px; font-size:14px; }
+    th,td { border-bottom:1px solid #d8e0ea; padding:10px; vertical-align:top; text-align:left; }
+    th { background:#f5f7fa; color:#3c4655; }
+    .num { text-align:right; white-space:nowrap; }
+    .pill { display:inline-block; border-radius:999px; padding:3px 9px; font-size:12px; font-weight:700; white-space:nowrap; }
+    .pill.ok { background:#e8f7ef; color:#146c43; }
+    .pill.warn { background:#fff2d5; color:#945f00; }
+    ol { margin:8px 0 0; padding-left:22px; }
+    li { margin:6px 0; }
+    a { color:#285f9f; }
+    footer { color:#667085; font-size:13px; padding-bottom:36px; }
+    @media (max-width:860px) {
+      .wrap { padding:20px 14px; }
+      .grid { grid-template-columns:1fr; }
+      h1 { font-size:24px; }
+      table { display:block; overflow-x:auto; white-space:normal; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>세금·교육청·업체등록<br>인터넷 자료로 카페 포스팅 Crosscheck</h1>
+      <p class="sub">네이버 카페 지정 게시판에서 수집한 운영자 경험담을 국세청, 경북교육청, 생활법령정보, 네이버 공식 기준으로 대조했습니다. 기준일: 2026-06-27.</p>
+      <nav>
+        <a href="#summary">요약</a>
+        <a href="#checks">검증표</a>
+        <a href="#sequence">실행순서</a>
+        <a href="#posts">카페 근거</a>
+        <a href="#sources">인터넷 출처</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section id="summary">
+      <h2>요약 판단</h2>
+      <div class="grid"><div class="metric"><strong>2048</strong><span>카페 검색 hit</span></div>
+<div class="metric"><strong>1420</strong><span>고유 글</span></div>
+<div class="metric"><strong>240</strong><span>본문/댓글 분석 글</span></div>
+<div class="metric"><strong>105</strong><span>교육청 관련 분석 글</span></div>
+<div class="metric"><strong>92</strong><span>등록 관련 분석 글</span></div>
+<div class="metric"><strong>66</strong><span>세금 관련 분석 글</span></div></div>
+      <div class="callout">
+        <b>결론:</b> 카페 포스팅들의 큰 방향은 맞습니다. 다만 세금은 “면세라서 느슨하게 해도 된다”가 아니라 “부가세 신고 대신 사업장현황신고·종합소득세·현금영수증을 정확히 해야 한다”로 이해해야 합니다.
+      </div>
+      <div class="callout warn">
+        <b>가장 큰 보정점:</b> 네이버플레이스 업체등록은 단순 홍보 등록이 아닙니다. 네이버 기준상 공부방은 교육청 신고필증과 사업자등록증을 모두 요구하고, 교육청/네이버 광고 기준상 교습비 등 표시도 함께 확인해야 합니다.
+      </div>
+    </section>
+
+    <section id="checks">
+      <h2>카페 주장 Crosscheck</h2>
+      <table>
+        <thead>
+          <tr><th>토픽</th><th>카페에서 보인 주장</th><th>판정</th><th>인터넷 공식자료 검증</th><th>중산동 공부방 적용</th></tr>
+        </thead>
+        <tbody><tr><td>세금</td><td>카페에서는 현금영수증, 계좌이체 원비, 사업장현황신고를 가장 자주 경고한다.</td><td><span class="pill ok">확인됨</span></td><td>국세청은 교육서비스업 중 일반 교습학원, 외국어학원 및 기타 교습학원 등을 현금영수증 의무발행업종에 포함한다. 의무발행업종은 건당 10만원 이상 현금거래에서 소비자 요청이 없어도 발급해야 하며, 미발급 시 가산세 리스크가 있다.</td><td>계좌이체 원비도 현금성 수입으로 보고, 원비 입금일마다 현금영수증 발급 여부를 체크하는 루틴을 만든다. 카드단말기가 없어도 홈택스/손택스/126 ARS 발급 루트를 준비한다.</td></tr>
+<tr><td>세금</td><td>면세사업자는 부가세 신고 대신 사업장현황신고와 종합소득세가 핵심이라는 카페 의견이 많다.</td><td><span class="pill warn">조건부 확인</span></td><td>국세청 사업장현황신고 안내는 부가가치세 면세 개인사업자가 직전년도 수입금액과 사업장 현황을 신고해야 하며, 대상 예시에 학원사업자를 포함한다. 부가가치세법 시행령상 교육용역 면세는 주무관청에 허가·인가·등록·신고된 시설에서 제공되는 경우가 핵심 조건이다.</td><td>교육청 신고/등록이 먼저 정리되어야 면세 사업자 구조가 깔끔하다. 사업자등록 때 업종코드와 면세 여부는 경산 세무서나 세무사에게 확인한다.</td></tr>
+<tr><td>세금</td><td>수입/비용 증빙을 월별로 남겨야 다음해 신고가 편하다는 조언이 반복된다.</td><td><span class="pill ok">확인됨</span></td><td>사업장현황신고는 연간 수입금액과 사업장 운영현황을 신고하는 절차이고, 사업자등록/교습비 영수증/현금영수증 기록과 연결된다.</td><td>월별 폴더를 만들고 원비대장, 환불대장, 교재비, 광고비, 임대료, 비품, 현금영수증 발급내역을 같은 기준으로 보관한다.</td></tr>
+<tr><td>교육청</td><td>카페에서는 교육청 점검보다 광고 표시 누락, 환불, 교습비 게시 누락을 더 현실적인 리스크로 본다.</td><td><span class="pill ok">확인됨</span></td><td>생활법령정보는 교습비 등과 반환 기준의 게시·고지, 초과징수 금지, 환불 기준을 안내한다. 교육청 자료와 네이버 광고 기준도 인터넷 광고에 등록/신고번호, 명칭, 교습과목, 교습비 표시가 필요하다고 본다.</td><td>오픈 전단지, 블로그, 네이버플레이스, 아파트 게시판 문구를 만들기 전에 신고번호, 교습과목, 교습비 표시 형식을 먼저 정한다.</td></tr>
+<tr><td>교육청</td><td>네이버플레이스도 광고로 볼 수 있으니 조심해야 한다는 카페 글이 있다.</td><td><span class="pill ok">확인됨</span></td><td>교육지원청 안내는 네이버플레이스, 홈페이지, 블로그, 카페, SNS 등 인터넷 매체에 교습비 등 필수 정보를 표시해야 한다고 안내한다. 네이버 광고주센터도 관련 법령을 준수하지 않으면 광고가 제한될 수 있다고 안내한다.</td><td>네이버플레이스 소개 문구에는 모집성 과장표현보다 등록명칭, 신고/등록번호, 교습과목, 교습비 안내 이미지를 우선 배치한다.</td></tr>
+<tr><td>교육청</td><td>자택 공부방도 같은 시간대 인원, 시간, 교습비 신고가 중요하다는 조언이 많다.</td><td><span class="pill ok">확인됨</span></td><td>경상북도교육청 개인과외교습자 안내는 같은 시간 교습 인원을 9인 이하로 안내하고, 초·중·고 교습시간과 교습과목·교습료 기재 원칙을 안내한다.</td><td>초5~중1 영어 소수정예로 시작하더라도 같은 시간대 9인 이하를 상한으로 잡고, 신고한 교습비와 실제 수납액이 달라지지 않게 한다.</td></tr>
+<tr><td>업체등록/사업자등록</td><td>자택이면 개인과외교습자, 상가면 교습소/학원으로 봐야 한다는 카페 의견이 많다.</td><td><span class="pill ok">확인됨</span></td><td>경상북도교육청은 개인과외교습 장소를 학습자 주거지 또는 교습자 주거지로 한정하고, 상가나 오피스텔에 실제 거주하더라도 개인과외교습은 불가하다고 안내한다.</td><td>중산동 아파트 자택 공부방이면 개인과외교습자 신고부터, 상가/오피스텔이면 계약 전 경산교육지원청에 교습소/학원 가능성을 확인한다.</td></tr>
+<tr><td>업체등록/사업자등록</td><td>사업자등록은 교육청 신고/등록과 맞물리므로 순서가 중요하다는 조언이 반복된다.</td><td><span class="pill ok">확인됨</span></td><td>생활법령정보는 교습소 설립·운영자가 사업개시일부터 20일 이내 사업자등록을 신청해야 하며, 법령상 허가·등록·신고가 필요한 사업은 신고 확인증 등을 첨부한다고 안내한다.</td><td>실행 순서는 교육청 신고/등록 가능성 확인, 임대/장소 확정, 교육청 신고증, 사업자등록, 현금영수증 가맹점 가입 순서로 잡는다.</td></tr>
+<tr><td>업체등록/사업자등록</td><td>네이버플레이스 업체등록은 나중에 홍보용으로 하면 된다는 의견과, 신고필증이 필요하다는 의견이 섞여 있다.</td><td><span class="pill warn">보완 필요</span></td><td>네이버 스마트플레이스 등록기준은 공부방 등록 시 교육청 신고필증과 사업자등록증을 모두 제출한다고 안내한다.</td><td>플레이스 선등록을 홍보 출발점으로 삼기보다, 교육청 신고필증과 사업자등록증을 갖춘 뒤 등록한다. 등록 후에도 교습비 표시를 빠뜨리면 교육청 광고 표시 리스크가 남는다.</td></tr>
+<tr><td>업체등록/사업자등록</td><td>상가 교습소/학원은 임대차, 건축물대장, 시설도면, 안전/조회 서류가 얽힌다는 카페 경험담이 많다.</td><td><span class="pill ok">확인됨</span></td><td>경상북도교육청 학원설립등록 안내는 시설평면도, 시설 사용권 증명서류, 건축물대장 확인, 성범죄경력 및 아동학대전력조회 동의서, 전기안전점검확인서 등을 구비서류로 제시한다.</td><td>중산동 상가를 볼 때는 임대료보다 먼저 건축물대장 용도, 학원/교습소 신고 가능 여부, 전기/소방/보험/간판 가능 여부를 체크한다.</td></tr></tbody>
+      </table>
+    </section>
+
+    <section id="sequence">
+      <h2>경산 중산동 기준 실행순서</h2>
+      <ol>
+        <li><b>형태 결정:</b> 아파트/주택 자택이면 개인과외교습자 신고, 상가면 교습소 또는 학원 신고·등록 가능성 확인.</li>
+        <li><b>경산교육지원청 확인:</b> 교습장소, 정원, 교습시간, 교습비, 명칭, 간판, 광고 표시 기준을 전화로 먼저 확인. 경북교육청 안내상 경산 문의처는 053-810-7551.</li>
+        <li><b>교육청 신고/등록:</b> 자택은 개인과외교습자 신고, 상가는 교습소/학원 요건과 구비서류를 검토.</li>
+        <li><b>사업자등록:</b> 사업개시일부터 20일 이내가 기본 기준. 교육청 신고확인증 또는 등록증, 임대차계약서 등 필요한 서류를 준비.</li>
+        <li><b>현금영수증 체계:</b> 홈택스/손택스/126 ARS 또는 현금영수증사업자 사이트로 발급 루트를 만든다. 10만원 이상 현금성 원비는 요청이 없어도 발급 대상으로 관리.</li>
+        <li><b>광고 전 검수:</b> 전단지, 블로그, 네이버플레이스, 맘카페, 아파트 게시판 문구에 신고번호, 명칭, 교습과목, 교습비 표시를 반영.</li>
+        <li><b>연간 세무 캘린더:</b> 다음해 1월 1일~2월 10일 사업장현황신고, 5월 종합소득세 신고를 캘린더에 고정.</li>
+      </ol>
+    </section>
+
+    <section id="posts">
+      <h2>카페 포스팅 쪽 근거</h2>
+      <p class="note">본문 전문은 포함하지 않고, 조사 범위와 대표 제목만 표시했습니다. 조사 게시판은 자유로운글/질문과 답변 새싹 멤버방으로 제한했습니다.</p>
+      
+            <h3>세금 카페 대표 글</h3>
+            <table>
+              <thead><tr><th>ID</th><th>제목</th><th class="num">댓글</th><th>매칭 검색어</th></tr></thead>
+              <tbody><tr><td>754533</td><td>[긴글주의] 과외 1년 후 17평 교습소 확장 이전 개업 일지 :)</td><td class="num">94</td><td>면세사업자, 부가세, 교육청 점검, 교습비 표시</td></tr><tr><td>558428</td><td>공부방 교습소 학원 실패하는 방법  (+꿀팁 공유)</td><td class="num">76</td><td>원비 수납</td></tr><tr><td>751554</td><td>소상공인 바우처 보류네요....</td><td class="num">74</td><td>사업장현황신고, 면세사업자</td></tr><tr><td>634284</td><td>선생님들의 조언이 필요해요ㅠㅠ 도와주세요!</td><td class="num">73</td><td>원비 수납</td></tr><tr><td>748385</td><td>공부방 창업을 준비하는 원장님들을 위한 가이드</td><td class="num">67</td><td>면세사업자, 계좌이체, 부가세</td></tr></tbody>
+            </table>
+            
+
+            <h3>교육청 카페 대표 글</h3>
+            <table>
+              <thead><tr><th>ID</th><th>제목</th><th class="num">댓글</th><th>매칭 검색어</th></tr></thead>
+              <tbody><tr><td>736548</td><td>저도 올려보는 교습소 오픈 후- 수정</td><td class="num">112</td><td>광고 교습비, 업체등록</td></tr><tr><td>754533</td><td>[긴글주의] 과외 1년 후 17평 교습소 확장 이전 개업 일지 :)</td><td class="num">94</td><td>면세사업자, 부가세, 교육청 점검, 교습비 표시</td></tr><tr><td>745986</td><td>선생님들의 객관적인 의견 듣고싶습니다.</td><td class="num">81</td><td>환불규정</td></tr><tr><td>652166</td><td>분당 단가 이상 신고 접수는 가능하며, 분당 단가는 권고사항이지 의무사항이 아닙니다</td><td class="num">74</td><td>학원법</td></tr><tr><td>764208</td><td>개인별단어장 제작기2탄! 학생들보다 성공운 쌤들 반응이 더핫하네요..?</td><td class="num">71</td><td>교육청</td></tr></tbody>
+            </table>
+            
+
+            <h3>등록 카페 대표 글</h3>
+            <table>
+              <thead><tr><th>ID</th><th>제목</th><th class="num">댓글</th><th>매칭 검색어</th></tr></thead>
+              <tbody><tr><td>736548</td><td>저도 올려보는 교습소 오픈 후- 수정</td><td class="num">112</td><td>광고 교습비, 업체등록</td></tr><tr><td>764684</td><td>선생님들, 원장님들 제발 이 상황 한 번만 읽어주세요.</td><td class="num">107</td><td>공부방 신고, 교습소 신고</td></tr><tr><td>754533</td><td>[긴글주의] 과외 1년 후 17평 교습소 확장 이전 개업 일지 :)</td><td class="num">94</td><td>면세사업자, 부가세, 교육청 점검, 교습비 표시</td></tr><tr><td>759726</td><td>오픈 4개월, 아무것도 하기 싫어요. </td><td class="num">86</td><td>네이버 플레이스</td></tr><tr><td>763808</td><td>나이 50, 학원도 안되고 건강도 안좋고 잠을 못잡니다. 조언 부탁드립니다</td><td class="num">70</td><td>교육청 신고, 공부방 신고, 교습소 신고</td></tr></tbody>
+            </table>
+            
+    </section>
+
+    <section id="sources">
+      <h2>직접 확인한 인터넷 출처</h2>
+      <table>
+        <thead><tr><th>출처</th><th>확인한 항목</th></tr></thead>
+        <tbody><tr><td><a href="https://www.gbe.kr/dep_edu/cm/cntnts/cntntsView.do?cntntsId=8917&amp;mi=22086">경상북도교육청 개인과외교습자</a></td><td>개인과외 신고, 교습장소, 인원, 시간, 종합소득세, 경산 문의처</td></tr>
+<tr><td><a href="https://www.gbe.kr/dep_cre/cm/cntnts/cntntsView.do?cntntsId=3959&amp;mi=8639">경상북도교육청 학원설립등록 구비서류</a></td><td>학원 설립 시 임대차, 시설평면도, 건축물대장, 성범죄/아동학대 조회 등</td></tr>
+<tr><td><a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7796&amp;mi=2471">국세청 현금영수증 발급의무</a></td><td>교육서비스업 의무발행업종, 10만원 이상 현금거래, 미발급 가산세</td></tr>
+<tr><td><a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7795&amp;mi=2470">국세청 현금영수증 가맹점 가입</a></td><td>홈택스/손택스/126 ARS 가입, 의무발행업종 60일 이내 가입</td></tr>
+<tr><td><a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7699&amp;mi=2283">국세청 사업장현황신고 개요</a></td><td>부가가치세 면세 개인사업자 신고, 학원사업자 포함, 2026년 2월 10일 기한</td></tr>
+<tr><td><a href="https://www.law.go.kr/lsLawLinkInfo.do?chrClsCd=010202&amp;lsJoLnkSeq=1000919842">국가법령정보센터 부가가치세법 시행령 제36조</a></td><td>주무관청 허가·인가·등록·신고된 학원/교습소 등 교육용역 면세 범위</td></tr>
+<tr><td><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?ccfNo=3&amp;cciNo=2&amp;cnpClsNo=2&amp;csmSeq=1140&amp;popMenu=ov">찾기쉬운 생활법령정보 사업자등록</a></td><td>교습소 사업자등록 20일 이내, 신고확인증/임대차계약서 등 첨부</td></tr>
+<tr><td><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?ccfNo=3&amp;cciNo=3&amp;cnpClsNo=2&amp;csmSeq=1140&amp;popMenu=ov">찾기쉬운 생활법령정보 교습비 징수·반환</a></td><td>교습비 게시·고지, 초과징수 금지, 환불 기준과 과태료</td></tr>
+<tr><td><a href="https://bbedu.sen.go.kr/CMS/adminfo/adminfo03/adminfo0301/1348471_4973.html">서울북부교육지원청 네이버플레이스 광고 유의사항</a></td><td>네이버플레이스/블로그/SNS 광고 시 등록번호·교습과목·교습비 표시</td></tr>
+<tr><td><a href="https://new.smartplace.naver.com/help/policy?menu=regist&amp;tab=smartplace">네이버 스마트플레이스 등록기준</a></td><td>공부방 등록 시 교육청 신고필증 및 사업자등록증 제출</td></tr>
+<tr><td><a href="https://ads.naver.com/adguide/1294">네이버 광고주센터 학원/교습소 광고소재 기준</a></td><td>학원/교습소 인터넷 광고 필수 표시와 모집성 광고 제한</td></tr></tbody>
+      </table>
+    </section>
+  </main>
+  <footer class="wrap">생성: 2026-06-27 11:29. 데이터: C:\0\codex\esl\data\regulatory_topics\analysis.json</footer>
+</body>
+</html>
