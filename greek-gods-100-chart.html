@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greek Gods — 100 Deities Ranked by Prominence</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #1a1714; --card: #2a2420; --card-alt: #332b26;
+    --gold: #c9a84c; --gold-bright: #e0c46a; --parchment: #e8dcc8;
+    --text: #ddd0b8; --text-dim: #9a8b76; --accent: #8b3a3a;
+    --border: #4a3d34; --rank-1: #ffd700; --rank-2: #c0c0c0; --rank-3: #cd7f32;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Georgia','Times New Roman',serif; line-height: 1.6; padding: 0 0 3rem 0; -webkit-font-smoothing: antialiased; }
+  header { background: linear-gradient(180deg,#2a2420 0%,#1a1714 100%); border-bottom: 2px solid var(--gold); padding: 2rem 1rem 1.5rem; text-align: center; position: sticky; top: 0; z-index: 100; }
+  header h1 { color: var(--gold-bright); font-size: 1.7rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3rem; }
+  header p { color: var(--text-dim); font-size: 0.8rem; font-style: italic; }
+  .search-bar { padding: 0.8rem 1rem; position: sticky; top: 0; z-index: 99; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .search-bar input { width: 100%; max-width: 660px; margin: 0 auto; display: block; background: var(--card); border: 1px solid var(--border); color: var(--text); font-size: 0.9rem; padding: 0.6rem 0.8rem; border-radius: 6px; font-family: inherit; }
+  .search-bar input::placeholder { color: var(--text-dim); }
+  .search-bar input:focus { outline: none; border-color: var(--gold); }
+  .container { max-width: 700px; margin: 0 auto; padding: 1rem; }
+  .intro { text-align: center; color: var(--text-dim); font-size: 0.85rem; padding: 1rem 0.5rem 1.5rem; font-style: italic; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+  .stats { display: flex; justify-content: center; gap: 1.5rem; padding: 0.5rem 0 1rem; font-size: 0.75rem; color: var(--text-dim); }
+  .stat-num { color: var(--gold-bright); font-weight: bold; font-size: 1rem; }
+  .toolbar { display: flex; justify-content: space-between; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .toolbar button { background: var(--card); border: 1px solid var(--border); color: var(--gold); font-size: 0.75rem; padding: 0.4rem 0.8rem; border-radius: 5px; cursor: pointer; font-family: inherit; }
+  .toolbar button:active { background: var(--card-alt); }
+  .results-count { font-size: 0.75rem; color: var(--text-dim); text-align: center; padding: 0.3rem 0; display: none; }
+  .god-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; transition: transform 0.15s ease; }
+  .god-card:active { transform: scale(0.99); }
+  .god-card.top-3 { border-left-width: 5px; }
+  .god-card.rank-1 { border-left-color: var(--rank-1); }
+  .god-card.rank-2 { border-left-color: var(--rank-2); }
+  .god-card.rank-3 { border-left-color: var(--rank-3); }
+  .card-header { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 1rem; background: var(--card-alt); cursor: pointer; user-select: none; }
+  .rank-badge { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; background: #1a1714; border: 2px solid var(--gold); color: var(--gold-bright); }
+  .rank-1 .rank-badge { border-color: var(--rank-1); color: var(--rank-1); }
+  .rank-2 .rank-badge { border-color: var(--rank-2); color: var(--rank-2); }
+  .rank-3 .rank-badge { border-color: var(--rank-3); color: var(--rank-3); }
+  .god-name-block { flex: 1; min-width: 0; }
+  .god-name { font-size: 1.15rem; color: var(--parchment); font-weight: bold; letter-spacing: 0.02em; }
+  .god-title { font-size: 0.72rem; color: var(--text-dim); font-style: italic; }
+  .toggle-icon { flex-shrink: 0; color: var(--gold); font-size: 0.9rem; transition: transform 0.2s ease; }
+  .card-header.open .toggle-icon { transform: rotate(90deg); }
+  .card-body { display: none; padding: 1rem; border-top: 1px solid var(--border); }
+  .card-body.open { display: block; }
+  .field { margin-bottom: 0.8rem; }
+  .field:last-child { margin-bottom: 0; }
+  .field-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 0.25rem; font-weight: bold; }
+  .field-text { font-size: 0.9rem; color: var(--text); line-height: 1.55; }
+  .lit-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.2rem; }
+  .lit-tag { background: #1a1714; border: 1px solid var(--border); color: var(--text-dim); font-size: 0.72rem; padding: 0.15rem 0.5rem; border-radius: 10px; white-space: nowrap; }
+  .tier-divider { text-align: center; margin: 1.5rem 0 1rem; padding: 0.5rem; font-size: 0.8rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  footer { text-align: center; color: var(--text-dim); font-size: 0.75rem; padding: 2rem 1rem 0; font-style: italic; border-top: 1px solid var(--border); margin-top: 1.5rem; }
+  @media (min-width: 600px) { .god-name { font-size: 1.3rem; } header h1 { font-size: 2rem; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>&#127968 The Greek Gods</h1>
+  <p>100 Deities Ordered by Literary Prominence</p>
+</header>
+
+<div class="search-bar">
+  <input type="text" id="searchBox" placeholder="&#128269 Search by name or domain (e.g. 'underworld', 'Zeus', 'moon')..." oninput="filterCards()">
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    Ranked by frequency and centrality across surviving Greek and Roman literature —
+    Homeric epics, Hesiod, the Homeric Hymns, Ovid's <em>Metamorphoses</em>, and the tragedians.<br>
+    Tap any card to expand. Use the search bar to filter.
+  </div>
+
+  <div class="stats">
+    <span><span class="stat-num">100</span> Deities</span>
+    <span><span class="stat-num">12</span> Olympians</span>
+    <span><span class="stat-num">8</span> Tiers</span>
+  </div>
+
+  <div class="toolbar">
+    <button onclick="expandAll(true)">Expand All</button>
+    <button onclick="expandAll(false)">Collapse All</button>
+  </div>
+
+  <div class="results-count" id="resultsCount"></div>
+
+  <div class="tier-divider">Tier 1 — The Twelve Olympians</div>
+
+<div class="god-card top-3 rank-1" data-search="zeus king of the gods · sky, thunder &amp; sovereignty">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">1</div>
+      <div class="god-name-block">
+        <div class="god-name">Zeus</div>
+        <div class="god-title">King of the Gods · Sky, Thunder &amp; Sovereignty</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Theogony (Hesiod)</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Zeus led his siblings in a ten-year war against the Titans, his father Cronus and the old generation of gods. After victory, he cast lots with his brothers Poseidon and Hades — winning the sky, while Poseidon took the sea and Hades the underworld. He then ruled from Mount Olympus as supreme god, dispensing justice and wielding the thunderbolt. His authority anchors nearly every myth; even other gods appeal to him as final arbiter.</div>
+      </div>
+    </div>
+  </div><div class="god-card top-3 rank-2" data-search="hera queen of the gods · marriage &amp; sovereignty">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">2</div>
+      <div class="god-name-block">
+        <div class="god-name">Hera</div>
+        <div class="god-title">Queen of the Gods · Marriage &amp; Sovereignty</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Aeneid</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Argonautica</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Consumed by jealousy over Zeus&#x27;s affair with Alcmene, Hera sent two serpents to kill the infant Heracles in his cradle — the baby strangled them. She never relented: she drove Heracles to madness (causing him to kill his own family), then imposed the Twelve Labors through King Eurystheus. Heracles spent his life enduring these trials, ultimately completing all twelve and achieving apotheosis — Hera&#x27;s relentless persecution became the backbone of the greatest heroic saga in Greek myth.</div>
+      </div>
+    </div>
+  </div><div class="god-card top-3 rank-3" data-search="athena goddess of wisdom &amp; strategic war">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">3</div>
+      <div class="god-name-block">
+        <div class="god-name">Athena</div>
+        <div class="god-title">Goddess of Wisdom &amp; Strategic War</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Oresteia (Aeschylus)</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Athena and Poseidon vied to become patron deity of Athens. Poseidon struck the Acropolis with his trident, producing a saltwater spring. Athena planted the first olive tree, offering oil, wood, and food. Cecrops judged Athena&#x27;s gift superior — and she became the city&#x27;s namesake and protector. The story symbolizes the Greek preference for wisdom and civilization over raw force.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="apollo god of prophecy, music, healing &amp; the sun">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">4</div>
+      <div class="god-name-block">
+        <div class="god-name">Apollo</div>
+        <div class="god-title">God of Prophecy, Music, Healing &amp; the Sun</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Oresteia</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymn to Apollo</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Four days after his birth on Delos, the infant Apollo set out to find a site for his oracle. He encountered Python, a monstrous serpent born of Gaia that had tormented the land. Apollo pursued it to its lair at Delphi and slew it with arrows, then claimed the site — establishing the Delphic Oracle, the most sacred prophetic center of the ancient world. The Pythian Games were founded to commemorate this victory.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="poseidon god of the sea, earthquakes &amp; horses">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">5</div>
+      <div class="god-name-block">
+        <div class="god-name">Poseidon</div>
+        <div class="god-title">God of the Sea, Earthquakes &amp; Horses</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymn to Poseidon</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">After Odysseus blinded the Cyclops Polyphemus — Poseidon&#x27;s son — the sea god cursed him to wander the Mediterranean for ten years. Every raft was shattered, every crew drowned, every homecoming delayed. Poseidon&#x27;s vendetta drives the entire structure of the Odyssey, making him the most plot-defining antagonist in Greek literature.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="aphrodite goddess of love, beauty &amp; desire">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">6</div>
+      <div class="god-name-block">
+        <div class="god-name">Aphrodite</div>
+        <div class="god-title">Goddess of Love, Beauty &amp; Desire</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymn to Aphrodite</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">At the wedding of Peleus and Thetis, Eris tossed a golden apple inscribed &#x27;to the fairest.&#x27; Hera, Athena, and Aphrodite all claimed it, and the Trojan prince Paris was chosen to judge. Hera offered power, Athena offered victory in war, but Aphrodite offered the most beautiful woman alive — Helen of Sparta. Paris chose Aphrodite. Helen&#x27;s subsequent abduction to Troy ignited the Trojan War.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="artemis goddess of the hunt, wilderness &amp; the moon">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">7</div>
+      <div class="god-name-block">
+        <div class="god-name">Artemis</div>
+        <div class="god-title">Goddess of the Hunt, Wilderness &amp; the Moon</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Hippolytus (Euripides)</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">The hunter Actaeon accidentally stumbled upon Artemis bathing in a forest pool. Enraged at the intrusion, the goddess splashed water at him and transformed him into a stag. Unable to speak, Actaeon fled — but his own hunting dogs, not recognizing their master, chased him down and tore him apart. Ovid&#x27;s vivid telling made this the archetypal tale of divine punishment for violating a goddess&#x27;s privacy.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="hermes messenger of the gods · trickery, trade &amp; crossings">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">8</div>
+      <div class="god-name-block">
+        <div class="god-name">Hermes</div>
+        <div class="god-title">Messenger of the Gods · Trickery, Trade &amp; Crossings</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Homeric Hymn to Hermes</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Born at dawn, Hermes crawled from his cradle before noon, found a tortoise, killed it, and stretched cow gut across its shell — inventing the first lyre. He then stole fifty cattle from Apollo, hiding them by walking them backward and fashioning bark sandals. Apollo dragged the infant before Zeus, but Hermes charmed him with the lyre&#x27;s music, trading it for the cattle. The two became lasting friends — the birth of a god of cleverness.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="ares god of war — bloodlust &amp; violence">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">9</div>
+      <div class="god-name-block">
+        <div class="god-name">Ares</div>
+        <div class="god-title">God of War — Bloodlust &amp; Violence</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Ares carried on a secret affair with Aphrodite, wife of the lame smith-god Hephaestus. Helios, the all-seeing sun, spotted them and informed Hephaestus, who forged an invisible, unbreakable bronze net over the marital bed. When Ares and Aphrodite next lay together, the net snapped shut, trapping them naked. Hephaestus summoned the other gods to witness the humiliation. It is one of the most comedic scenes in the Odyssey, told by Demodocus the bard.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="demeter goddess of the harvest &amp; grain">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">10</div>
+      <div class="god-name-block">
+        <div class="god-name">Demeter</div>
+        <div class="god-title">Goddess of the Harvest &amp; Grain</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Homeric Hymn to Demeter</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Theogony</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Hades seized Demeter&#x27;s daughter Persephone and dragged her to the underworld. In grief, Demeter wandered the earth in disguise, neglecting her duties — and the crops died worldwide, causing the first winter. She eventually demanded Persephone&#x27;s return. Because Persephone had eaten pomegranate seeds, she was bound to return for a third of each year. This cycle became the mythic origin of the seasons and the foundation of the Eleusinian Mysteries.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="dionysus god of wine, ecstasy &amp; the theatre">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">11</div>
+      <div class="god-name-block">
+        <div class="god-name">Dionysus</div>
+        <div class="god-title">God of Wine, Ecstasy &amp; the Theatre</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Bacchae (Euripides)</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymn to Dionysus</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">When Dionysus returned to Thebes to establish his cult, King Pentheus denied his divinity and tried to suppress the wild rites. Dionysus lured Pentheus to spy on the maenads on Mount Cithaeron. The women, maddened by the god, spotted Pentheus hiding in a tree and tore him limb from limb — his own mother Agave led the dismemberment, believing she was killing a lion. The Bacchae makes this the definitive warning: resist Dionysus at your peril.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="hephaestus god of the forge · fire &amp; craftsmanship">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">12</div>
+      <div class="god-name-block">
+        <div class="god-name">Hephaestus</div>
+        <div class="god-title">God of the Forge · Fire &amp; Craftsmanship</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Zeus, angered at Prometheus for stealing fire, commanded Hephaestus to craft the first woman — Pandora — from clay. Each god endowed her with a gift: beauty from Aphrodite, voice from Hermes, wits from Athena. Zeus gave her a jar and told her never to open it. Her curiosity won; she lifted the lid, releasing all evils into the world. Only Hope remained trapped inside. Pandora&#x27;s creation is the Greek myth of origin for human suffering.</div>
+      </div>
+    </div>
+  </div><div class="tier-divider">Titan Era — Primordials & Ancient Forces</div><div class="god-card" data-search="hades god of the underworld &amp; the dead">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">13</div>
+      <div class="god-name-block">
+        <div class="god-name">Hades</div>
+        <div class="god-title">God of the Underworld &amp; the Dead</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey (Nekyia)</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymn to Demeter</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Lonely in his sunless kingdom, Hades spotted Persephone gathering flowers and, with Zeus&#x27;s tacit consent, erupted from the earth in a golden chariot to seize her. When Demeter&#x27;s grief threatened to starve the world, Hermes was sent to retrieve her — but Hades tricked Persephone into eating pomegranate seeds, binding her to return one-third of each year. Hades is rarely a speaking character, but this act defines him: implacable, patient, and possessive.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="persephone queen of the underworld · spring&#x27;s return">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">14</div>
+      <div class="god-name-block">
+        <div class="god-name">Persephone</div>
+        <div class="god-title">Queen of the Underworld · Spring&#x27;s Return</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Homeric Hymn to Demeter</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Odyssey</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Trapped in the underworld after Hades&#x27;s abduction, Persephone was tricked into eating pomegranate seeds. Eating the food of the dead creates an unbreakable bond — so she could not fully leave. A compromise was struck: two-thirds of the year above ground with her mother Demeter (spring and summer), one-third below with Hades (winter). Her dual nature — innocent maiden above, dread queen below — made her central to the Eleusinian Mysteries&#x27; promise of life after death.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="hestia goddess of the hearth &amp; home">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">15</div>
+      <div class="god-name-block">
+        <div class="god-name">Hestia</div>
+        <div class="god-title">Goddess of the Hearth &amp; Home</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Homeric Hymn to Hestia</span><span class="lit-tag">Theogony</span><span class="lit-tag">Hymn to Aphrodite</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Hestia was one of the original twelve Olympians, but when Dionysus rose to prominence, there were now thirteen gods for twelve seats. To prevent conflict, Hestia — sworn virgin — voluntarily yielded her place on Olympus to Dionysus and took her seat by the hearth fire at the center of every home. She has almost no narrative myths, yet she was the first deity invoked at every meal and the last thanked — the spiritual center of Greek domestic life.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="eros god of desire &amp; love (roman: cupid)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">16</div>
+      <div class="god-name-block">
+        <div class="god-name">Eros</div>
+        <div class="god-title">God of Desire &amp; Love (Roman: Cupid)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Metamorphoses (Cupid &amp; Psyche)</span><span class="lit-tag">Theogony</span><span class="lit-tag">Symposium (Plato)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Eros fell in love with the mortal princess Psyche but visited her only in darkness, forbidding her to see his face. Psyche, urged by her jealous sisters, lit a lamp one night and gazed at the sleeping god — a drop of hot oil woke him. Betrayed, Eros fled. Psyche was cast out to wander, completing impossible trials set by Aphrodite. Ultimately Zeus granted her immortality and reunited the lovers — one of the most influential love stories in Western literature.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="pan god of the wild · shepherds &amp; flocks">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">17</div>
+      <div class="god-name-block">
+        <div class="god-name">Pan</div>
+        <div class="god-title">God of the Wild · Shepherds &amp; Flocks</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Homeric Hymn to Pan</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Dialogues of the Gods (Lucian)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Pan pursued the nymph Syrinx, who fled his advances. When she reached the river Ladon and could run no further, she prayed to the water nymphs to transform her. She became a stand of hollow reeds. Pan, grasping at empty air, sighed — and the wind blowing through the reeds produced a haunting, mournful sound. Entranced, he cut the reeds at different lengths, bound them with wax, and invented the pan pipes (syrinx).</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="asclepius god of medicine &amp; healing">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">18</div>
+      <div class="god-name-block">
+        <div class="god-name">Asclepius</div>
+        <div class="god-title">God of Medicine &amp; Healing</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Pythian Odes (Pindar)</span><span class="lit-tag">Theogony</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Asclepius, son of Apollo, became so skilled he could raise the dead. He resurrected several fallen heroes, violating the natural order between mortal and divine. Hades — angered at losing subjects — complained to Zeus. Zeus struck Asclepius dead with a thunderbolt. Apollo, enraged at his son&#x27;s death, killed the Cyclopes who forged Zeus&#x27;s weapons. Asclepius was later placed among the stars as Ophiuchus, the serpent-bearer.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="nike goddess of victory">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">19</div>
+      <div class="god-name-block">
+        <div class="god-name">Nike</div>
+        <div class="god-title">Goddess of Victory</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Iliad</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Nike was the daughter of the Titan Pallas and the river nymph Styx. During the Titanomachy, Styx was the first to side with Zeus, bringing her children — Nike, Zelus, Kratos, and Bia — to fight for the Olympians. Nike served as Zeus&#x27;s charioteer and personal attendant, standing beside his throne. She has little narrative mythology — she is a concept given form — but her image (the winged Victory) became one of the most reproduced in Greek art.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="thanatos god of peaceful death (personification)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">20</div>
+      <div class="god-name-block">
+        <div class="god-name">Thanatos</div>
+        <div class="god-title">God of Peaceful Death (Personification)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Theogony</span><span class="lit-tag">Alcestis (Euripides)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">When Zeus sent Thanatos to chain Sisyphus, the cunning king asked the death god to demonstrate how the chains worked, then snapped them shut on Thanatos himself. With Death bound, no one could die. Warriors on battlefields were cut to pieces yet kept breathing. Ares, frustrated that war had lost its point, freed Thanatos and delivered Sisyphus to him. Sisyphus had one last trick: he convinced Hades to let him return to punish his wife — and never came back. Hades condemned him to roll a boulder up a hill for eternity.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="cronus titan king · father of the olympians">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">21</div>
+      <div class="god-name-block">
+        <div class="god-name">Cronus</div>
+        <div class="god-title">Titan King · Father of the Olympians</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Cronus castrated his father Uranus with a sickle at his mother Gaia&#x27;s bidding, seizing the throne of the cosmos. But Uranus prophesied that Cronus would likewise be overthrown by his own child. So Cronus swallowed each of his children at birth — Hestia, Demeter, Hera, Hades, Poseidon. Rhea hid the sixth, Zeus, giving Cronus a stone wrapped in swaddling clothes instead. Zeus grew to manhood, forced Cronus to vomit up his siblings, and led them in the Titanomachy — the ten-year war that ended Cronus&#x27;s reign and imprisoned him in Tartarus.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="gaia primordial earth · mother of all">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">22</div>
+      <div class="god-name-block">
+        <div class="god-name">Gaia</div>
+        <div class="god-title">Primordial Earth · Mother of All</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Gaia (Earth) emerged from Chaos at the beginning of creation. She gave birth to Uranus (Sky), then mated with him to produce the Titans, the Cyclopes, and the Hecatoncheires. When Uranus imprisoned the Cyclopes and Hecatoncheires within her, the pain was unbearable. She forged a sickle and gave it to her youngest Titan son, Cronus, who castrated Uranus. From the drops of blood fell the Giants, the Erinyes, and the Meliae. Gaia continued to stir rebellion — birthing the monster Typhon to challenge Zeus even after the Olympians won.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="uranus primordial sky · father of the titans">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">23</div>
+      <div class="god-name-block">
+        <div class="god-name">Uranus</div>
+        <div class="god-title">Primordial Sky · Father of the Titans</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Uranus was the sky itself, born from Gaia. He mated with his mother each night, but hated his children — shoving the Cyclopes and Hecatoncheires back into Gaia&#x27;s womb. The agony drove Gaia to plot rebellion. She gave her youngest son Cronus an adamantine sickle. When Uranus next descended to lie with Gaia, Cronus leapt from hiding and castrated him. The severed genitals fell into the sea, and from the foam arose Aphrodite. From the blood fell the Giants and the Erinyes. Uranus retreated to the heavens, never to intervene in earthly affairs again.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="rhea titaness · mother of the olympians">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">24</div>
+      <div class="god-name-block">
+        <div class="god-name">Rhea</div>
+        <div class="god-title">Titaness · Mother of the Olympians</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Homeric Hymn to Cybele</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Rhea, wife and sister of Cronus, watched helplessly as he swallowed each of their children. When the sixth, Zeus, was born, she wrapped a stone in swaddling clothes and handed it to Cronus, who swallowed it unsuspecting. She hid Zeus on Crete, where the Kouretes clashed their shields to mask his crying. Years later, Zeus returned, forced Cronus to regurgitate his siblings, and Rhea&#x27;s children won the Titanomachy. She is the archetype of maternal protection — the mother who saved the future of the cosmos through a single deception.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="prometheus titan · creator &amp; champion of humanity">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">25</div>
+      <div class="god-name-block">
+        <div class="god-name">Prometheus</div>
+        <div class="god-title">Titan · Creator &amp; Champion of Humanity</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Works and Days (Hesiod)</span><span class="lit-tag">Prometheus Bound (Aeschylus)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Prometheus tricked Zeus at Mecone into choosing the bones and fat of a sacrificed ox while leaving the best meat for mortals. In anger, Zeus hid fire from humanity. Prometheus stole it back, hiding it in a fennel stalk, and gave it to mortals. Zeus retaliated by having Hephaestus chain Prometheus to a pillar in the Caucasus, where an eagle ate his liver each day — it regrew each night, eternal torment. He endured this for 30,000 years until Heracles slew the eagle and freed him. Prometheus is the great culture-hero of Greek myth — the defiant benefactor of the human race.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="atlas titan · bearer of the heavens">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">26</div>
+      <div class="god-name-block">
+        <div class="god-name">Atlas</div>
+        <div class="god-title">Titan · Bearer of the Heavens</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey</span><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">After the Titanomachy, Zeus condemned Atlas — who had fought against the Olympians — to hold up the sky for eternity at the western edge of the world. During his Eleventh Labor, Heracles encountered Atlas and offered to hold the sky temporarily if Atlas would fetch the golden apples of the Hesperides. Atlas retrieved them — then refused to take the sky back, intending to leave Heracles trapped. Heracles agreed to continue, asking only that Atlas hold the sky for a moment while he adjusted his cloak. Atlas took the burden — and Heracles walked away with the apples, leaving Atlas to his eternal sentence.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="epimetheus titan · father of afterthought">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">27</div>
+      <div class="god-name-block">
+        <div class="god-name">Epimetheus</div>
+        <div class="god-title">Titan · Father of Afterthought</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Works and Days</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Epimetheus, brother of Prometheus (&#x27;Forethought&#x27;), was given Pandora by Zeus as a &#x27;gift&#x27; for mankind. Prometheus had warned him never to accept gifts from Zeus, but Epimetheus — true to his name, &#x27;Afterthought&#x27; — forgot the warning and took Pandora as his wife. She opened the jar, unleashing all evils upon the world. Where Prometheus gave humanity fire and foresight, Epimetheus&#x27;s carelessness gave them suffering. The two brothers embody the tension between planning and impulse in the human condition.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="themis titaness · divine law &amp; order">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">28</div>
+      <div class="god-name-block">
+        <div class="god-name">Themis</div>
+        <div class="god-title">Titaness · Divine Law &amp; Order</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Prometheus Bound</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Themis was the personification of divine law, order, and custom — theRules of the cosmos that even Zeus was bound to respect. She sat beside Zeus on Olympus as his counselor and was the mother of the Horae (Seasons) and the Moirai (Fates). In Prometheus Bound, it is Themis who prophesies that a son of Zeus would one day overthrow him — a secret Prometheus knew and refused to reveal, even under torture. She represents the principle that law precedes power.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="mnemosyne titaness · memory &amp; mother of the muses">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">29</div>
+      <div class="god-name-block">
+        <div class="god-name">Mnemosyne</div>
+        <div class="god-title">Titaness · Memory &amp; Mother of the Muses</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Homeric Hymns</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Mnemosyne, titaness of memory, was visited by Zeus for nine consecutive nights. From this union were born the nine Muses — Calliope, Clio, Erato, Euterpe, Melpomene, Polyhymnia, Terpsichore, Thalia, and Urania — the goddesses of artistic inspiration. In Greek thought, memory was not nostalgia but the faculty that made knowledge and oral tradition possible. Without Mnemosyne, there would be no poetry, no history, no song. She was invoked by bards before every performance.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="hyperion titan of light · father of the sun &amp; moon">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">30</div>
+      <div class="god-name-block">
+        <div class="god-name">Hyperion</div>
+        <div class="god-title">Titan of Light · Father of the Sun &amp; Moon</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Hyperion (a lost epic)</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Hyperion, titan of heavenly light, fathered three children with his sister Theia: Helios (the Sun), Selene (the Moon), and Eos (the Dawn). After the Titanomachy, his children retained their roles in the cosmos. Hyperion himself appears rarely as a character — he is the generation of light, the ancestor of the celestial bodies that illuminate the world. In some accounts he was imprisoned in Tartarus with the other Titans; in others, his children&#x27;s importance spared him.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="theia titaness of sight &amp; the shining blue">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">31</div>
+      <div class="god-name-block">
+        <div class="god-name">Theia</div>
+        <div class="god-title">Titaness of Sight &amp; the Shining Blue</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Theia, whose name means &#x27;divine&#x27; or &#x27;shining,&#x27; was the titaness associated with the value of precious metals and gems — anything that shone. With her brother Hyperion she bore Helios (Sun), Selene (Moon), and Eos (Dawn). The Greeks understood light not merely as a physical phenomenon but as the gift of sight itself — Theia&#x27;s domain. She appears only in genealogies, but her children illuminate every myth that follows.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="oceanus titan of the great encircling river">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">32</div>
+      <div class="god-name-block">
+        <div class="god-name">Oceanus</div>
+        <div class="god-title">Titan of the Great Encircling River</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Oceanus was the great river that encircled the flat earth, the source of all fresh water — springs, wells, and the deep sea. Unlike his Titan siblings, he did not fight against Zeus in the Titanomachy. He and his wife Tethys produced 3,000 sons (the river gods) and 3,000 daughters (the Oceanids). In the Iliad, Hera invokes Oceanus and Tethys as her foster parents. He remained neutral — the great, passive body of water that bounded the world.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="tethys titaness of the sea · mother of rivers">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">33</div>
+      <div class="god-name-block">
+        <div class="god-name">Tethys</div>
+        <div class="god-title">Titaness of the Sea · Mother of Rivers</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Tethys, wife of Oceanus and mother of the world&#x27;s rivers and the 3,000 Oceanids, was the great fertile source of all water. She and Oceanus raised Hera, who invoked them as her foster parents. In one tradition, Hera cursed Tethys&#x27;s marriage so that the Oceanids would never unite with their river-god lovers — a myth explaining why rivers and seas flow but never settle. Tethys appears only in genealogies, but her offspring water every myth.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="coeus titan of intellect &amp; the axis of heaven">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">34</div>
+      <div class="god-name-block">
+        <div class="god-name">Coeus</div>
+        <div class="god-title">Titan of Intellect &amp; the Axis of Heaven</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Hyperion (lost epic)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Coeus, titan of heavenly intelligence and the celestial axis, was the father of Leto (mother of Apollo and Artemis) and Asteria (mother of Hecate). His name may relate to the Greek &#x27;koios,&#x27; meaning &#x27;question&#x27; or &#x27;inquiry.&#x27; He represents the inquiring mind — the intellect that seeks the structure of the cosmos. After the Titanomachy, he was cast into Tartarus. Through his daughter Leto, his grandchildren Apollo and Artemis carried his legacy of cosmic knowledge onto Olympus.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="crius titan of the south · constellations">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">35</div>
+      <div class="god-name-block">
+        <div class="god-name">Crius</div>
+        <div class="god-title">Titan of the South · Constellations</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Crius (the &#x27;Ram&#x27;) was associated with the constellation Aries and the southern direction. He fathered Astraeus (god of stars and winds), Pallas (father of Nike), and Perses (father of Hecate) with his wife Eurybia. Crius appears only in genealogies, but his grandchildren — Nike, Hecate, the winds — are some of the most active figures in Greek myth. He represents the Titan generation&#x27;s connection to the stars and the turning of the heavens.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="iapetus titan of mortality · father of the forethinker">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">36</div>
+      <div class="god-name-block">
+        <div class="god-name">Iapetus</div>
+        <div class="god-title">Titan of Mortality · Father of the Forethinker</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Works and Days</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Iapetus was the father of Prometheus, Epimetheus, Menoetius, and Atlas — the Titans whose destinies were most entangled with humanity. Prometheus created and defended mortals; Epimetheus accepted Pandora; Atlas held the sky; Menoetius was cast into Tartarus for his violence during the Titanomachy. Iapetus himself does not appear as a character in any surviving narrative, but through his sons he is the patriarch of the Titans&#x27; relationship with the human race — the lineage that gave us fire, suffering, and the will to endure.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="phoebe titaness of bright intellect · the oracle">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">37</div>
+      <div class="god-name-block">
+        <div class="god-name">Phoebe</div>
+        <div class="god-title">Titaness of Bright Intellect · the Oracle</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Eumenides (Aeschylus)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Phoebe (&#x27;Bright&#x27;), wife of Coeus, was the titaness of intellectual radiance. She was the original holder of the Delphic Oracle — the prophetic seat at Delphi — which she gifted to her grandson Apollo on his birthday. In Aeschylus&#x27;s Eumenides, the Pythia (Apollo&#x27;s priestess) begins her prayer by invoking Phoebe&#x27;s lineage. Through her daughter Leto and grandchildren Apollo and Artemis, Phoebe&#x27;s brightness flows into the prophetic and lunar traditions of the Olympian order.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="eos goddess of the dawn (roman: aurora)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">38</div>
+      <div class="god-name-block">
+        <div class="god-name">Eos</div>
+        <div class="god-title">Goddess of the Dawn (Roman: Aurora)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey</span><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Eos, daughter of the Titans Hyperion and Theia, rose each morning from the river Oceanus in a saffron-robed chariot drawn by two horses, opening the gates of heaven for Helios (Sun). She was cursed by Aphrodite with insatiable desire for mortal men — her lovers included Orion, Tithonus, Cleitus, and Cephalus. She asked Zeus to grant Tithonus immortality but forgot to ask for eternal youth, so he withered and shriveled for centuries until she shut him in a room where he became the cicada. From Tithonus she bore Memnon, the Ethiopian king who died at Troy.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="helios god of the sun (roman: sol)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">39</div>
+      <div class="god-name-block">
+        <div class="god-name">Helios</div>
+        <div class="god-title">God of the Sun (Roman: Sol)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Theogony</span><span class="lit-tag">Homeric Hymn to Helios</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Helios drove his blazing chariot across the sky each day and returned to the east at night in a golden cup. He saw everything — it was he who reported Aphrodite and Ares&#x27;s affair to Hephaestus. When Odysseus&#x27;s crew slaughtered his sacred cattle on Thrinacia, Helios demanded Zeus punish them or he would descend into the underworld and shine among the dead. Zeus struck their ship with a thunderbolt; only Odysseus survived. His son Phaethon borrowed the chariot, lost control, and scorched the earth until Zeus struck him dead with a thunderbolt.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="selene goddess of the moon (roman: luna)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">40</div>
+      <div class="god-name-block">
+        <div class="god-name">Selene</div>
+        <div class="god-title">Goddess of the Moon (Roman: Luna)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymn to Selene</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Selene drove her silver chariot across the night sky, her pale light falling on the sleeping earth. She fell in love with the beautiful mortal shepherd Endymion. To preserve him forever, she asked Zeus to grant him eternal sleep in a cave on Mount Latmos — where she descended each night to gaze upon his sleeping face. From their union were born fifty daughters. Some traditions say Endymion chose eternal sleep himself, so that he might never age and never lose Selene&#x27;s love.</div>
+      </div>
+    </div>
+  </div><div class="tier-divider">Personifications — Concepts & Abstract Deities</div><div class="god-card" data-search="eris goddess of strife &amp; discord (roman: discordia)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">41</div>
+      <div class="god-name-block">
+        <div class="god-name">Eris</div>
+        <div class="god-title">Goddess of Strife &amp; Discord (Roman: Discordia)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Works and Days</span><span class="lit-tag">Cypria (lost epic)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Eris was not invited to the wedding of Peleus and Thetis. In vengeance, she tossed into the feast a golden apple inscribed &#x27;to the fairest.&#x27; Hera, Athena, and Aphrodite fought over it, and the Judgment of Paris followed — leading to the Trojan War. In the Iliad, Eris stalks the battlefield delighting in bloodshed. Hesiod distinguished two Erides: one of violent strife and war, one of productive competition that drives humanity to excel. The latter, he said, was the better — a spur to achievement.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="eileithyia goddess of childbirth &amp; labor">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">42</div>
+      <div class="god-name-block">
+        <div class="god-name">Eileithyia</div>
+        <div class="god-title">Goddess of Childbirth &amp; Labor</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Homeric Hymn to Apollo</span><span class="lit-tag">Odyssey</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Eileithyia, daughter of Hera and Zeus, was the goddess of the pains of childbirth. When Leto was in labor with Apollo and Artemis, Hera — jealous of Zeus&#x27;s affair — kept Eileithyia away, delaying the birth for nine days until the goddess of childbirth was finally summoned from Olympus. Leto clung to a palm tree on Delos, and Eileithyia oversaw the delivery. The Homeric Hymn to Delian Apollo describes this scene — the moment the god of light entered the world hinged entirely on Eileithyia&#x27;s arrival.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="hebe goddess of youth · cupbearer of olympus">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">43</div>
+      <div class="god-name-block">
+        <div class="god-name">Hebe</div>
+        <div class="god-title">Goddess of Youth · Cupbearer of Olympus</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Nemean Odes (Pindar)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Hebe, daughter of Zeus and Hera, served as cupbearer to the Olympians, pouring nectar and ambrosia until Ganymede replaced her. After Heracles completed his Twelve Labors and was deified, Zeus gave Hebe to him as his bride — a reward for his suffering. She bore him two sons, Alexiares and Anicetus. Her name means &#x27;youth,&#x27; and she embodies the bloom of prime life. When Pindar celebrates Heracles&#x27;s apotheosis, it is Hebe who crowns the transition from suffering to eternal vigor.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="iris goddess of the rainbow · messenger of hera">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">44</div>
+      <div class="god-name-block">
+        <div class="god-name">Iris</div>
+        <div class="god-title">Goddess of the Rainbow · Messenger of Hera</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Theogony</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Iris was the personification of the rainbow and the messenger of the gods — specifically of Hera, while Hermes served Zeus. In the Iliad, Zeus sends Iris to summon the gods to assembly and to warn Poseidon to withdraw from the battlefield. She travels on the rainbow&#x27;s arc, faster than the wind. Unlike Hermes, she rarely speaks or acts independently. In the Metamorphoses, she descends to the sleeping Morpheus&#x27;s cave to fetch a dream-image for Hera — a vivid scene of her navigating the underworld of sleep.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="tyche goddess of fortune, luck &amp; chance (roman: fortuna)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">45</div>
+      <div class="god-name-block">
+        <div class="god-name">Tyche</div>
+        <div class="god-title">Goddess of Fortune, Luck &amp; Chance (Roman: Fortuna)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Hymns of Callimachus</span><span class="lit-tag">Idylls (Theocritus)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Tyche was the daughter of Oceanus (in some accounts) and the personification of fortune — both good and bad. She was depicted with a cornucopia (abundance) and a rudder (steering destiny), sometimes blindfolded or standing on a ball (unpredictability). In the Hellenistic period she became one of the most popular deities — the patron of cities, especially Antioch, where a famous statue by Eutychides depicted her crowned with city walls. Theocritus invokes her as the power that can raise the lowly and cast down the mighty.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="nemesis goddess of retribution &amp; vengeance">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">46</div>
+      <div class="god-name-block">
+        <div class="god-name">Nemesis</div>
+        <div class="god-title">Goddess of Retribution &amp; Vengeance</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Cypria</span><span class="lit-tag">Hymns of Callimachus</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Nemesis was the goddess of divine retribution — the inevitability that arrogance (hubris) would be punished. In one tradition, Zeus pursued her, and she fled across the earth in various animal forms until, as a goose, she was caught. From their union came Helen of Troy — the woman whose beauty would bring the destruction of Troy. In another version, Nemesis, disgusted by Zeus&#x27;s advances, laid an egg that Leda found and from which Helen hatched. Nemesis embodies the Greek conviction that the universe balances the scales.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="nike (victoria) goddess of victory">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">47</div>
+      <div class="god-name-block">
+        <div class="god-name">Nike (Victoria)</div>
+        <div class="god-title">Goddess of Victory</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Iliad</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Nike was the daughter of the Titan Pallas and the river nymph Styx. During the Titanomachy, Styx was the first to side with Zeus, bringing her children — Nike, Zelus, Kratos, and Bia — to fight for the Olympians. Nike served as Zeus&#x27;s charioteer and personal attendant, standing beside his throne. She has little narrative mythology — she is a concept given form — but her image (the winged Victory) became one of the most reproduced in Greek art, culminating in the Winged Victory of Samothrace.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="dike goddess of moral justice">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">48</div>
+      <div class="god-name-block">
+        <div class="god-name">Dike</div>
+        <div class="god-title">Goddess of Moral Justice</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Works and Days</span><span class="lit-tag">Theogony</span><span class="lit-tag">Fragments of Anaximander</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Dike, daughter of Zeus and Themis, was the personification of moral justice and fair judgment. In Hesiod&#x27;s Works and Days, she warns that the city that practices injustice will suffer — Dike sits beside her father Zeus and reports the wrongs of men, and he punishes the whole community for the sins of its judges. In the myth of the Ages of Man, Dike was the last goddess to abandon the earth during the Bronze Age, fleeing to the heavens to become the constellation Virgo.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="eirene goddess of peace (roman: pax)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">49</div>
+      <div class="god-name-block">
+        <div class="god-name">Eirene</div>
+        <div class="god-title">Goddess of Peace (Roman: Pax)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Works and Days</span><span class="lit-tag">Peace (Aristophanes)</span><span class="lit-tag">Hymns of Callimachus</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Eirene, daughter of Zeus and Themis and one of the three Horae, was the personification of peace. She was worshipped as the guardian of seasonal order and agricultural prosperity — peace meant the fields could be tended and the harvest secured. Aristophanes&#x27; comedy Peace satirizes the yearning for peace during the Peloponnesian War: the protagonist Trygaeus rides a dung beetle to heaven to rescue Eirene, who has been buried in a pit by War. The cult of Eirene was established in Athens after the Peace of Nicias (421 BCE).</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="horae goddesses of the seasons &amp; natural order">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">50</div>
+      <div class="god-name-block">
+        <div class="god-name">Horae</div>
+        <div class="god-title">Goddesses of the Seasons &amp; Natural Order</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Works and Days</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">The Horae (Seasons) were daughters of Zeus and Themis. In Hesiod they were three: Dike (Justice), Eirene (Peace), and Eunomia (Good Order). In the Athenian tradition they were Thallo (Bloom — Spring), Auxo (Increase — Summer), and Carpo (Fruit — Autumn). They guarded the gates of Olympus, opening and closing the clouds, and regulated the cycle of vegetation. In the Homeric Hymn to Apollo, they adorn the god&#x27;s hair with flowers. They are the gentlest of the divine order — the personification of a cosmos running as it should.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="moirai (fates) the three fates · spinners of destiny">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">51</div>
+      <div class="god-name-block">
+        <div class="god-name">Moirai (Fates)</div>
+        <div class="god-title">The Three Fates · Spinners of Destiny</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Prometheus Bound</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">The Moirai — Clotho (the Spinner, who spun the thread of life), Lachesis (the Apportioner, who measured its length), and Atropos (the Inflexible, who cut it) — controlled the destiny of every mortal and even the gods. Even Zeus was said to be subject to them in some traditions. In the Iliad, they are described as spinning at the birth of a child. In the Odyssey, the suitors&#x27; doom is sealed by their thread. In Aeschylus, Prometheus defies Zeus by knowing a Fate-secret: a son of Zeus would overthrow him. No one escapes Atropos&#x27;s scissors.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="keres spirits of violent death">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">52</div>
+      <div class="god-name-block">
+        <div class="god-name">Keres</div>
+        <div class="god-title">Spirits of Violent Death</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Theogony</span><span class="lit-tag">Shield of Heracles</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">The Keres were dark female spirits who personified violent death — battle-slaughter, disease, accident. In the Iliad, they swarm the battlefield, drinking the blood of the fallen and dragging the dead. They are described as black, ravenous, and insatiable. When a warrior fell, the Ker claimed him. Hesiod names them daughters of Nyx (Night). They are the faceless horror of war — the impersonal death that the heroic code struggles to dignify. Achilles chooses between two Keres: a long obscure life or a short glorious one.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="moros god of impending doom">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">53</div>
+      <div class="god-name-block">
+        <div class="god-name">Moros</div>
+        <div class="god-title">God of Impending Doom</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Prometheus Bound</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Moros, son of Nyx (Night), was the personification of inevitable doom — the fate that hangs over every mortal and even the gods. In Prometheus Bound, Prometheus tells that Zeus cannot escape Moros — even the king of the gods will face his destiny. Moros is related to the Moirai but represents something darker: not the measured thread of fate, but the approaching catastrophe that cannot be averted. He is the shadow on the horizon — the doom that gives Greek tragedy its weight.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="geras god of old age">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">54</div>
+      <div class="god-name-block">
+        <div class="god-name">Geras</div>
+        <div class="god-title">God of Old Age</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Theogony</span><span class="lit-tag">Fragments of Mimnermus</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Geras, son of Nyx, was the personification of old age. In the Iliad, Sarpedon declares that the gods have given men the gift of Geras — the mark of age — so that the young may know what awaits them and fight bravely. The poet Mimnermus lamented old age as a misery: &#x27;There is no joy in Geras, which brings every evil.&#x27; In a lost epic, Heracles and Geras were depicted wrestling on a vase — Heracles symbolically defeating old age, a feat no mortal could achieve. Geras is the relentlessness of time made flesh.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="hypnos god of sleep (roman: somnus)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">55</div>
+      <div class="god-name-block">
+        <div class="god-name">Hypnos</div>
+        <div class="god-title">God of Sleep (Roman: Somnus)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Theogony</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Hypnos, son of Nyx and twin brother of Thanatos (Death), was the god of sleep. He lived in a dark cave in the underworld where no sound or light entered, surrounded by poppies. In the Iliad, Hera persuaded him to put Zeus to sleep so Poseidon could aid the Greeks — promising him a golden throne crafted by Hephaestus. When Zeus woke and discovered the deception, Hypnos fled to Nyx, whom even Zeus feared to cross. In Ovid, Hypnos has a thousand sons, the Oneiroi (Dreams), including Morpheus, who shapes human forms in dreams.</div>
+      </div>
+    </div>
+  </div><div class="tier-divider">Sea & Nature — Winds, Waters & Wild Gods</div><div class="god-card" data-search="triton god of the sea · son of poseidon">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">56</div>
+      <div class="god-name-block">
+        <div class="god-name">Triton</div>
+        <div class="god-title">God of the Sea · Son of Poseidon</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey</span><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Argonautica</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Triton, son of Poseidon and Amphitrite, was a merman — human above the waist, fish below. He dwelt in a golden palace under the sea and blew a conch shell trumpet to calm or raise the waves. In the Argonautica, he guided the Argo through the Libyan lake of Tritonis and gave the hero Euphemus a clod of earth that became the island of Thera. In the Odyssey, he appears among the marine deities. His conch could calm or terrify the seas, making him the voice of his father&#x27;s domain.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="amphitrite goddess of the sea · queen of the waters">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">57</div>
+      <div class="god-name-block">
+        <div class="god-name">Amphitrite</div>
+        <div class="god-title">Goddess of the Sea · Queen of the Waters</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey</span><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Amphitrite, daughter of Nereus and Doris, became Poseidon&#x27;s queen. According to myth, she fled his advances to the Atlas mountains, but Delphinus the dolphin found her and persuaded her to return. Poseidon rewarded the dolphin with a place among the stars. Amphitrite rarely acts as a character in myth — she is the dignified but overshadowed consort of the volatile sea god. She appears in the Odyssey seated beside Poseidon, and in art she drives a chariot drawn by hippocampi (sea horses).</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="nereus old man of the sea · father of the nereids">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">58</div>
+      <div class="god-name-block">
+        <div class="god-name">Nereus</div>
+        <div class="god-title">Old Man of the Sea · Father of the Nereids</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Iliad</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Nereus, son of Pontus (Sea) and Gaia (Earth), was the gentle, truthful old man of the sea. He had the power of prophecy and the ability to change shape. When Heracles seized him to learn the path to the Hesperides&#x27; garden, Nereus shifted into fire, water, and beasts — but Heracles held on until the old god yielded. Like Proteus, he represents the sea&#x27;s ancient wisdom — truthful but elusive, requiring force or persistence to extract his knowledge.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="proteus shapeshifting sea god · the old man">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">59</div>
+      <div class="god-name-block">
+        <div class="god-name">Proteus</div>
+        <div class="god-title">Shapeshifting Sea God · the Old Man</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Georgics (Virgil)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Proteus, a sea god who served Poseidon as a herdsman of seals, had the gift of prophecy and the power to change shape at will. In the Odyssey, Menelaus trapped him by seizing him while he slept among his seals; Proteus transformed into a lion, a serpent, a leopard, a pig, water, and a tree — but Menelaus held fast. Defeated, Proteus answered his questions: the way home, the fates of his comrades, and that Odysseus was alive on Calypso&#x27;s island. He embodies the truth that must be wrestled from the shape-shifting sea.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="glaucus mortal fisherman turned sea god">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">60</div>
+      <div class="god-name-block">
+        <div class="god-name">Glaucus</div>
+        <div class="god-title">Mortal Fisherman Turned Sea God</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Argonautica</span><span class="lit-tag">Dialogues of the Gods (Lucian)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Glaucus was a mortal fisherman who ate a magical herb and felt an irresistible compulsion to dive into the sea. The gods transformed him into a merman with a fish tail and sea-green hair. He fell in love with the nymph Scylla, but she was horrified by his form and fled. In despair, Glaucus went to Circe for a love potion — but Circe fell in love with him instead. When he rejected her, Circe poisoned Scylla&#x27;s bathing pool, transforming her into the six-headed monster that would devour sailors in the strait of Messina.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="pontus primordial god of the sea">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">61</div>
+      <div class="god-name-block">
+        <div class="god-name">Pontus</div>
+        <div class="god-title">Primordial God of the Sea</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Pontus was the primordial sea itself — not the god of the sea (that was Poseidon&#x27;s later role), but the sea as a cosmic entity, born from Gaia without a father. He fathered Nereus (the Old Man of the Sea), Thaumas, Phorcys, Ceto, and Eurybia with Gaia. His children and grandchildren populated the deep: the Nereids, the Graeae, the Gorgons, the Hecatoncheires. Pontus is the ancient, pre-Olympian sea — the dark, formless depth from which the later sea gods descended.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="nereids sea nymphs · daughters of nereus">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">62</div>
+      <div class="god-name-block">
+        <div class="god-name">Nereids</div>
+        <div class="god-title">Sea Nymphs · Daughters of Nereus</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Argonautica</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">The Nereids were fifty sea nymphs, daughters of Nereus and Doris. The most famous was Thetis, mother of Achilles. When Achilles cried out for Patroclus, his mother Thetis rose from the deep with her sisters — all weeping — to comfort him. In the Argonautica, the Nereids guide the Argo through the Clashing Rocks. When Cassiopeia boasted she was more beautiful than the Nereids, they sent a sea monster to ravage Ethiopia, setting in motion the saga of Perseus and Andromeda.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="aeolus keeper of the winds">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">63</div>
+      <div class="god-name-block">
+        <div class="god-name">Aeolus</div>
+        <div class="god-title">Keeper of the Winds</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey</span><span class="lit-tag">Aeneid</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Aeolus, appointed by Zeus as keeper of the winds, stored them in a cave on the island of Aeolia. When Odysseus arrived, Aeolus gave him a favorable west wind and bound all the adverse winds in a leather bag. For nine days Odysseus sailed toward Ithaca — but as he slept, his crew, believing the bag held treasure, opened it. The storms burst out and drove the fleet back to Aeolia. Aeolus, seeing the gods&#x27; hostility, refused to help again. A single act of greed and mistrust cost Odysseus his homecoming.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="boreas god of the north wind (roman: aquilo)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">64</div>
+      <div class="god-name-block">
+        <div class="god-name">Boreas</div>
+        <div class="god-title">God of the North Wind (Roman: Aquilo)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Boreas, son of the dawn goddess Eos and the Titan Astraeus, was the violent north wind. He was depicted as a winged man with a shaggy beard. He abducted Orithyia, an Athenian princess, and carried her to Thrace, where she became his wife and bore him twin sons, the Boreads — Zetes and Calais, who flew with the Argonauts. When the Persians invaded Greece, the Athenians prayed to Boreas (their son-in-law by marriage) and a storm destroyed 400 Persian ships.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="zephyrus god of the west wind (roman: favonius)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">65</div>
+      <div class="god-name-block">
+        <div class="god-name">Zephyrus</div>
+        <div class="god-title">God of the West Wind (Roman: Favonius)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Zephyrus, the gentle west wind, was the mildest of the wind gods. He was a rival of Apollo for the love of the Spartan youth Hyacinthus. When Apollo and Hyacinthus were throwing the discus, Zephyrus — in jealousy — blew the discus off course, striking and killing the boy. From the blood Apollo created the hyacinth flower. Zephyrus also loved the goddess Chloris (Flora), whom he married and made the goddess of flowers. He is the wind of spring — gentle but capable of destructive jealousy.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="notus god of the south wind (roman: auster)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">66</div>
+      <div class="god-name-block">
+        <div class="god-name">Notus</div>
+        <div class="god-title">God of the South Wind (Roman: Auster)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Theogony</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Notus was the god of the south wind, bringer of the hot, moist winds of late summer and autumn — storms that could destroy the harvest. In the Odyssey, Notus is blamed for blowing Odysseus off course. He was associated with the dog star Sirius and the oppressive heat of late summer that the Greeks believed brought fever and madness. He is rarely a character — more a force to be feared, the wind that withers crops and sends ships astray.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="eurus god of the east wind (roman: vulturnus)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">67</div>
+      <div class="god-name-block">
+        <div class="god-name">Eurus</div>
+        <div class="god-title">God of the East Wind (Roman: Vulturnus)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Eurus, the east wind, was associated with warm, damp weather and was considered unlucky for sailors. In the Odyssey, Eurus is mentioned alongside the other winds that drove Odysseus astray. He is the least individuated of the four wind gods — often merely listed in catalogs. But he plays a key role in the storm scenes: when Aeolus&#x27;s bag is opened, it is Eurus alongside Notus and the other winds that scatter the fleet and dash Odysseus&#x27;s hopes of home.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="chiron centaur · wisest of the half-beasts">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">68</div>
+      <div class="god-name-block">
+        <div class="god-name">Chiron</div>
+        <div class="god-title">Centaur · Wisest of the Half-Beasts</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Pythian Odes (Pindar)</span><span class="lit-tag">Argonautica</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Chiron was not like other centaurs — he was civilized, immortal, and the greatest teacher of heroes. He raised Jason, Achilles, Asclepius, and Heracles. He taught medicine, music, hunting, and prophecy. When Heracles, fighting the centaurs, accidentally struck Chiron with a poisoned arrow, the wound was agonizing but not fatal — Chiron was immortal. To end the pain, he traded his immortality to Prometheus (freeing the Titan from Zeus&#x27;s eagle), and Zeus placed Chiron among the stars as the constellation Sagittarius.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="silenus old satyr · foster-father of dionysus">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">69</div>
+      <div class="god-name-block">
+        <div class="god-name">Silenus</div>
+        <div class="god-title">Old Satyr · Foster-Father of Dionysus</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Idylls (Theocritus)</span><span class="lit-tag">Cyclops (Euripides)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Silenus, the oldest and wisest of the satyrs, was the foster-father and tutor of Dionysus. He rode a donkey because he was perpetually drunk. In a famous episode, King Midas captured the drunken Silenus by plying his donkey with wine. Silenus told Midas that the best thing for man was never to have been born — and the second best was to die soon. Midas, disturbed, let him go. In Euripides&#x27; Cyclops, Silenus and his satyrs are enslaved by Polyphemus, providing comic relief amid the horror.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="ariadne mortal princess deified · bride of dionysus">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">70</div>
+      <div class="god-name-block">
+        <div class="god-name">Ariadne</div>
+        <div class="god-title">Mortal Princess Deified · Bride of Dionysus</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Theogony</span><span class="lit-tag">Argonautica</span><span class="lit-tag">Hymns of Callimachus</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Ariadne, daughter of King Minos of Crete, fell in love with Theseus when he came to kill the Minotaur. She gave him a ball of thread to find his way out of the Labyrinth. Theseus promised to marry her — but abandoned her on the island of Naxos. Dionysus found her weeping, fell in love, and took her as his bride. He cast her wedding crown into the sky as the constellation Corona Borealis. In some versions, Dionysus promised her immortality. The mortal princess, betrayed by a hero, found eternal life with a god.</div>
+      </div>
+    </div>
+  </div><div class="tier-divider">Underworld — Chthonic & Death Deities</div><div class="god-card" data-search="charon ferryman of the dead">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">71</div>
+      <div class="god-name-block">
+        <div class="god-name">Charon</div>
+        <div class="god-title">Ferryman of the Dead</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Odyssey</span><span class="lit-tag">Aeneid</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Frogs (Aristophanes)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Charon, the grim ferryman of the underworld, transported the souls of the dead across the rivers Acheron and Styx — but only those who had received proper burial and could pay the obol (a coin placed under the corpse&#x27;s tongue). Those who couldn&#x27;t pay wandered the far bank for a hundred years. In the Odyssey, Odysseus doesn&#x27;t cross with Charon — he summons the dead to the river&#x27;s edge. In the Aeneid, Aeneas pays Charon and crosses. In Aristophanes&#x27; Frogs, Dionysus haggles with him for a discount — a rare comic appearance of death&#x27;s gatekeeper.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="cerberus three-headed hound of the underworld">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">72</div>
+      <div class="god-name-block">
+        <div class="god-name">Cerberus</div>
+        <div class="god-title">Three-Headed Hound of the Underworld</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymn to Heracles</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Cerberus, offspring of the monsters Echidna and Typhon, guarded the gate of the underworld — allowing the dead to enter but none to leave. He had three heads (in some accounts fifty or a hundred), a serpent&#x27;s tail, and snakes writhing from his mane. Heracles&#x27;s Twelfth Labor was to fetch Cerberus from Hades. Heracles asked Hades for permission; the god agreed, provided Heracles could subdue the beast without weapons. Heracles wrestled Cerberus into submission, carried him to Eurystheus, and returned him — the only living mortal to enter and leave the underworld by force.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="hecate goddess of magic, crossroads &amp; ghosts">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">73</div>
+      <div class="god-name-block">
+        <div class="god-name">Hecate</div>
+        <div class="god-title">Goddess of Magic, Crossroads &amp; Ghosts</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Medea (Euripides)</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymn to Demeter</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Hecate, titaness of the night and witchcraft, was the only Titan to retain her powers under Zeus&#x27;s rule. She was given dominion over earth, sea, and sky. In the Homeric Hymn to Demeter, it is Hecate — with torches blazing — who hears Persephone&#x27;s cry and helps Demeter search. She is the goddess of crossroads, where three roads meet, and was offered sacrifices of dogs at midnight. In the Medea, Medea invokes Hecate as the source of her witchcraft. She is the liminal goddess — the one who stands at the threshold between the living and the dead, the known and the unknown.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="erinyes (furies) three goddesses of vengeance">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">74</div>
+      <div class="god-name-block">
+        <div class="god-name">Erinyes (Furies)</div>
+        <div class="god-title">Three Goddesses of Vengeance</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Eumenides (Aeschylus)</span><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">The Erinyes — Alecto, Tisiphone, and Megaera — were born from the drops of blood that fell when Cronus castrated Uranus. They were the avengers of blood-guilt, especially the murder of kin. In Aeschylus&#x27;s Eumenides, they pursue Orestes for killing his mother Clytemnestra — driving him mad with their pursuit. But at the trial in Athens, Athena&#x27;s vote acquits Orestes, and the Furies are transformed into the Eumenides (&#x27;the Kindly Ones&#x27;), accepting a place in the new order of civic law. It is the foundational myth of justice replacing vendetta.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="eumenides the kindly ones · transformed furies">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">75</div>
+      <div class="god-name-block">
+        <div class="god-name">Eumenides</div>
+        <div class="god-title">The Kindly Ones · Transformed Furies</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Eumenides (Aeschylus)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">After Orestes was acquitted at the Areopagus, the Erinyes (Furies) threatened to devastate Athens. But Athena persuaded them to accept a new role: not vengeful hunters of blood-guilt, but benevolent guardians of the city&#x27;s justice. They were renamed the Eumenides — &#x27;the Kindly Ones&#x27; — and given a cave beneath the Areopagus. Aeschylus&#x27;s transformation of the terrifying Furies into civic benefactors is one of the most powerful moments in Greek drama — the moment raw vendetta yields to the rule of law.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="tartarus primordial deity of the abyss">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">76</div>
+      <div class="god-name-block">
+        <div class="god-name">Tartarus</div>
+        <div class="god-title">Primordial Deity of the Abyss</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Republic (Plato)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Tartarus was both a place — the deepest pit beneath the underworld, as far below Hades as earth is below heaven — and a primordial deity. As a god, Tartarus was born from Chaos alongside Gaia and Eros. He fathered Typhon, the most monstrous creature in Greek myth, with Gaia. The Titans were imprisoned in Tartarus after their defeat, guarded by the Hecatoncheires. In Plato&#x27;s Phaedo and Republic, Tartarus is where the wicked are eternally punished — Tityus, Tantalus, Sisyphus, and Ixion suffer there forever.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="erebus primordial god of darkness">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">77</div>
+      <div class="god-name-block">
+        <div class="god-name">Erebus</div>
+        <div class="god-title">Primordial God of Darkness</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Erebus was the personification of primordial darkness — the deep shadow that lay between the earth and the underworld, through which the dead had to pass. Born from Chaos, he mated with his sister Nyx (Night) to produce Aether (Light) and Hemera (Day), and other deities including the Moirai (Fates), Thanatos (Death), and Hypnos (Sleep). Erebus is rarely a character — he is the darkness itself, the void between the world of the living and the realm of the dead.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="nyx primordial goddess of night">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">78</div>
+      <div class="god-name-block">
+        <div class="god-name">Nyx</div>
+        <div class="god-title">Primordial Goddess of Night</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Iliad</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Nyx, primordial goddess of night, was one of the first beings to emerge from Chaos. She was so powerful that even Zeus feared her. In the Iliad, Hypnos flees to Nyx&#x27;s protection after angering Zeus — and Zeus &#x27;did not dare to pursue, for he feared to offend swift Nyx.&#x27; She bore numerous children without a father: Thanatos (Death), Hypnos (Sleep), the Moirai (Fates), Nemesis (Retribution), Eris (Strife), and the Keres (Violent Deaths). She is the great mother of the dark things that come to all mortals — sleep, death, strife, doom.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="erebos &amp; aether darkness &amp; upper light">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">79</div>
+      <div class="god-name-block">
+        <div class="god-name">Erebos &amp; Aether</div>
+        <div class="god-title">Darkness &amp; Upper Light</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Aether, son of Erebus (Darkness) and Nyx (Night), was the personification of the upper air — the pure, bright sky that the gods breathed, as opposed to the mortal air (aer) below. With his sister Hemera (Day), he brought light to the world each morning. He is rarely a character but is invoked in cult as one of the elements of creation. The distinction between aether and aer — divine air and mortal air — reflects the Greek separation of the divine and mundane spheres.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="hemera goddess of day">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">80</div>
+      <div class="god-name-block">
+        <div class="god-name">Hemera</div>
+        <div class="god-title">Goddess of Day</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Hemera, daughter of Erebus and Nyx, was the personification of day. She and her mother Nyx (Night) alternated — Hemera bringing daylight, Nyx bringing night — passing each other at dawn and dusk at the bronze threshold of the underworld. In some traditions, Hemera and Aether were lovers as well as siblings. She is a cosmic function given a name — the light that comes each morning, the opposite number of her mother&#x27;s dark. She has no narrative myths but is present in every dawn.</div>
+      </div>
+    </div>
+  </div><div class="tier-divider">Muses & Cult — Inspiration & Mystery Gods</div><div class="god-card" data-search="calliope muse of epic poetry · chief of the muses">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">81</div>
+      <div class="god-name-block">
+        <div class="god-name">Calliope</div>
+        <div class="god-title">Muse of Epic Poetry · Chief of the Muses</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Argonautica</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Calliope (&#x27;Beautiful-Voiced&#x27;), eldest and chief of the nine Muses, was the muse of epic poetry and eloquence. She was the mother of Orpheus by the river-god Oeagrus (or by Apollo in some versions). In the Argonautica, she is invoked at the start of the epic. Hesiod credits her with inspiring his Theogony. She is depicted with a writing tablet or a scroll, and in some traditions she judged the contest between Aphrodite and Persephone over Adonis, deciding he should spend a third of the year with each.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="clio muse of history">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">82</div>
+      <div class="god-name-block">
+        <div class="god-name">Clio</div>
+        <div class="god-title">Muse of History</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Clio (&#x27;the Proclaimer&#x27;) was the Muse of history. She is credited with introducing the Phoenician alphabet to Greece (in some accounts) and is depicted with a scroll and a set of tablets. She was the mother of Hyacinthus by Magnes (or, in some versions, by Oebalus). Though &#x27;history&#x27; as a genre came later than epic, Clio represents the impulse to record and preserve — the transformation of song into written record. She is invoked at the start of historical works and depicted in art with the tools of documentation.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="erato muse of love poetry &amp; mimicry">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">83</div>
+      <div class="god-name-block">
+        <div class="god-name">Erato</div>
+        <div class="god-title">Muse of Love Poetry &amp; Mimicry</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Erato (&#x27;the Lovely&#x27;) was the Muse of lyric and love poetry, especially wedding songs and mime. She is depicted with a lyre or a small lyre (cithara). In the Argonautica, she is invoked for the love of Jason and Medea. She was associated with inventing the dance and the hymeneal (wedding song). Erato represents the poetic voice that captures desire — not the divine love of Aphrodite, but the human experience of longing, courtship, and the joy of union.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="euterpe muse of music &amp; lyric poetry">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">84</div>
+      <div class="god-name-block">
+        <div class="god-name">Euterpe</div>
+        <div class="god-title">Muse of Music &amp; Lyric Poetry</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Euterpe (&#x27;the Giver of Delight&#x27;) was the Muse of music, song, and elegiac poetry. She is depicted playing the aulos (a double flute). She was the mother of Rhesus, the Thracian king who fought at Troy and was killed by Diomedes in the Iliad. The aulos she plays was associated with ecstatic cult music — wilder and more emotional than the lyre. Euterpe represents the power of music to move the soul directly, without words.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="melpomene muse of tragedy">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">85</div>
+      <div class="god-name-block">
+        <div class="god-name">Melpomene</div>
+        <div class="god-title">Muse of Tragedy</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Melpomene (&#x27;the Singer&#x27;) was the Muse of tragedy. She is depicted wearing a tragic mask and holding a sword or a club — the instruments of the violent deaths that tragic drama stages. She was the mother of the Sirens by the river-god Achelous (in some traditions). The Sirens&#x27; fatal song — luring sailors to their deaths — is the dark mirror of Melpomene&#x27;s art. She represents the Greek conviction that tragedy, the enactment of suffering and doom, is a sacred and serious art.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="terpsichore muse of dance &amp; choral song">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">86</div>
+      <div class="god-name-block">
+        <div class="god-name">Terpsichore</div>
+        <div class="god-title">Muse of Dance &amp; Choral Song</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Terpsichore (&#x27;Delight in Dancing&#x27;) was the Muse of dance and choral lyric. She is depicted seated with a lyre, leading the dance. She was the mother of the Sirens (in some traditions) and of Linus, the legendary musician. The Greek chorus — the communal voice that comments on tragic action — was her domain. She represents the embodied aspect of Greek performance: poetry was not merely spoken but sung and danced, the whole community moving together.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="polyhymnia muse of sacred song &amp; hymns">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">87</div>
+      <div class="god-name-block">
+        <div class="god-name">Polyhymnia</div>
+        <div class="god-title">Muse of Sacred Song &amp; Hymns</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Polyhymnia (&#x27;the Many-Hymned&#x27;) was the Muse of sacred song, oratory, and pantomime. She is depicted as a serious, meditative figure, often cloaked and without any attribute — reflecting the solemnity of religious hymn. She was associated with the art of gesture and silent prayer. Polyhymnia represents the aspect of poetry that addresses the divine — the hymn, the prayer, the invocation. Where other Muses serve human stories, she serves the channel between mortals and gods.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="thalia muse of comedy &amp; pastoral poetry">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">88</div>
+      <div class="god-name-block">
+        <div class="god-name">Thalia</div>
+        <div class="god-title">Muse of Comedy &amp; Pastoral Poetry</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Thalia (&#x27;the Festive&#x27;) was the Muse of comedy and idyllic poetry. She is depicted with a comic mask and a shepherd&#x27;s crook. She was the mother of the Palici, twin Sicilian deities, by Apollo. Her domain is the lighter side of the dramatic arts — the laughter that releases tension, the pastoral poem that celebrates rural peace. Where Melpomene stages doom, Thalia stages the absurd and the joyful. The comedic mask she carries is the twin of Melpomene&#x27;s tragic one.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="urania muse of astronomy &amp; astrology">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">89</div>
+      <div class="god-name-block">
+        <div class="god-name">Urania</div>
+        <div class="god-title">Muse of Astronomy &amp; Astrology</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Urania (&#x27;the Heavenly&#x27;) was the Muse of astronomy and the mathematical contemplation of the stars. She is depicted with a celestial globe and a compass. In Plato&#x27;s Republic, she is associated with the highest form of knowledge — the study of the eternal, the stars as the visible image of the divine order. She represents the Greek insight that astronomy and poetry share a root: both look to the heavens and seek the pattern beneath the chaos.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="charites (graces) three goddesses of grace, beauty &amp; joy">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">90</div>
+      <div class="god-name-block">
+        <div class="god-name">Charites (Graces)</div>
+        <div class="god-title">Three Goddesses of Grace, Beauty &amp; Joy</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">The Charites — Aglaia (Splendor), Euphrosyne (Mirth), and Thalia (Good Cheer) — were daughters of Zeus and the Oceanid Eurynome. They were the attendants of Aphrodite, dressing her and adorning her with jewels. They danced in the gardens of Olympus, bringing beauty and joy to gods and mortals. In the Iliad, they adorn Hera&#x27;s robe for her seduction of Zeus. They represent the visible, social dimension of beauty — not the raw desire of Aphrodite, but the charm that makes gatherings pleasant, art beautiful, and life worth living.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="kouretes guardian spirits of the infant zeus">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">91</div>
+      <div class="god-name-block">
+        <div class="god-name">Kouretes</div>
+        <div class="god-title">Guardian Spirits of the Infant Zeus</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Homeric Hymns</span><span class="lit-tag">Argonautica</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">When Rhea hid the infant Zeus in a cave on Crete to protect him from Cronus, the Kouretes — armed warrior spirits — danced around the cave, clashing their spears on their shields to drown out the baby&#x27;s cries. They are sometimes identified with the Corybantes, the frenzied attendants of Cybele. Their dance is the origin of the Cretan war-dance, the pyrrhiche. They represent the protective power of ritual noise — the idea that sacred sound can ward off danger and preserve what is holy.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="corybantes ecstatic dancers of cybele &amp; the great mother">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">92</div>
+      <div class="god-name-block">
+        <div class="god-name">Corybantes</div>
+        <div class="god-title">Ecstatic Dancers of Cybele &amp; the Great Mother</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span><span class="lit-tag">Argonautica</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">The Corybantes were the frenzied, drum-beating attendants of the Great Mother goddess (Cybele/Rhea). They danced in armor, drumming on shields and cymbals, entering ecstatic states. In some traditions they are identified with the Kouretes who protected the infant Zeus. In the Argonautica, the heroes land on the island of the goddess and witness the Corybantes&#x27; ecstatic rites. They represent the wild, percussive, trance-inducing dimension of Greek religion — the ecstatic cult that existed alongside the calm Olympian worship.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="cabeiri mystery cult gods of samothrace">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">93</div>
+      <div class="god-name-block">
+        <div class="god-name">Cabeiri</div>
+        <div class="god-title">Mystery Cult Gods of Samothrace</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Argonautica</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Historica (Herodotus)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">The Cabeiri were a group of mystery cult deities worshipped on the islands of Samothrace and Lemnos. Their rites were secret and promised protection from storms and safety at sea. In the Argonautica, the Argonauts stop at Samothrace and are initiated into the Cabeiri mysteries to ensure safe passage through the Clashing Rocks. Their names and natures were closely guarded secrets. Herodotus identified them with the Egyptian Osiris and the Phoenician gods. They represent the multicultural, syncretic dimension of Greek religion — mysteries that predated and rivaled the Eleusinian rites.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="dioscuri (castor &amp; pollux) twin gods · patrons of sailors">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">94</div>
+      <div class="god-name-block">
+        <div class="god-name">Dioscuri (Castor &amp; Pollux)</div>
+        <div class="god-title">Twin Gods · Patrons of Sailors</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymns</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Castor and Pollux (Polydeuces) were twin brothers — sons of Leda. In the most common tradition, Pollux was the son of Zeus (and thus immortal) and Castor was the son of Tyndareus (and thus mortal). When Castor died, Pollux was inconsolable. He asked Zeus to share his immortality, and Zeus agreed: the twins spent alternate days on Olympus and in the underworld. As the constellation Gemini, they became the patrons of sailors — St. Elmo&#x27;s fire, the electrical phenomenon on ship masts, was called the Dioscuri.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="eumenides (eubuleus) benevolent aspect of the underworld">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">95</div>
+      <div class="god-name-block">
+        <div class="god-name">Eumenides (Eubuleus)</div>
+        <div class="god-title">Benevolent Aspect of the Underworld</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Eumenides (Aeschylus)</span><span class="lit-tag">Homeric Hymn to Demeter</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Eubuleus, whose name means &#x27;the Good Counselor,&#x27; was a figure associated with the Eleusinian Mysteries — possibly an epithet of Hades or a distinct underworld deity whose role was to give good advice to the dead. In the Homeric Hymn to Demeter, he is connected with the myth of Persephone&#x27;s descent. His cult name was secret, revealed only to initiates. He represents the benevolent, guiding aspect of the underworld — the idea that the realm of the dead is not only dread but a place of initiation and transformation.</div>
+      </div>
+    </div>
+  </div><div class="tier-divider">Heroes & Monsters — Deified Mortals & Beasts</div><div class="god-card" data-search="heracles hero-god · strongest of mortals (roman: hercules)">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">96</div>
+      <div class="god-name-block">
+        <div class="god-name">Heracles</div>
+        <div class="god-title">Hero-God · Strongest of Mortals (Roman: Hercules)</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Iliad</span><span class="lit-tag">Odyssey</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymn to Heracles</span><span class="lit-tag">Library (Apollodorus)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Driven mad by Hera, Heracles killed his wife and children. To atone, the Delphic Oracle commanded him to serve King Eurystheus for twelve years and perform ten (later twelve) impossible labors: the Nemean Lion, the Lernaean Hydra, the Ceryneian Hind, the Erymanthian Boar, the Augean Stables, the Stymphalian Birds, the Cretan Bull, the Mares of Diomedes, the Belt of Hippolyta, the Cattle of Geryon, the Apples of the Hesperides, and Cerberus. After his death, he was deified and taken to Olympus, where he married Hebe, goddess of youth.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="orpheus greatest musician · descendant of the muses">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">97</div>
+      <div class="god-name-block">
+        <div class="god-name">Orpheus</div>
+        <div class="god-title">Greatest Musician · Descendant of the Muses</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Argonautica</span><span class="lit-tag">Hymns of Callimachus</span><span class="lit-tag">Georgics (Virgil)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Orpheus, son of the Muse Calliope, was the greatest musician who ever lived. His singing could charm animals, stop rivers, and make rocks weep. When his wife Eurydice died of a snakebite, he descended into the underworld and sang to Hades and Persephone. The gods of the dead wept; the Furies&#x27; whips stopped. They agreed to release Eurydice on one condition: Orpheus must walk ahead and not look back until they reached the surface. At the last step, doubt overcame him — he turned, and Eurydice vanished forever. He was later torn apart by Maenads.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="psyche mortal princess deified · soul personified">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">98</div>
+      <div class="god-name-block">
+        <div class="god-name">Psyche</div>
+        <div class="god-title">Mortal Princess Deified · Soul Personified</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Metamorphoses (Cupid &amp; Psyche)</span><span class="lit-tag">Symposium (Plato)</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Psyche was so beautiful that mortals began worshipping her instead of Aphrodite. Enraged, the goddess sent Eros to make her fall in love with the most wretched creature. But Eros fell in love with her himself and visited her in darkness. When she broke the rule and saw his face, he fled. Aphrodite set Psyche impossible tasks — sorting a mountain of seeds, fetching golden fleece from man-eating sheep, descending to the underworld for a box of beauty. Psyche completed them all with supernatural help. Zeus granted her immortality, and she and Eros were reunited. Her name means &#x27;soul.&#x27;</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="typhon most monstrous creature · father of monsters">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">99</div>
+      <div class="god-name-block">
+        <div class="god-name">Typhon</div>
+        <div class="god-title">Most monstrous Creature · Father of Monsters</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span><span class="lit-tag">Homeric Hymn to Apollo</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Typhon, born from Gaia and Tartarus (or, in some accounts, Hera alone, as a weapon against Zeus), was the largest and most terrifying creature in all Greek myth. He was so tall his head brushed the stars; his hands reached east and west; instead of fingers he had a hundred dragon heads; from his thighs downward were coiled vipers. He and Zeus fought — the battle shook the earth and sea. Typhon tore out Zeus&#x27;s sinews and hid them, but Hermes and Pan stole them back. Zeus battered Typhon with mountains and finally buried him under Mount Etna, where his breath still erupts as volcanic fire.</div>
+      </div>
+    </div>
+  </div><div class="god-card" data-search="echidna mother of all monsters">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="rank-badge">100</div>
+      <div class="god-name-block">
+        <div class="god-name">Echidna</div>
+        <div class="god-title">Mother of All Monsters</div>
+      </div>
+      <div class="toggle-icon">&#9654;</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Appears In</div>
+        <div class="lit-tags"><span class="lit-tag">Theogony</span><span class="lit-tag">Metamorphoses</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Story</div>
+        <div class="field-text">Echidna — half-woman, half-snake — was the mother of the great monsters of Greek myth. With Typhon she bore Cerberus (the three-headed hound of Hades), the Hydra (the many-headed serpent slain by Heracles), the Chimera (fire-breathing hybrid), Orthus (two-headed hound), the Sphinx (riddle-poser), and the Nemean Lion (impervious-skin beast). She was said to dwell in a cave beneath the earth, devouring those who ventured near. Argus, the hundred-eyed giant, slew her in her sleep at Hera&#x27;s command. Echidna is the dark mother — the womb of the monstrous, the source from which the heroes&#x27; greatest adversaries came.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Sources: Homer (<em>Iliad</em>, <em>Odyssey</em>) &middot; Hesiod (<em>Theogony</em>, <em>Works and Days</em>) &middot; Homeric Hymns &middot;
+  Aeschylus, Sophocles, Euripides &middot; Ovid (<em>Metamorphoses</em>) &middot; Apollodorus &middot; Pindar &middot; Plato &middot; Apuleius &middot; Virgil<br><br>
+  Prominence ranked by frequency, centrality to plot, and cultural impact across surviving texts.
+</footer>
+
+<script>
+  function toggleCard(header) {
+    header.classList.toggle('open');
+    var body = header.nextElementSibling;
+    body.classList.toggle('open');
+  }
+
+  function expandAll(state) {
+    var headers = document.querySelectorAll('.card-header');
+    var bodies = document.querySelectorAll('.card-body');
+    headers.forEach(function(h) {
+      if (state) h.classList.add('open');
+      else h.classList.remove('open');
+    });
+    bodies.forEach(function(b) {
+      if (state) b.classList.add('open');
+      else b.classList.remove('open');
+    });
+  }
+
+  function filterCards() {
+    var query = document.getElementById('searchBox').value.toLowerCase().trim();
+    var cards = document.querySelectorAll('.god-card');
+    var dividers = document.querySelectorAll('.tier-divider');
+    var count = 0;
+    var visibleCount = 0;
+
+    cards.forEach(function(card) {
+      var searchText = card.getAttribute('data-search');
+      if (query === '' || searchText.indexOf(query) !== -1) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Hide dividers when searching
+    dividers.forEach(function(d) {
+      if (query === '') d.style.display = '';
+      else d.style.display = 'none';
+    });
+
+    var rc = document.getElementById('resultsCount');
+    if (query === '') {
+      rc.style.display = 'none';
+    } else {
+      rc.style.display = 'block';
+      rc.textContent = visibleCount + ' result' + (visibleCount !== 1 ? 's' : '') + ' for "' + query + '"';
+    }
+  }
+</script>
+
+</body>
+</html>
