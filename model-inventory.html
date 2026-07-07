@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ready Local Model Inventory</title>
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1c2430;
+      --muted: #5f6b7a;
+      --line: #d9dee7;
+      --accent: #1f7a8c;
+      --high: #0f766e;
+      --mid: #8a5a00;
+      --low: #9f1239;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 14px/1.45 "Segoe UI", Arial, sans-serif;
+    }
+    main {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 28px 20px 44px;
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 28px;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin: 28px 0 10px;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+    p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin: 18px 0 8px;
+    }
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .stat strong {
+      display: block;
+      font-size: 20px;
+      color: var(--accent);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3f6;
+      font-weight: 650;
+      color: #22313f;
+    }
+    tr:last-child td { border-bottom: 0; }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+    .score {
+      display: inline-block;
+      min-width: 60px;
+      font-weight: 700;
+    }
+    .tier-s { color: var(--high); }
+    .tier-a { color: var(--high); }
+    .tier-b { color: var(--mid); }
+    .tier-c { color: var(--low); }
+    .note {
+      margin-top: 10px;
+      padding: 11px 13px;
+      border-left: 4px solid var(--accent);
+      background: #eef8fa;
+      color: #284650;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Ready Local Model Inventory</h1>
+  <p>Scanned on this machine. Scores are practical quality/usefulness scores for your AMD RX 6900 XT ComfyUI and local TTS setup, not official benchmarks.</p>
+
+  <section class="summary">
+    <div class="stat"><strong>14</strong>ComfyUI checkpoint image models ready</div>
+    <div class="stat"><strong>1</strong>Flux quantized GGUF image model ready</div>
+    <div class="stat"><strong>6</strong>Local TTS model families ready</div>
+    <div class="stat"><strong>~82.8 GB</strong>ComfyUI model files found</div>
+  </section>
+
+  <h2>Image Generation Models</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>Quality</th>
+        <th>Best Use Case</th>
+        <th>File</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Juggernaut XL v9 RunDiffusionPhoto v2</td>
+        <td>SDXL checkpoint</td>
+        <td>6.62 GB</td>
+        <td><span class="score tier-s">9.2/10</span> S tier</td>
+        <td>Best all-around photorealistic SDXL model for portraits, families, lifestyle scenes, products, and polished realistic images.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>RealVisXL v5.0 Baked VAE</td>
+        <td>SDXL checkpoint</td>
+        <td>6.46 GB</td>
+        <td><span class="score tier-s">9.0/10</span> S tier</td>
+        <td>Natural-looking people, faces, photography, cinematic realism, and less stylized realistic outputs.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\realvisxlV50_v50Bakedvae.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>DreamShaper XL</td>
+        <td>SDXL checkpoint</td>
+        <td>6.46 GB</td>
+        <td><span class="score tier-a">8.7/10</span> A tier</td>
+        <td>Creative illustration, fantasy, cinematic concepts, semi-realistic characters, and prompt-following with style.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\dreamshaperXL_alpha2Xl10.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>Animagine XL 3.1</td>
+        <td>SDXL anime checkpoint</td>
+        <td>6.46 GB</td>
+        <td><span class="score tier-a">8.8/10</span> A tier</td>
+        <td>Anime characters, clean illustration, manga-style art, expressive poses, and stylized character sheets.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\animagine-xl-3.1.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>Stable Diffusion 3.5 Medium incl. CLIP/T5 FP8</td>
+        <td>SD3.5 all-in-one checkpoint</td>
+        <td>10.84 GB</td>
+        <td><span class="score tier-a">8.6/10</span> A tier</td>
+        <td>Prompt adherence, typography attempts, modern compositions, and testing newer architecture quality on 16 GB VRAM.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\sd3.5_medium_incl_clips_t5xxlfp8scaled.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>FLUX.1-dev Q4_K_S</td>
+        <td>Flux GGUF UNet</td>
+        <td>6.34 GB</td>
+        <td><span class="score tier-s">9.1/10</span> S tier</td>
+        <td>High-quality prompt-following and realistic or editorial images when you are willing to use the Flux GGUF workflow.</td>
+        <td><code>C:\ComfyUI-Zluda\models\unet\flux1-dev-Q4_K_S.gguf</code></td>
+      </tr>
+      <tr>
+        <td>SDXL Base 1.0</td>
+        <td>SDXL base checkpoint</td>
+        <td>6.46 GB</td>
+        <td><span class="score tier-b">7.6/10</span> B tier</td>
+        <td>Baseline SDXL testing, compatibility checks, and workflows that expect the official base model.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\sd_xl_base_1.0.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>SDXL Lightning 4-step</td>
+        <td>SDXL fast checkpoint</td>
+        <td>6.46 GB</td>
+        <td><span class="score tier-b">7.8/10</span> B tier</td>
+        <td>Fast previews, rapid prompt exploration, and quick drafts where speed matters more than maximum detail.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\sdxl_lightning_4step.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>EpicRealism Natural Sin RC1 VAE</td>
+        <td>SD 1.5 checkpoint</td>
+        <td>1.99 GB</td>
+        <td><span class="score tier-a">8.3/10</span> A tier</td>
+        <td>Realistic SD 1.5 portraits and people, especially when you want lower VRAM use and faster generation.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\epicrealism_naturalSinRC1VAE.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>CyberRealistic Final FP16</td>
+        <td>SD 1.5 checkpoint</td>
+        <td>1.99 GB</td>
+        <td><span class="score tier-a">8.2/10</span> A tier</td>
+        <td>Moody realism, portraits, fashion, sci-fi realism, and fast SD 1.5 workflows.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\CyberRealistic_FINAL_FP16.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>Realistic Vision v6.0 B1 VAE</td>
+        <td>SD 1.5 checkpoint</td>
+        <td>1.99 GB</td>
+        <td><span class="score tier-a">8.1/10</span> A tier</td>
+        <td>Classic SD 1.5 photorealism, portraits, people, and broad compatibility with SD 1.5 LoRAs.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\realisticVisionV60B1_v60B1VAE.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>DreamShaper 8</td>
+        <td>SD 1.5 checkpoint</td>
+        <td>1.99 GB</td>
+        <td><span class="score tier-b">7.9/10</span> B+ tier</td>
+        <td>Stylized fantasy, illustration, concept art, and flexible SD 1.5 creative work.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\dreamshaper_8.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>Deliberate v2</td>
+        <td>SD 1.5 checkpoint</td>
+        <td>1.99 GB</td>
+        <td><span class="score tier-b">7.5/10</span> B tier</td>
+        <td>Older but useful SD 1.5 general-purpose model for portraits, concept art, and legacy workflows.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\deliberate_v2.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>Photon v1</td>
+        <td>SD 1.5 checkpoint</td>
+        <td>1.99 GB</td>
+        <td><span class="score tier-b">7.7/10</span> B+ tier</td>
+        <td>Photographic SD 1.5 outputs and faster realism work; this is Photon SD 1.5, not a confirmed Photon XL model.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\photon_v1.safetensors</code></td>
+      </tr>
+      <tr>
+        <td>Stable Diffusion 1.5 Pruned EMA Only</td>
+        <td>SD 1.5 base checkpoint</td>
+        <td>3.97 GB</td>
+        <td><span class="score tier-c">6.8/10</span> C+ tier</td>
+        <td>Compatibility baseline, old tutorials, ControlNet/LoRA testing, and workflows that require the official SD 1.5 base.</td>
+        <td><code>C:\ComfyUI-Zluda\models\checkpoints\v1-5-pruned-emaonly.safetensors</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Flux Support Files</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Role</th>
+        <th>Size</th>
+        <th>Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>clip_l.safetensors</td>
+        <td>Flux text encoder</td>
+        <td>0.23 GB</td>
+        <td>Required with Flux GGUF workflows.</td>
+      </tr>
+      <tr>
+        <td>t5xxl_fp8_e4m3fn.safetensors</td>
+        <td>Flux T5 text encoder</td>
+        <td>4.56 GB</td>
+        <td>Required for Flux prompt understanding while keeping memory lower than full precision.</td>
+      </tr>
+      <tr>
+        <td>ae.safetensors</td>
+        <td>Flux VAE</td>
+        <td>0.31 GB</td>
+        <td>Required to decode Flux latents into final images.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>TTS Models</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>Quality</th>
+        <th>Best Use Case</th>
+        <th>Path</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>XTTS-v2</td>
+        <td>Voice cloning / multilingual TTS</td>
+        <td>1.94 GB</td>
+        <td><span class="score tier-a">8.6/10</span> A tier</td>
+        <td>Best local choice here for cloning a reference voice, multilingual speech, and natural dialogue-style output.</td>
+        <td><code>C:\Users\JANG\Documents\Codex\voice\models\xtts-v2</code></td>
+      </tr>
+      <tr>
+        <td>F5-TTS v1 Base + Vocos</td>
+        <td>Zero-shot / reference-based TTS</td>
+        <td>1.31 GB</td>
+        <td><span class="score tier-s">9.0/10</span> S tier</td>
+        <td>Best quality candidate for natural speech from a reference voice when the server workflow is set up correctly.</td>
+        <td><code>C:\Users\JANG\Documents\Codex\voice\models\f5-tts</code></td>
+      </tr>
+      <tr>
+        <td>Kokoro v1.0 ONNX</td>
+        <td>Fast lightweight TTS</td>
+        <td>0.33 GB</td>
+        <td><span class="score tier-a">8.4/10</span> A tier</td>
+        <td>Fast, clean narration and utility voice generation with low overhead; good default for quick local TTS.</td>
+        <td><code>C:\Users\JANG\Documents\Codex\voice\models\kokoro</code></td>
+      </tr>
+      <tr>
+        <td>Bark Small</td>
+        <td>Expressive generative TTS</td>
+        <td>1.57 GB</td>
+        <td><span class="score tier-b">7.8/10</span> B+ tier</td>
+        <td>Expressive voices, emotional delivery, sound-like vocal effects, and creative speech experiments.</td>
+        <td><code>C:\Users\JANG\Documents\Codex\voice\models\bark-small</code></td>
+      </tr>
+      <tr>
+        <td>StyleTTS2 LibriTTS</td>
+        <td>Style-transfer TTS</td>
+        <td>0.91 GB</td>
+        <td><span class="score tier-b">7.9/10</span> B+ tier</td>
+        <td>Style-controlled English narration and experimentation with speech style transfer.</td>
+        <td><code>C:\Users\JANG\Documents\Codex\voice\models\styletts2</code></td>
+      </tr>
+      <tr>
+        <td>Orpheus 3B FT Q4_K_M + SNAC 24 kHz</td>
+        <td>LLM speech model + audio codec</td>
+        <td>2.27 GB combined</td>
+        <td><span class="score tier-a">8.3/10</span> A tier</td>
+        <td>Experimental high-expression speech generation; useful for research-style testing and expressive voice output.</td>
+        <td><code>C:\Users\JANG\Documents\Codex\voice\models\orpheus</code><br><code>C:\Users\JANG\Documents\Codex\voice\models\snac-24khz</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="note">Recommendation: for image generation, start with Juggernaut XL or RealVisXL for realism, Animagine XL for anime, and Flux Q4 when you want the strongest prompt-following workflow. For TTS, start with Kokoro for speed, F5-TTS for highest naturalness, and XTTS-v2 when voice cloning or multilingual output matters.</p>
+</main>
+</body>
+</html>
