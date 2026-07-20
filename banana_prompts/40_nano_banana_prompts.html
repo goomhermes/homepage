@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>40+ Nano Banana Pro Prompts</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#0f0f0f;color:#e0e0e0;line-height:1.6}
+.container{max-width:960px;margin:0 auto;padding:20px}
+h1{font-size:2rem;color:#fff;text-align:center;padding:40px 0 20px;border-bottom:1px solid #333;margin-bottom:40px}
+.category{font-size:1.2rem;color:#f59e0b;text-transform:uppercase;letter-spacing:2px;margin:40px 0 20px;padding:8px 16px;background:#1a1a1a;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0}
+.prompt-card{background:#1a1a1a;border-radius:12px;padding:28px;margin-bottom:30px;border:1px solid #2a2a2a;transition:border-color .2s}
+.prompt-card:hover{border-color:#444}
+.prompt-header{display:flex;align-items:baseline;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.prompt-num{font-size:0.85rem;color:#f59e0b;background:rgba(245,158,11,0.15);padding:2px 10px;border-radius:20px;font-weight:600;flex-shrink:0}
+.prompt-title{font-size:1.3rem;font-weight:700;color:#fff}
+.prompt-desc{color:#aaa;margin-bottom:18px;font-size:0.95rem}
+.prompt-block{background:#0a0a0a;border:1px solid #333;border-radius:8px;padding:18px;margin-bottom:12px}
+.prompt-block pre{white-space:pre-wrap;word-break:break-word;font-family:"SF Mono","Fira Code","Consolas",monospace;font-size:0.85rem;color:#ccc;line-height:1.5;margin:0}
+.img-row{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0}
+.img-item{flex:1 1 220px;min-width:160px}
+.img-item img{width:100%;height:auto;border-radius:8px;border:1px solid #333;display:block}
+.img-label{font-size:0.75rem;color:#777;text-align:center;margin-top:4px}
+.note{background:rgba(245,158,11,0.08);border-left:3px solid #f59e0b;padding:10px 16px;margin:12px 0;font-size:0.85rem;color:#ccc;border-radius:0 6px 6px 0;line-height:1.5}
+.back-to-top{position:fixed;bottom:30px;right:30px;background:#f59e0b;color:#000;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;font-size:1.3rem;box-shadow:0 4px 12px rgba(245,158,11,0.3);z-index:100;transition:transform .2s}
+.back-to-top:hover{transform:scale(1.15)}
+.count-badge{display:inline-block;background:#f59e0b;color:#000;padding:4px 14px;border-radius:20px;font-size:0.9rem;font-weight:600;margin:0 0 30px}
+@media(max-width:600px){.container{padding:12px}.prompt-card{padding:18px}.prompt-title{font-size:1.1rem}.prompt-block pre{font-size:0.8rem}.img-item{flex:1 1 100%}}
+
+.layout{display:flex;min-height:100vh}
+.sidebar{width:240px;min-width:240px;background:#141414;border-right:1px solid #222;height:100vh;position:sticky;top:0;overflow-y:auto;z-index:50;display:flex;flex-direction:column;transition:margin-left .3s,width .3s,min-width .3s}
+.sidebar.collapsed{margin-left:-240px;width:0;min-width:0;overflow:hidden}
+.main-content{flex:1;min-width:0;transition:margin-left .3s}
+.main-content.expanded{margin-left:0}
+.sidebar-header{display:flex;align-items:center;gap:8px;padding:16px;border-bottom:1px solid #222;flex-shrink:0}
+.sidebar-icon{font-size:1.4rem}
+.sidebar-title{font-size:1rem;font-weight:700;color:#fff;flex:1}
+.sidebar-toggle{background:none;border:1px solid #444;color:#aaa;font-size:1.2rem;cursor:pointer;padding:2px 8px;border-radius:6px}
+.sidebar-toggle:hover{color:#fff;border-color:#f59e0b}
+.sidebar-content{padding:8px 0;flex:1;overflow-y:auto}
+.sidebar-section{margin-bottom:4px}
+.sidebar-cat{display:block;padding:8px 16px;color:#f59e0b;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;text-decoration:none;transition:background .2s}
+.sidebar-cat:hover{background:#1f1f1f}
+.sidebar-items{padding:0 0 4px}
+.sidebar-item{display:block;padding:5px 16px 5px 24px;color:#888;font-size:0.78rem;text-decoration:none;transition:all .15s;border-left:2px solid transparent}
+.sidebar-item:hover{color:#ddd;background:#1a1a1a;border-left-color:#555}
+.sidebar-item.active{color:#f59e0b;border-left-color:#f59e0b;background:rgba(245,158,11,0.06)}
+.back-to-top{position:fixed;bottom:30px;right:30px;background:#f59e0b;color:#000;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;font-size:1.3rem;box-shadow:0 4px 12px rgba(245,158,11,0.3);z-index:100;transition:transform .2s}
+.back-to-top:hover{transform:scale(1.15)}
+@media(max-width:900px){
+  .sidebar{margin-left:-240px;width:0;min-width:0;overflow:hidden;position:fixed;z-index:200}
+  .sidebar.collapsed{margin-left:0;width:240px;min-width:240px;overflow-y:auto;box-shadow:4px 0 20px rgba(0,0,0,.5)}
+  .main-content{margin-left:0}
+  .container{padding:12px}
+}
+@media(max-width:600px){
+  .prompt-card{padding:18px}.prompt-title{font-size:1.1rem}.prompt-block pre{font-size:0.8rem}.img-item{flex:1 1 100%}
+}
+</style>
+</head>
+<body>
+
+</style>
+</head>
+<body>
+<div class="layout">
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="sidebar-icon">&#127819;</span>
+    <span class="sidebar-title">Prompts</span>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">&#9776;</button>
+  </div>
+  <div class="sidebar-content">
+    <div class="sidebar-section">
+      <a href="#cat-image-effects" class="sidebar-cat" onclick="closeSidebar()">Image Effects</a>
+      <div class="sidebar-items">
+        <a href="#p-1" class="sidebar-item" onclick="closeSidebar()">#1 3D Action Figure</a>
+        <a href="#p-2" class="sidebar-item" onclick="closeSidebar()">#2 Chibi Knitted Doll</a>
+        <a href="#p-3" class="sidebar-item" onclick="closeSidebar()">#3 Character Capsules</a>
+        <a href="#p-4" class="sidebar-item" onclick="closeSidebar()">#4 Plush Toys</a>
+        <a href="#p-5" class="sidebar-item" onclick="closeSidebar()">#5 iPhone Selfie</a>
+        <a href="#p-6" class="sidebar-item" onclick="closeSidebar()">#6 Chibi Emoji Sticker</a>
+        <a href="#p-7" class="sidebar-item" onclick="closeSidebar()">#7 Funko Pop Figure</a>
+        <a href="#p-8" class="sidebar-item" onclick="closeSidebar()">#8 Ghibli Style</a>
+        <a href="#p-9" class="sidebar-item" onclick="closeSidebar()">#9 Game UI</a>
+        <a href="#p-10" class="sidebar-item" onclick="closeSidebar()">#10 Image Fusion</a>
+        <a href="#p-11" class="sidebar-item" onclick="closeSidebar()">#11 Style Fusion</a>
+        <a href="#p-12" class="sidebar-item" onclick="closeSidebar()">#12 Virtual Change Clothes</a>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <a href="#cat-portrait-editing" class="sidebar-cat" onclick="closeSidebar()">Portrait Editing</a>
+      <div class="sidebar-items">
+        <a href="#p-13" class="sidebar-item" onclick="closeSidebar()">#13 Facial Expression</a>
+        <a href="#p-14" class="sidebar-item" onclick="closeSidebar()">#14 Pose Control</a>
+        <a href="#p-15" class="sidebar-item" onclick="closeSidebar()">#15 Body Reshape</a>
+        <a href="#p-16" class="sidebar-item" onclick="closeSidebar()">#16 3x3 Grid Portrait</a>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <a href="#cat-image-editing" class="sidebar-cat" onclick="closeSidebar()">Image Editing</a>
+      <div class="sidebar-items">
+        <a href="#p-17" class="sidebar-item" onclick="closeSidebar()">#17 Change Background</a>
+        <a href="#p-18" class="sidebar-item" onclick="closeSidebar()">#18 Add Object</a>
+        <a href="#p-18b" class="sidebar-item" onclick="closeSidebar()">#18b Remove Object</a>
+        <a href="#p-19" class="sidebar-item" onclick="closeSidebar()">#19 Change Camera Angle</a>
+        <a href="#p-20" class="sidebar-item" onclick="closeSidebar()">#20 Edit Text</a>
+        <a href="#p-21" class="sidebar-item" onclick="closeSidebar()">#21 Time-Based</a>
+        <a href="#p-22" class="sidebar-item" onclick="closeSidebar()">#22 Object Extraction</a>
+        <a href="#p-23" class="sidebar-item" onclick="closeSidebar()">#23 Enhance Image</a>
+        <a href="#p-24" class="sidebar-item" onclick="closeSidebar()">#24 Change Weather</a>
+        <a href="#p-25" class="sidebar-item" onclick="closeSidebar()">#25 Change Color</a>
+        <a href="#p-26" class="sidebar-item" onclick="closeSidebar()">#26 Image Replace</a>
+        <a href="#p-27" class="sidebar-item" onclick="closeSidebar()">#27 Outpainting</a>
+        <a href="#p-27b" class="sidebar-item" onclick="closeSidebar()">#27b Aspect Ratio</a>
+        <a href="#p-28" class="sidebar-item" onclick="closeSidebar()">#28 Line to Image</a>
+        <a href="#p-29" class="sidebar-item" onclick="closeSidebar()">#29 3x3 Grid Pose</a>
+        <a href="#p-30" class="sidebar-item" onclick="closeSidebar()">#30 Interior Design</a>
+        <a href="#p-31" class="sidebar-item" onclick="closeSidebar()">#31 Ingredients to Dish</a>
+        <a href="#p-32" class="sidebar-item" onclick="closeSidebar()">#32 Anatomy</a>
+        <a href="#p-33" class="sidebar-item" onclick="closeSidebar()">#33 16-Bit Character</a>
+        <a href="#p-34" class="sidebar-item" onclick="closeSidebar()">#34 Polaroid</a>
+        <a href="#p-35" class="sidebar-item" onclick="closeSidebar()">#35 AI Saree</a>
+        <a href="#p-36" class="sidebar-item" onclick="closeSidebar()">#36 Hug Younger Self</a>
+        <a href="#p-37" class="sidebar-item" onclick="closeSidebar()">#37 B&W Portrait</a>
+        <a href="#p-38" class="sidebar-item" onclick="closeSidebar()">#38 Cinematic</a>
+        <a href="#p-39" class="sidebar-item" onclick="closeSidebar()">#39 Structure Diagram</a>
+        <a href="#p-40" class="sidebar-item" onclick="closeSidebar()">#40 Zoom</a>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <a href="#cat-pro-prompts" class="sidebar-cat" onclick="closeSidebar()">Pro-Only Prompts</a>
+      <div class="sidebar-items">
+        <a href="#p-41" class="sidebar-item" onclick="closeSidebar()">#41 Storyboard</a>
+        <a href="#p-42" class="sidebar-item" onclick="closeSidebar()">#42 Logos</a>
+        <a href="#p-43" class="sidebar-item" onclick="closeSidebar()">#43 Infographic</a>
+        <a href="#p-43b" class="sidebar-item" onclick="closeSidebar()">#43b Focus</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-content">
+<div class="container">
+
+<h1>&#127819; 40+ Nano Banana Pro Prompts</h1>
+<div style="text-align:center"><span class="count-badge">43 Prompts</span></div>
+<div class="category" id="cat-image-effects">Image Effects</div>
+<div class="prompt-card" id="p-1">
+<div class="prompt-header"><span class="prompt-num">#1</span><span class="prompt-title">Nano Banana 3D Action Figure</span></div>
+<div class="prompt-desc">Turn any photo into a lifelike 1/7 scale collectible action figure displayed on a desk with ZBrush modeling screen and Bandai-style packaging.</div>
+<div class="prompt-block"><pre>create a 1/7 scale commercialized figure of the character in the illustration, in a realistic style and environment. Place the figure on a computer desk, using a circular transparent acrylic base without any text. On the computer screen, display the ZBrush modeling process of the figure. Next to the computer screen, place a BANDAI-style toy packaging box printed with the original artwork.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/1_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/1_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-2">
+<div class="prompt-header"><span class="prompt-num">#2</span><span class="prompt-title">Chibi Knitted Doll</span></div>
+<div class="prompt-desc">Transform images into adorable hand-crocheted yarn dolls held gently in hands, with warm indoor lighting and blurred background.</div>
+<div class="prompt-block"><pre>A close-up, professionally composed photograph showcasing a hand-crocheted yarn doll gently cradled by two hands. The doll has a rounded shape, featuring the cute chibi image of the [upload image] character, with vivid contrasting colors and rich details. The hands holding the doll are natural and gentle, with clearly visible finger postures, and natural skin texture and light/shadow transitions, conveying a warm and realistic touch. The background is slightly blurred, depicting an indoor environment with a warm wooden tabletop and natural light streaming in from a window, creating a comfortable and intimate atmosphere. The overall image conveys a sense of exquisite craftsmanship and cherished warmth.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/2_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/2_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-3">
+<div class="prompt-header"><span class="prompt-num">#3</span><span class="prompt-title">Character Capsules</span></div>
+<div class="prompt-desc">Create transparent gashapon capsule dioramas featuring miniaturized characters in collectible form with dramatic lighting and themed bases.</div>
+<div class="prompt-block"><pre>A detailed, transparent gashapon capsule diorama, held between fingers, featuring [NAME] in their [ICONIC POSE / STYLE]. Inside: [short description of figure&#x27;s look, clothing, and accessories], with background elements such as [relevant setting: stadium, stage, lecture hall, etc.]. Lighting should be dramatic and cinematic, matching their theme. The capsule has a transparent top and a colored base [choose fitting color: e.g., royal blue, gold, black, red], decorated with [motifs related to the person]. The base is labeled with [NAME or NICKNAME] in a matching font style. The design should look like a miniature collectible, with photorealistic detail and soft bokeh.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/3_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/3_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+<div class="note">&#128064; Replace [NAME], [ICONIC POSE / STYLE], description, setting, color, and [NAME or NICKNAME] with your specific details.</div>
+</div>
+<div class="prompt-card" id="p-4">
+<div class="prompt-header"><span class="prompt-num">#4</span><span class="prompt-title">Character Plush Toys</span></div>
+<div class="prompt-desc">Turn characters into soft plush toys with oversized heads, stubby limbs, and embroidered facial features.</div>
+<div class="prompt-block"><pre>A soft, high-quality plush toy of [CHARACTER], with an oversized head, small body, and stubby limbs. Made of fuzzy fabric with visible stitching and embroidered facial features. The plush is shown sitting or standing against a neutral background. The expression is cute or expressive, and it wears simple clothes or iconic accessories if relevant. Lighting is soft and even, with a realistic, collectible plush look. Centered, full-body view.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/4_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/4_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+<div class="note">&#128064; Replace [CHARACTER] with your specific description.</div>
+</div>
+<div class="prompt-card" id="p-5">
+<div class="prompt-header"><span class="prompt-num">#5</span><span class="prompt-title">iPhone Selfie</span></div>
+<div class="prompt-desc">Generate realistic, deliberately casual iPhone selfies with motion blur, uneven lighting, and awkward composition.</div>
+<div class="prompt-block"><pre>Please draw an extremely ordinary and unremarkable iPhone selfie, with no clear subject or sense of composition — just like a random snapshot taken casually. The photo should include slight motion blur, with uneven lighting caused by sunlight or indoor lights, resulting in mild overexposure. The angle is awkward, the composition is messy, and the overall aesthetic is deliberately plain — as if it were accidentally taken while pulling the phone out of a pocket. The subjects are [Names], taken at night, next to the [Location].</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/5_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/5_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+<div class="note">&#128064; Replace [Names] and [Location] with your specific details.</div>
+</div>
+<div class="prompt-card" id="p-6">
+<div class="prompt-header"><span class="prompt-num">#6</span><span class="prompt-title">Chibi Emoji Sticker</span></div>
+<div class="prompt-desc">Create playful chibi emoji stickers with multiple expressive poses — peace signs, crying, hugging, sleeping, confident pointing, and blowing kisses.</div>
+<div class="prompt-block"><pre>Making a playful peace sign with both hands and winking. Tearful eyes and slightly trembling lips, showing a cute crying expression. Arms wide open in a warm, enthusiastic hug pose. Lying on their side asleep, resting on a tiny pillow with a sweet smile. Pointing forward with confidence, surrounded by shining visual effects. Blowing a kiss, with heart symbols floating around. Maintain the chibi aesthetic. Exaggerated, expressive big eyes. Soft facial lines. Background: Vibrant red with star or colorful confetti elements for decoration. Leave some clean white space around each sticker. Aspect ratio: 9:16</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/6_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/6_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-7">
+<div class="prompt-header"><span class="prompt-num">#7</span><span class="prompt-title">Funko Pop Figure</span></div>
+<div class="prompt-desc">Convert photos into collectible Funko Pop-style chibi figures with studio lighting and pure white background.</div>
+<div class="prompt-block"><pre>Create a detailed 3D render of a chibi Funko Pop figure, strictly based on the provided reference photo. The figure should accurately reflect the person&#x27;s appearance, hairstyle, attire, and characteristic style from the photo. High detail, studio lighting, photorealistic texture, pure white background.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/7_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/7_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-8">
+<div class="prompt-header"><span class="prompt-num">#8</span><span class="prompt-title">Ghibli Style</span></div>
+<div class="prompt-desc">Transform images into enchanting scenes inspired by Studio Ghibli’s signature animation style.</div>
+<div class="prompt-block"><pre>Redraw this photo in Ghibli style</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/8_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/8_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-9">
+<div class="prompt-header"><span class="prompt-num">#9</span><span class="prompt-title">Game UI</span></div>
+<div class="prompt-desc">Turn designs into immersive rhythm dance game UI with 3D characters, neon lighting, and arcade HUD elements.</div>
+<div class="prompt-block"><pre>A vibrant rhythm dance game screenshot featuring the 3D animated character from the reference photo, keeping its unique style, hat, outfit, and confident dance pose. Immersive cinematic lighting with neon pink and purple glow, glossy reflective dance floor shining under spotlights, and dynamic 3D cartoon style. Rhythm game interface with immersive UI: score meter at the top, colorful music waveform animations synced to the beat, stage timer countdown, and floating combo numbers. Highly detailed, game-like atmosphere with energy bars, neon particle effects, and immersive arcade rhythm game HUD elements. Ultra-detailed, cinematic, immersive, 3D animation.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/9_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/9_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-10">
+<div class="prompt-header"><span class="prompt-num">#10</span><span class="prompt-title">Image Fusion: Combine Multiple Images</span></div>
+<div class="prompt-desc">Seamlessly merge multiple photos into one cohesive, photorealistic image with consistent lighting and perspective.</div>
+<div class="prompt-block"><pre>Combine multiple images ([Image1], [Image2], [Image3], ...) into a single cohesive image. Keep all key subjects recognizable and maintain their proportions and details. Blend the images naturally with consistent lighting, shadows, perspective, and style. Photorealistic, high-resolution, seamless integration.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/10_original.jpg" alt="Original Inputs" loading="lazy"><div class="img-label">Original Inputs</div></div>
+<div class="img-item"><img src="examples/10_generated.jpg" alt="Fused Output" loading="lazy"><div class="img-label">Fused Output</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-11">
+<div class="prompt-header"><span class="prompt-num">#11</span><span class="prompt-title">Style Fusion</span></div>
+<div class="prompt-desc">Blend the artistic style of one image onto another while preserving the original subject, composition, and details.</div>
+<div class="prompt-block"><pre>Transform this image [Image1] into the artistic style of [Image2]. Keep the main subject, composition, and details from [Image1], but apply the colors, textures, and overall aesthetic of [Image2]. High-quality, [illustration] style, consistent details.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/11_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/11_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+<div class="note">&#128064; Replace [illustration] with your specific style description.</div>
+</div>
+<div class="prompt-card" id="p-12">
+<div class="prompt-header"><span class="prompt-num">#12</span><span class="prompt-title">Virtual Change Clothes</span></div>
+<div class="prompt-desc">Change a subject’s outfit to match another image while keeping pose, body proportions, and facial features intact.</div>
+<div class="prompt-block"><pre>Keep the character in [Image1] unchanged, but replace her pant with the outfit in [Image2]. Maintain the same pose, body proportions, and facial features, while applying the color, texture, and style of the pants in [Image2]. High-quality, realistic, consistent detail.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/12_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/12_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="category" id="cat-portrait-editing">Portrait Editing</div>
+<div class="prompt-card" id="p-13">
+<div class="prompt-header"><span class="prompt-num">#13</span><span class="prompt-title">Facial Expression Control</span></div>
+<div class="prompt-desc">Adjust facial expressions to make subjects smile, frown, or show any emotion while preserving identity.</div>
+<div class="prompt-block"><pre>Keep the person from [Image1] unchanged, but change their facial expression to [desired expression, e.g., smiling, surprised, angry]. Preserve the pose, body proportions, hairstyle, and overall appearance. Maintain realistic lighting, shadows, and photorealistic details.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/13_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/13_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-14">
+<div class="prompt-header"><span class="prompt-num">#14</span><span class="prompt-title">Pose Control</span></div>
+<div class="prompt-desc">Change body poses to match a reference pose while preserving identity, clothing, and proportions.</div>
+<div class="prompt-block"><pre>Take the two men and place them in the exact poses of the man in green carrying the man in red. Preserve their identities, body proportions, and clothing details. Ensure the pose is natural and realistic, with consistent lighting, shadows, and perspective. Photorealistic, high-resolution result.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/14_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/14_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-15">
+<div class="prompt-header"><span class="prompt-num">#15</span><span class="prompt-title">Body Reshape</span></div>
+<div class="prompt-desc">Transform body shapes — muscular, slim, or fuller — keeping face, hairstyle, and clothing consistent.</div>
+<div class="prompt-block"><pre>Reshape the body of the person in [Image1] into a [target body type]. Keep the face, identity, hairstyle, and clothing consistent. Ensure realistic anatomy, natural proportions, and photorealistic details.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/15_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/15_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-16">
+<div class="prompt-header"><span class="prompt-num">#16</span><span class="prompt-title">3x3 Grid Portrait</span></div>
+<div class="prompt-desc">Generate a 3x3 grid of half-length portraits showing different poses and unique settings.</div>
+<div class="prompt-block"><pre>Using the uploaded photo as a reference, generate a set of 9 vibrant half-length portraits featuring natural life. Each portrait should show a different pose and be placed in a unique setting, with rich, colorful details that highlight the diversity of nature.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/16_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/16_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="category" id="cat-image-editing">Image Editing</div>
+<div class="prompt-card" id="p-17">
+<div class="prompt-header"><span class="prompt-num">#17</span><span class="prompt-title">Change Image Background</span></div>
+<div class="prompt-desc">Replace any image background with a new scene — beach, forest, city skyline — keeping the subject intact.</div>
+<div class="prompt-block"><pre>Replace the background of [Image1] with [desired background description, e.g., a beach, a forest, a city skyline]. Keep the main subject (person/object) unchanged, maintaining original proportions, lighting, and details. Ensure the subject blends naturally with the new environment. Photorealistic, high-resolution, seamless integration.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/17_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/17_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-18">
+<div class="prompt-header"><span class="prompt-num">#18</span><span class="prompt-title">Add Object to Image</span></div>
+<div class="prompt-desc">Insert new objects that blend naturally with the scene’s lighting, perspective, and style.</div>
+<div class="prompt-block"><pre>Add [desired element, e.g., a tree, a lamp, a dog] to [Image1]. Place it naturally in the scene, matching the lighting, perspective, and style. Keep the original elements unchanged. Photorealistic, seamless integration.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/18_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/18_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-18b">
+<div class="prompt-header"><span class="prompt-num">#18 (variant)</span><span class="prompt-title">Remove Object from Image</span></div>
+<div class="prompt-desc">Remove unwanted objects from photos for a clean, polished result with natural background filling.</div>
+<div class="prompt-block"><pre>Remove [element to remove, e.g., a person, a car, a sign] from [Image1]. Fill the background naturally to maintain the scene’s continuity, lighting, and details. Keep all other elements unchanged. Photorealistic, high-resolution.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/18b_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/18b_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-19">
+<div class="prompt-header"><span class="prompt-num">#19</span><span class="prompt-title">Change Camera Angle</span></div>
+<div class="prompt-desc">Recreate a subject from four camera perspectives — bird’s-eye, rear, side, and close-up portrait.</div>
+<div class="prompt-block"><pre>Recreate the person from [Image1] in four different camera perspectives. Keep the subject’s identity, body proportions, and clothing consistent across all four images. Maintain the same background environment as [Image1], with photorealistic lighting, natural shadows, and high-quality details. Generate four variations side by side:
+1. Bird’s-eye view (from above).
+2. Rear view (from behind).
+3. Side profile view.
+4. Close-up portrait view.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/19_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/19_generated.jpg" alt="Generated Grid" loading="lazy"><div class="img-label">Generated Grid</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-20">
+<div class="prompt-header"><span class="prompt-num">#20</span><span class="prompt-title">Edit Text in Image</span></div>
+<div class="prompt-desc">Modify or replace text within images while matching font style, size, and color.</div>
+<div class="prompt-block"><pre>Edit the text in [Image1]. Replace the existing text with &quot;[your new text]&quot; while keeping the background, design, and other elements unchanged. Match the font style, size, and color to look natural and consistent with the image. Photorealistic, seamless integration.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/20_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/20_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-21">
+<div class="prompt-header"><span class="prompt-num">#21</span><span class="prompt-title">Time-Based Image Generation</span></div>
+<div class="prompt-desc">Generate the same scene at a different time with natural light, weather, and people changes.</div>
+<div class="prompt-block"><pre>Generate an image of the same scene as [Image1], but showing how it looks 10 minutes later. Keep the environment and style consistent, but add natural changes over time such as light, weather, people and so on. Photorealistic, seamless continuity.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/21_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/21_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-22">
+<div class="prompt-header"><span class="prompt-num">#22</span><span class="prompt-title">Object Extraction</span></div>
+<div class="prompt-desc">Isolate clothing from an image as a clean e-commerce product photo on white/transparent background.</div>
+<div class="prompt-block"><pre>Extract the clothing from [Image1] and present it as a clean e-commerce product photo. Remove the model’s body completely. Keep the outfit in natural 3D shape, with realistic fabric folds, seams, and textures. Display the garment as if photographed on a mannequin or neatly laid flat, centered on a pure white or transparent background. High-resolution, professional lighting, suitable for online fashion catalog.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/22_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/22_generated.jpg" alt="Extracted" loading="lazy"><div class="img-label">Extracted</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-23">
+<div class="prompt-header"><span class="prompt-num">#23</span><span class="prompt-title">Enhance Image</span></div>
+<div class="prompt-desc">Improve overall image quality — resolution, sharpness, texture clarity, and lighting realism.</div>
+<div class="prompt-block"><pre>Enhance [Image1] to improve overall quality and detail. Keep the original composition, colors, and style intact. Increase resolution, sharpness, texture clarity, and lighting realism. Output as a photorealistic, high-resolution image.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/23_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/23_generated.jpg" alt="Enhanced" loading="lazy"><div class="img-label">Enhanced</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-24">
+<div class="prompt-header"><span class="prompt-num">#24</span><span class="prompt-title">Change the Weather</span></div>
+<div class="prompt-desc">Transform a scene’s weather instantly — rainy, snowy, foggy, or sunny.</div>
+<div class="prompt-block"><pre>Change the weather in [Image1] to [desired weather, e.g., rainy, snowy, foggy, sunny]. Keep the main subject and overall scene intact. Adjust lighting, shadows, colors, and environmental effects to match the new weather. Photorealistic, seamless integration, high-resolution.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/24_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/24_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-25">
+<div class="prompt-header"><span class="prompt-num">#25</span><span class="prompt-title">Change Image Color</span></div>
+<div class="prompt-desc">Adjust image colors to any mood — warm tones, cool blue, pastel colors.</div>
+<div class="prompt-block"><pre>Change the colors in [Image1] to [desired color/style, e.g., warm tones, cool blue tones, pastel colors]. Keep the main subject and composition intact. Adjust lighting, shadows, and overall color balance to match the new color scheme. Photorealistic, high-resolution, natural-looking result.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/25_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/25_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-26">
+<div class="prompt-header"><span class="prompt-num">#26</span><span class="prompt-title">Image Replace</span></div>
+<div class="prompt-desc">Swap specific elements or subjects in an image with new ones seamlessly.</div>
+<div class="prompt-block"><pre>Replace [target element or area] in [Image1] with [new element or reference, e.g., a different person, object, or scene]. Keep all other parts of the image unchanged. Ensure the replacement blends naturally with lighting, perspective, and overall style. Photorealistic, high-resolution, seamless integration.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/26_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/26_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-27">
+<div class="prompt-header"><span class="prompt-num">#27</span><span class="prompt-title">Image Outpainting</span></div>
+<div class="prompt-desc">Extend images beyond original borders, generating matching new content around edges.</div>
+<div class="prompt-block"><pre>Extend [Image1] beyond its original borders using outpainting. Keep the main subject and composition intact. Generate new content around the edges that matches the style, colors, lighting, and perspective of the original image. Photorealistic, high-resolution, seamless integration.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/27_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/27_generated.jpg" alt="Outpainted" loading="lazy"><div class="img-label">Outpainted</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-27b">
+<div class="prompt-header"><span class="prompt-num">#27 (variant)</span><span class="prompt-title">Aspect Ratio Outpainting</span></div>
+<div class="prompt-desc">Redraw content from one image onto another’s aspect ratio to expand to fill target dimensions.</div>
+<div class="prompt-block"><pre>Redraw the content of Figure 1 onto Figure 2, add more detailed content to Figure 1 to fit the aspect ratio of Figure 2, completely clear the content of Figure 2, and only retain the aspect ratio of Figure 2.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/27b_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/27b_reference.jpg" alt="Reference" loading="lazy"><div class="img-label">Reference</div></div>
+<div class="img-item"><img src="examples/27b_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-28">
+<div class="prompt-header"><span class="prompt-num">#28</span><span class="prompt-title">Line to Image</span></div>
+<div class="prompt-desc">Convert line art or sketches into fully colored, detailed images with realistic or stylized effects.</div>
+<div class="prompt-block"><pre>Convert the line art in [Image1] into a fully colored and detailed image. Preserve all original outlines and compositions. Apply [desired style, e.g., photorealistic, anime, cartoon, digital painting] with realistic lighting, shadows, and textures. High-resolution, natural, seamless rendering.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/28_original.jpg" alt="Original Line Art" loading="lazy"><div class="img-label">Original Line Art</div></div>
+<div class="img-item"><img src="examples/28_generated.jpg" alt="Generated" loading="lazy"><div class="img-label">Generated</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-29">
+<div class="prompt-header"><span class="prompt-num">#29</span><span class="prompt-title">3x3 Photo Grid Pose</span></div>
+<div class="prompt-desc">Generate a 3x3 grid of photo strips with varied studio-style poses and expressions.</div>
+<div class="prompt-block"><pre>Turn the photo into a 3x3 grid of photo strips with different studio-style poses and expressions.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/29_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/29_generated.jpg" alt="Generated Grid" loading="lazy"><div class="img-label">Generated Grid</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-30">
+<div class="prompt-header"><span class="prompt-num">#30</span><span class="prompt-title">AI Interior Design</span></div>
+<div class="prompt-desc">Redesign any room step-by-step — add furniture, decor, and change wall colors.</div>
+<div class="prompt-block"><pre>1. Step one: Add a comfortable gray sofa and a wooden coffee table in the center, matching the room’s contemporary style, photorealistic render.
+2. Step two: Add more furniture-like items to the foreground and more daily necessities on the table. Also, change the wallpaper to something warmer.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/30_original.jpg" alt="Original Room" loading="lazy"><div class="img-label">Original Room</div></div>
+<div class="img-item"><img src="examples/30_step-1.jpg" alt="Step 1: Sofa + Table" loading="lazy"><div class="img-label">Step 1: Sofa + Table</div></div>
+<div class="img-item"><img src="examples/30_step-2.jpg" alt="Step 2: Full Decor" loading="lazy"><div class="img-label">Step 2: Full Decor</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-31">
+<div class="prompt-header"><span class="prompt-num">#31</span><span class="prompt-title">Ingredients to Dish</span></div>
+<div class="prompt-desc">Turn raw ingredients into a beautifully plated dish with logical composition.</div>
+<div class="prompt-block"><pre>Here are the items available: [List of items]. Based on these items, create an image of a [type of object/scene] that can be made or represented by combining them. The composition should make logical sense, considering the relationship between the items. Ensure the image is [visual style]. It should be with appropriate proportions and clear placement of each item.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/31_original.jpg" alt="Ingredients" loading="lazy"><div class="img-label">Ingredients</div></div>
+<div class="img-item"><img src="examples/31_generated.jpg" alt="Plated Dish" loading="lazy"><div class="img-label">Plated Dish</div></div>
+</div>
+<div class="note">&#128064; Replace [List of items], [type of object/scene], and [visual style] with your specific details.</div>
+</div>
+<div class="prompt-card" id="p-32">
+<div class="prompt-header"><span class="prompt-num">#32</span><span class="prompt-title">Anatomy Illustration</span></div>
+<div class="prompt-desc">Generate detailed anatomical illustrations with exposed internal structures, styled like scientific infographics.</div>
+<div class="prompt-block"><pre>Draw a bilaterally symmetrical frontal anatomical illustration of the [Character], styled similarly to an infographic. The image should show the creature’s external features on both sides, with its internal anatomy partially exposed. Detailed text should flank the image, explaining the creature’s biology, abilities, behavior, habitat, and the specific functions of its anatomical structures. The overall design should be clear, informative, and in the style of a scientific illustration.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/32_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/32_generated.jpg" alt="Anatomy Diagram" loading="lazy"><div class="img-label">Anatomy Diagram</div></div>
+</div>
+<div class="note">&#128064; Replace [Character] with your specific description.</div>
+</div>
+<div class="prompt-card" id="p-33">
+<div class="prompt-header"><span class="prompt-num">#33</span><span class="prompt-title">16-Bit Video Game Character</span></div>
+<div class="prompt-desc">Convert photos into pixelated retro-game characters in a 2D 16-bit platform game level.</div>
+<div class="prompt-block"><pre>Recreate this [Character] as a 16-bit video game character, and place the character in a level of a 2D 16-bit platform video game.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/33_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/33_generated.jpg" alt="16-Bit Game" loading="lazy"><div class="img-label">16-Bit Game</div></div>
+</div>
+<div class="note">&#128064; Replace [Character] with your specific description.</div>
+</div>
+<div class="prompt-card" id="p-34">
+<div class="prompt-header"><span class="prompt-num">#34</span><span class="prompt-title">Gemini AI Polaroid-Style Photo</span></div>
+<div class="prompt-desc">Generate vintage Polaroid-style snapshots with flash lighting, slight blur, and white curtain backgrounds.</div>
+<div class="prompt-block"><pre>Take a picture with a Polaroid camera. The photo should look like a normal photo, without any clear subject or props. The photo should have a slight blur a consistent light source. Such as a flash from a dark room, spread throughout the photo. Do not change the faces. Replace the background behind the two people with a white curtain.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/34_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/34_generated.jpg" alt="Polaroid Result" loading="lazy"><div class="img-label">Polaroid Result</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-35">
+<div class="prompt-header"><span class="prompt-num">#35</span><span class="prompt-title">AI Saree</span></div>
+<div class="prompt-desc">Dress subjects in a flowing sheer yellow saree with floral embroidery and warm golden glow.</div>
+<div class="prompt-block"><pre>Create A soft, sunlit portrait wearing a flowing sheer yellow saree with delicate floral embroidery. Sit gracefully against a plain wall, bathed in warm natural light with a triangular patch of sunlight casting artistic shadows. Hold a vibrant bouquet of sunflowers close to the chest, and a small white flower is tucked behind the ear. Gentle expression, loose hair strands moving slightly, and the dreamy golden glow create a serene, poetic, and romantic.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/35_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/35_generated.jpg" alt="Saree Result" loading="lazy"><div class="img-label">Saree Result</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-36">
+<div class="prompt-header"><span class="prompt-num">#36</span><span class="prompt-title">AI Hug Younger Self</span></div>
+<div class="prompt-desc">Create a touching Polaroid-style image of your present self hugging your younger self.</div>
+<div class="prompt-block"><pre>Take a photo taken with a Polaroid camera. The photo should look like an ordinary photograph, without an explicit subject or property. The photo should have a slight blur and a consistent light source, like a flash from a dark room, scattered throughout the photo. Don’t change the face. Change the background behind those two people with white curtains. Make it look like both people in the reference picture are hugging each other.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/36_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/36_generated.jpg" alt="Hug Result" loading="lazy"><div class="img-label">Hug Result</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-37">
+<div class="prompt-header"><span class="prompt-num">#37</span><span class="prompt-title">AI B&amp;W Studio Portrait</span></div>
+<div class="prompt-desc">Generate a classic black-and-white studio portrait with deep black shadow background.</div>
+<div class="prompt-block"><pre>Please generate a top-angle and close-up black and white portrait of my face, focused on the head facing forward. Use a 35mm lens look, 10.7K 4HD quality. Proud expression. Deep black shadow background - only the face, the upper chest, and the shoulder.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/37_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/37_generated.jpg" alt="B&amp;W Result" loading="lazy"><div class="img-label">B&amp;W Result</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-38">
+<div class="prompt-header"><span class="prompt-num">#38</span><span class="prompt-title">AI Cinematic Portrait</span></div>
+<div class="prompt-desc">Create a dramatic movie-style portrait with stark cinematic lighting and deep crimson background.</div>
+<div class="prompt-block"><pre>Create a vertical portrait shot using the exact same face features, characterized by stark cinematic lighting and intense contrast. Captured in a slightly low, upward-facing angle that dramatized the subject’s jawline and neck, the composition evokes quite dominance and sculptural elegance. The background is a deep, saturated crimson red, creating a bold visual clash with the model’s luminous skin and dark wardrobe.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/38_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/38_generated.jpg" alt="Cinematic" loading="lazy"><div class="img-label">Cinematic</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-39">
+<div class="prompt-header"><span class="prompt-num">#39</span><span class="prompt-title">Internal Structure Diagram</span></div>
+<div class="prompt-desc">Generate ultra-detailed exploded view diagrams with floating components revealing inner structure.</div>
+<div class="prompt-block"><pre>Ultra-detailed exploded view of a product, metallic parts and electronic components floating in mid-air, perfectly aligned, revealing inner structure, futuristic technology aesthetic, 8K resolution, soft cinematic lighting, highly realistic.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/39_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/39_generated.jpg" alt="Exploded View" loading="lazy"><div class="img-label">Exploded View</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-40">
+<div class="prompt-header"><span class="prompt-num">#40</span><span class="prompt-title">Photo Zoom In / Zoom Out</span></div>
+<div class="prompt-desc">Enhance finest details with 100x zoom, revealing intricate textures without distortion.</div>
+<div class="prompt-block"><pre>Zoom in 100x on this image, maintaining the original aspect ratio. Ensure that the image details remain sharp and clear, revealing intricate textures, patterns, and elements without distortion, while preserving the natural colors and quality.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/40_original.png" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/40_generated.png" alt="100x Zoom" loading="lazy"><div class="img-label">100x Zoom</div></div>
+</div>
+</div>
+<div class="category" id="cat-pro-prompts">Pro-Only Prompts</div>
+<div class="prompt-card" id="p-41">
+<div class="prompt-header"><span class="prompt-num">#41</span><span class="prompt-title">Detailed Storyboard</span></div>
+<div class="prompt-desc">Generate a cinematic storyboard from an uploaded image with camera movements and framing.</div>
+<div class="prompt-block"><pre>Create a storyboard from the uploaded image, highlighting key moments and transitions with cinematic angles, camera movements, and framing that capture the scene’s mood and narrative flow.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/41_original.png" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/41_generated.jpg" alt="Storyboard" loading="lazy"><div class="img-label">Storyboard</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-42">
+<div class="prompt-header"><span class="prompt-num">#42</span><span class="prompt-title">Clear Text to Logos</span></div>
+<div class="prompt-desc">Transform logos into sophisticated minimalistic designs using realistic food elements.</div>
+<div class="prompt-block"><pre>Turn these 8 Logos into sophisticated minimalistic logos to make letters from realistic food to express the meaning of this word. Composition: rendering of all logos on a single solid white background.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/42_original.jpg" alt="Original Logos" loading="lazy"><div class="img-label">Original Logos</div></div>
+<div class="img-item"><img src="examples/42_generated.jpg" alt="Food-Letter Logos" loading="lazy"><div class="img-label">Food-Letter Logos</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-43">
+<div class="prompt-header"><span class="prompt-num">#43</span><span class="prompt-title">Semantic Understanding (Infographic)</span></div>
+<div class="prompt-desc">Create an infographic from a prompt — e.g., a recipe shown visually with ingredients and instructions.</div>
+<div class="prompt-block"><pre>Create an infographic that shows how to make Thai Tom Yum Goong Soup, with ingredients and recipe in it.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/43_original.jpg" alt="Original Image" loading="lazy"><div class="img-label">Original Image</div></div>
+<div class="img-item"><img src="examples/43_generated.jpg" alt="Infographic" loading="lazy"><div class="img-label">Infographic</div></div>
+</div>
+</div>
+<div class="prompt-card" id="p-43b">
+<div class="prompt-header"><span class="prompt-num">#43 (variant)</span><span class="prompt-title">Change Photo Focus</span></div>
+<div class="prompt-desc">Adjust focus and depth of field, shifting focal point to highlight specific elements.</div>
+<div class="prompt-block"><pre>Focus on the background trees and blanket of this image, blur this kid.</pre></div>
+<div class="img-row">
+<div class="img-item"><img src="examples/43b_original.jpg" alt="Original" loading="lazy"><div class="img-label">Original</div></div>
+<div class="img-item"><img src="examples/43b_generated.jpg" alt="Focus Changed" loading="lazy"><div class="img-label">Focus Changed</div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<script>
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+  document.querySelector('.main-content').classList.toggle('expanded');
+}
+function closeSidebar() {
+  if (window.innerWidth <= 900) {
+    document.getElementById('sidebar').classList.add('collapsed');
+    document.querySelector('.main-content').classList.add('expanded');
+  }
+}
+// Highlight current section on scroll
+window.addEventListener('scroll', function() {
+  var cards = document.querySelectorAll('.prompt-card');
+  var sidebarItems = document.querySelectorAll('.sidebar-item');
+  var current = '';
+  cards.forEach(function(card) {
+    var top = card.getBoundingClientRect().top;
+    if (top < 200) {
+      current = card.id;
+    }
+  });
+  sidebarItems.forEach(function(item) {
+    item.classList.remove('active');
+    if (item.getAttribute('href') === '#' + current) {
+      item.classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
