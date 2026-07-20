@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local AI Model Library</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #e8edf3;
+      --muted: #a9b4c0;
+      --line: #2c3644;
+      --bg: #0c1117;
+      --panel: #141b24;
+      --panel-2: #192231;
+      --accent: #67e8f9;
+      --strong: #a7f3d0;
+      --warn: #fbbf24;
+      --danger: #fca5a5;
+    }
+
+    body {
+      margin: 0;
+      font-family: Segoe UI, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 30px 0 12px;
+      font-size: 22px;
+    }
+
+    p {
+      margin: 0 0 10px;
+      color: var(--muted);
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin: 18px 0 20px;
+    }
+
+    .metric {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 22px;
+      color: var(--strong);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      background: var(--panel-2);
+      color: #dbeafe;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      color: #c4b5fd;
+      overflow-wrap: anywhere;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    li {
+      margin: 0 0 4px;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+
+    .quality {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-weight: 750;
+      white-space: nowrap;
+      letter-spacing: 0;
+    }
+
+    .tier-s {
+      color: #bfdbfe;
+      border: 1px solid rgba(96, 165, 250, 0.48);
+      background: rgba(37, 99, 235, 0.16);
+    }
+
+    .tier-a {
+      color: #bbf7d0;
+      border: 1px solid rgba(74, 222, 128, 0.45);
+      background: rgba(22, 163, 74, 0.14);
+    }
+
+    .tier-b {
+      color: #fed7aa;
+      border: 1px solid rgba(251, 146, 60, 0.42);
+      background: rgba(234, 88, 12, 0.14);
+    }
+
+    .tier-c {
+      color: #fecaca;
+      border: 1px solid rgba(248, 113, 113, 0.44);
+      background: rgba(220, 38, 38, 0.13);
+    }
+
+    .note {
+      border-left: 4px solid var(--warn);
+      background: rgba(251, 191, 36, 0.1);
+      padding: 12px 14px;
+      border-radius: 6px;
+      color: #fde68a;
+    }
+
+    .small {
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Local AI Model Library</h1>
+    <p>Checked on 2026-07-08. This report lists only model files that are actually present on this machine.</p>
+    <p class="small">Quality uses an S/A/B/C/D/F tier system with plus/minus modifiers, based on practical output quality, usefulness, and fit for this PC.</p>
+  </header>
+
+  <section class="summary" aria-label="Summary">
+    <div class="metric"><strong>10</strong>Image generation entries ready</div>
+    <div class="metric"><strong>7</strong>TTS entries ready</div>
+    <div class="metric"><strong>2</strong>Flux GGUF models ready</div>
+    <div class="metric"><strong>16 GB</strong>Target VRAM class</div>
+  </section>
+
+  <section>
+    <h2>Image Generation Models</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FLUX.1 Krea Dev Q4_K_M</td>
+          <td>Flux GGUF quantized</td>
+          <td><ul><li>Final-quality creative images</li><li>Complex prompts</li><li>Stylized realism</li></ul></td>
+          <td><ul><li>Best overall aesthetics</li><li>Strong composition</li></ul></td>
+          <td><ul><li>More complex workflow</li><li>Slower than SDXL</li></ul></td>
+          <td><span class="quality tier-s">S / 94</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\unet\flux1-krea-dev-Q4_K_M.gguf</code></td>
+        </tr>
+        <tr>
+          <td>FLUX.1-dev Q4_K_S</td>
+          <td>Flux GGUF quantized</td>
+          <td><ul><li>General premium image gen</li><li>Natural scenes</li><li>Prompt-following tests</li></ul></td>
+          <td><ul><li>Very strong detail</li><li>Good 16 GB fit</li></ul></td>
+          <td><ul><li>Not Load Checkpoint</li><li>Needs Flux node setup</li></ul></td>
+          <td><span class="quality tier-s">S- / 92</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\unet\flux1-dev-Q4_K_S.gguf</code></td>
+        </tr>
+        <tr>
+          <td>Juggernaut XL v9 RunDiffusionPhoto v2</td>
+          <td>SDXL checkpoint</td>
+          <td><ul><li>Portraits</li><li>Lifestyle scenes</li><li>Product-style images</li></ul></td>
+          <td><ul><li>Best simple photoreal model</li><li>Polished outputs</li></ul></td>
+          <td><ul><li>Can look glossy</li><li>Less flexible than Flux</li></ul></td>
+          <td><span class="quality tier-a">A+ / 90</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>RealVisXL v5.0 Baked VAE</td>
+          <td>SDXL checkpoint</td>
+          <td><ul><li>Realistic people</li><li>Natural photography</li><li>Documentary-style scenes</li></ul></td>
+          <td><ul><li>Cleaner realism</li><li>Less over-styled than Juggernaut</li></ul></td>
+          <td><ul><li>Less cinematic punch</li><li>Can need prompt tuning</li></ul></td>
+          <td><span class="quality tier-a">A / 88</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\realvisxlV50_v50Bakedvae.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Stable Diffusion 3.5 Medium FP8 all-in-one</td>
+          <td>SD3.5 checkpoint</td>
+          <td><ul><li>Prompt-heavy scenes</li><li>Base-model experiments</li><li>Modern composition tests</li></ul></td>
+          <td><ul><li>Better prompt interpretation</li><li>Less checkpoint style lock</li></ul></td>
+          <td><ul><li>Heavier model</li><li>Less predictable workflows</li></ul></td>
+          <td><span class="quality tier-a">A- / 87</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\sd3.5_medium_incl_clips_t5xxlfp8scaled.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Animagine XL 3.1</td>
+          <td>SDXL checkpoint</td>
+          <td><ul><li>Anime characters</li><li>Illustration</li><li>Stylized portraits</li></ul></td>
+          <td><ul><li>Clean linework</li><li>Strong anime style</li></ul></td>
+          <td><ul><li>Poor fit for realism</li><li>Style-specific prompting</li></ul></td>
+          <td><span class="quality tier-a">A- / 87</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\animagine-xl-3.1.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>DreamShaper XL alpha2</td>
+          <td>SDXL checkpoint</td>
+          <td><ul><li>Fantasy art</li><li>Characters</li><li>Semi-real scenes</li></ul></td>
+          <td><ul><li>Cinematic/painterly look</li><li>Good concept art base</li></ul></td>
+          <td><ul><li>Older SDXL tuning</li><li>Less realistic faces</li></ul></td>
+          <td><span class="quality tier-b">B+ / 84</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\dreamshaperXL_alpha2Xl10.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>EpicRealism Natural Sin RC1 VAE</td>
+          <td>SD 1.5 checkpoint</td>
+          <td><ul><li>Fast portraits</li><li>Older LoRA workflows</li><li>ControlNet workflows</li></ul></td>
+          <td><ul><li>Efficient SD 1.5 realism</li><li>Good compatibility</li></ul></td>
+          <td><ul><li>Lower native detail</li><li>Needs upscaling for finals</li></ul></td>
+          <td><span class="quality tier-b">B / 78</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\epicrealism_naturalSinRC1VAE.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Realistic Vision v6.0 B1 VAE</td>
+          <td>SD 1.5 checkpoint</td>
+          <td><ul><li>SD 1.5 photorealism</li><li>Quick drafts</li><li>Legacy workflows</li></ul></td>
+          <td><ul><li>Reliable older ecosystem</li><li>Good LoRA support</li></ul></td>
+          <td><ul><li>Behind SDXL/Flux quality</li><li>Lower composition strength</li></ul></td>
+          <td><span class="quality tier-b">B- / 76</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\realisticVisionV60B1_v60B1VAE.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>SDXL Lightning 4-step</td>
+          <td>SDXL fast checkpoint</td>
+          <td><ul><li>Fast drafts</li><li>Thumbnails</li><li>Prompt iteration</li></ul></td>
+          <td><ul><li>Very fast generation</li><li>Good rough ideation</li></ul></td>
+          <td><ul><li>Lower final quality</li><li>Can lose fine detail</li></ul></td>
+          <td><span class="quality tier-c">C+ / 74</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\sdxl_lightning_4step.safetensors</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>TTS Models</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File / Folder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>F5-TTS v1 Base</td>
+          <td>Neural TTS / voice cloning</td>
+          <td><ul><li>Voice cloning</li><li>Natural narration</li><li>Reference-voice speech</li></ul></td>
+          <td><ul><li>Best overall local TTS</li><li>High naturalness</li></ul></td>
+          <td><ul><li>Needs reference audio</li><li>Setup is heavier</li></ul></td>
+          <td><span class="quality tier-a">A+ / 90</span></td>
+          <td><code>C:\Users\JANG\Documents\Codex\voice\models\f5-tts\F5TTS_v1_Base\model_1250000.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Chatterbox TTS</td>
+          <td>Neural TTS</td>
+          <td><ul><li>Conversational speech</li><li>Expressive voices</li><li>Multilingual tests</li></ul></td>
+          <td><ul><li>Personality and expression</li><li>Large local model set</li></ul></td>
+          <td><ul><li>More experimental</li><li>May need workflow tuning</li></ul></td>
+          <td><span class="quality tier-a">A / 88</span></td>
+          <td><code>C:\AI-Models\chatterbox</code></td>
+        </tr>
+        <tr>
+          <td>XTTS v2</td>
+          <td>Multilingual TTS / voice cloning</td>
+          <td><ul><li>Multilingual speech</li><li>Voice cloning fallback</li><li>General TTS</li></ul></td>
+          <td><ul><li>Broad compatibility</li><li>Known stable model</li></ul></td>
+          <td><ul><li>Less natural than F5-TTS</li><li>Can sound synthetic</li></ul></td>
+          <td><span class="quality tier-a">A- / 86</span></td>
+          <td><code>C:\Users\JANG\Documents\Codex\voice\models\xtts-v2\model.pth</code></td>
+        </tr>
+        <tr>
+          <td>Orpheus 3B FT Q4_K_M</td>
+          <td>LLM-style TTS GGUF</td>
+          <td><ul><li>Character voices</li><li>Dialogue</li><li>Expressive experiments</li></ul></td>
+          <td><ul><li>Performance-style speech</li><li>Runs through GGUF stack</li></ul></td>
+          <td><ul><li>Heavier runtime</li><li>Less predictable</li></ul></td>
+          <td><span class="quality tier-b">B+ / 85</span></td>
+          <td><code>C:\Users\JANG\Documents\Codex\voice\models\orpheus\Orpheus-3b-FT-Q4_K_M.gguf</code></td>
+        </tr>
+        <tr>
+          <td>Kokoro 82M</td>
+          <td>Lightweight ONNX TTS</td>
+          <td><ul><li>Fast narration</li><li>Short clips</li><li>Low-resource TTS</li></ul></td>
+          <td><ul><li>Speed and simplicity</li><li>Small model footprint</li></ul></td>
+          <td><ul><li>Less expressive</li><li>Limited voice range</li></ul></td>
+          <td><span class="quality tier-b">B+ / 82</span></td>
+          <td><code>C:\Users\JANG\Documents\Codex\voice\models\kokoro\kokoro-v1.0.onnx</code></td>
+        </tr>
+        <tr>
+          <td>StyleTTS2 LibriTTS</td>
+          <td>Style-aware TTS</td>
+          <td><ul><li>English narration</li><li>Style/reference tests</li><li>Research workflows</li></ul></td>
+          <td><ul><li>Style control</li><li>Classic TTS experimentation</li></ul></td>
+          <td><ul><li>Less convenient</li><li>Older quality ceiling</li></ul></td>
+          <td><span class="quality tier-b">B / 80</span></td>
+          <td><code>C:\Users\JANG\Documents\Codex\voice\models\styletts2\LibriTTS\epochs_2nd_00020.pth</code></td>
+        </tr>
+        <tr>
+          <td>Bark Small</td>
+          <td>Generative TTS</td>
+          <td><ul><li>Creative audio</li><li>Voice effects</li><li>Non-standard speech</li></ul></td>
+          <td><ul><li>Playful generative behavior</li><li>Can produce effects</li></ul></td>
+          <td><ul><li>Lower fidelity</li><li>Unpredictable output</li></ul></td>
+          <td><span class="quality tier-c">C / 72</span></td>
+          <td><code>C:\Users\JANG\Documents\Codex\voice\models\bark-small\pytorch_model.bin</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Library Change Notes</h2>
+    <p class="note">
+      Some models from earlier setup notes are not listed because they are not currently present in the checked ComfyUI checkpoint folder, including DreamShaper 8, Deliberate, CyberRealistic, Photon, SDXL Base 1.0, and SD 1.5 base. The current library does include two Flux GGUF files, including the newer Krea variant.
+    </p>
+  </section>
+</main>
+</body>
+</html>
