@@ -185,9 +185,65 @@
     <div class="metric"><strong>6</strong>TTS models</div>
     <div class="metric"><strong>5</strong>STT models</div>
     <div class="metric"><strong>3</strong>Audio/video generation groups</div>
+    <div class="metric"><strong>2</strong>3D generation groups</div>
     <div class="metric"><strong>4</strong>Local LLMs</div>
     <div class="metric"><strong>2</strong>Vision/embedding models</div>
     <div class="metric"><strong>7</strong>Support components</div>
+  </section>
+
+  <section>
+    <h2>3D Generation</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File / Folder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hunyuan3D DiT v2 Mini</td>
+          <td>Image-to-3D diffusion model</td>
+          <td><ul><li>Fast 3D experiments</li><li>Simple props</li><li>Quick iteration</li></ul></td>
+          <td><ul><li>Smallest Hunyuan 3D checkpoint</li><li>Native ComfyUI workflow</li></ul></td>
+          <td><ul><li>Lower detail ceiling</li><li>Generated meshes may need cleanup</li></ul></td>
+          <td><span class="quality tier-b">B+ / 83</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\hunyuan3d-dit-v2-mini.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Hunyuan3D DiT v2 Multi-View Turbo</td>
+          <td>Image-to-3D multi-view diffusion model</td>
+          <td><ul><li>Fast multi-view asset creation</li><li>Product concepts</li><li>3D ideation</li></ul></td>
+          <td><ul><li>Speed-oriented multi-view generation</li><li>Native ComfyUI workflow</li></ul></td>
+          <td><ul><li>Needs a strong reference image</li><li>Less refined than v2.1</li></ul></td>
+          <td><span class="quality tier-a">A- / 85</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\hunyuan3d-dit-v2-mv-turbo.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Hunyuan3D v2.1</td>
+          <td>Image-to-3D mesh generation</td>
+          <td><ul><li>Final 3D assets from images</li><li>Props and product concepts</li><li>Higher-quality 3D ideation</li></ul></td>
+          <td><ul><li>Best Hunyuan 3D quality here</li><li>Native ComfyUI workflow</li></ul></td>
+          <td><ul><li>Largest Hunyuan checkpoint</li><li>Generated meshes may need cleanup</li></ul></td>
+          <td><span class="quality tier-a">A- / 87</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\hunyuan_3d_v2.1.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>TripoSplat</td>
+          <td>Image-to-3D Gaussian splat</td>
+          <td><ul><li>Novel-view scenes</li><li>Fast visual 3D captures</li><li>Gaussian-splat rendering</li></ul></td>
+          <td><ul><li>Native ComfyUI TripoSplat nodes</li><li>Efficient visual 3D output</li></ul></td>
+          <td><ul><li>Output is a splat, not a clean mesh</li><li>Best for viewing rather than editing</li></ul></td>
+          <td><span class="quality tier-a">A- / 86</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\diffusion_models\triposplat_fp16.safetensors<br>C:\ComfyUI-Zluda\models\vae\triposplat_vae_decoder_fp16.safetensors</code></td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <section>
@@ -678,7 +734,7 @@
   <section>
     <h2>Scan Notes</h2>
     <p class="note">
-      Searched C:\AI-Models, C:\ComfyUI-Zluda, C:\Voicebox, the Hugging Face cache, Ollama manifests, LM Studio models, the U2Net folder, the old Codex voice folder, and model-like files across C:, D:, and E:. Browser, Office, AMD driver, game, developer-test, and cache artifacts were excluded. No additional user-facing STT, TTS, image-recognition, or captioning checkpoints were found.
+      Searched C:\AI-Models, C:\ComfyUI-Zluda, C:\Voicebox, the Hugging Face cache, Ollama manifests, LM Studio models, the U2Net folder, the old Codex voice folder, and model-like files across C:, D:, and E:. Verified Hunyuan3D 2.1 and TripoSplat on 2026-07-23. Browser, Office, AMD driver, game, developer-test, and cache artifacts were excluded. No additional user-facing STT, TTS, image-recognition, or captioning checkpoints were found.
     </p>
   </section>
 </main>
