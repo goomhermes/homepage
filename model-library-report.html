@@ -176,19 +176,19 @@
 <main>
   <header>
     <h1>Local AI Model Library</h1>
-    <p>Checked on 2026-07-20 after cleanup. This report lists model files that are actually present in the searched local model locations.</p>
+    <p>Checked on 2026-07-23 after the latest library changes. This report lists model files that are actually present in the searched local model locations.</p>
     <p class="small">Quality uses S/A/B/C with plus/minus and the original numeric score. Support components are marked as N/A because they are not complete standalone generators.</p>
   </header>
 
   <section class="summary" aria-label="Summary">
     <div class="metric"><strong>10</strong>Image generation models</div>
-    <div class="metric"><strong>6</strong>TTS models</div>
+    <div class="metric"><strong>5</strong>TTS models</div>
     <div class="metric"><strong>5</strong>STT models</div>
     <div class="metric"><strong>3</strong>Audio/video generation groups</div>
-    <div class="metric"><strong>2</strong>3D generation groups</div>
+    <div class="metric"><strong>1</strong>3D generation group</div>
     <div class="metric"><strong>4</strong>Local LLMs</div>
-    <div class="metric"><strong>2</strong>Vision/embedding models</div>
-    <div class="metric"><strong>7</strong>Support components</div>
+    <div class="metric"><strong>3</strong>Vision/embedding models</div>
+    <div class="metric"><strong>6</strong>Support components</div>
   </section>
 
   <section>
@@ -207,15 +207,6 @@
       </thead>
       <tbody>
         <tr>
-          <td>Hunyuan3D DiT v2 Mini</td>
-          <td>Image-to-3D diffusion model</td>
-          <td><ul><li>Fast 3D experiments</li><li>Simple props</li><li>Quick iteration</li></ul></td>
-          <td><ul><li>Smallest Hunyuan 3D checkpoint</li><li>Native ComfyUI workflow</li></ul></td>
-          <td><ul><li>Lower detail ceiling</li><li>Generated meshes may need cleanup</li></ul></td>
-          <td><span class="quality tier-b">B+ / 83</span></td>
-          <td><code>C:\ComfyUI-Zluda\models\checkpoints\hunyuan3d-dit-v2-mini.safetensors</code></td>
-        </tr>
-        <tr>
           <td>Hunyuan3D DiT v2 Multi-View Turbo</td>
           <td>Image-to-3D multi-view diffusion model</td>
           <td><ul><li>Fast multi-view asset creation</li><li>Product concepts</li><li>3D ideation</li></ul></td>
@@ -232,15 +223,6 @@
           <td><ul><li>Largest Hunyuan checkpoint</li><li>Generated meshes may need cleanup</li></ul></td>
           <td><span class="quality tier-a">A- / 87</span></td>
           <td><code>C:\ComfyUI-Zluda\models\checkpoints\hunyuan_3d_v2.1.safetensors</code></td>
-        </tr>
-        <tr>
-          <td>TripoSplat</td>
-          <td>Image-to-3D Gaussian splat</td>
-          <td><ul><li>Novel-view scenes</li><li>Fast visual 3D captures</li><li>Gaussian-splat rendering</li></ul></td>
-          <td><ul><li>Native ComfyUI TripoSplat nodes</li><li>Efficient visual 3D output</li></ul></td>
-          <td><ul><li>Output is a splat, not a clean mesh</li><li>Best for viewing rather than editing</li></ul></td>
-          <td><span class="quality tier-a">A- / 86</span></td>
-          <td><code>C:\ComfyUI-Zluda\models\diffusion_models\triposplat_fp16.safetensors<br>C:\ComfyUI-Zluda\models\vae\triposplat_vae_decoder_fp16.safetensors</code></td>
         </tr>
       </tbody>
     </table>
@@ -269,6 +251,15 @@
           <td><ul><li>Not image captioning</li><li>Not general visual understanding</li></ul></td>
           <td><span class="quality tier-a">A- / 86</span></td>
           <td><code>C:\Users\JANG\.u2net\u2net.onnx</code></td>
+        </tr>
+        <tr>
+          <td>BiRefNet</td>
+          <td>High-resolution image segmentation</td>
+          <td><ul><li>Background removal</li><li>Fine object masks</li><li>Product and portrait cutouts</li></ul></td>
+          <td><ul><li>Boundary-aware foreground extraction</li><li>Native ComfyUI background-removal placement</li></ul></td>
+          <td><ul><li>Not general image understanding</li><li>May need cleanup on difficult transparent or hair details</li></ul></td>
+          <td><span class="quality tier-a">A / 89</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\background_removal\birefnet.safetensors</code></td>
         </tr>
       </tbody>
     </table>
@@ -461,15 +452,6 @@
           <td><ul><li>Less natural than F5/Qwen</li><li>Can sound synthetic</li></ul></td>
           <td><span class="quality tier-a">A- / 86</span></td>
           <td><code>C:\AI-Models\xtts-v2\model.pth</code></td>
-        </tr>
-        <tr>
-          <td>Orpheus 3B FT Q4_K_M</td>
-          <td>LLM-style TTS GGUF</td>
-          <td><ul><li>Character voices</li><li>Dialogue</li><li>Expressive experiments</li></ul></td>
-          <td><ul><li>Performance-style speech</li><li>Runs through GGUF stack</li></ul></td>
-          <td><ul><li>Heavier runtime</li><li>Less predictable</li></ul></td>
-          <td><span class="quality tier-b">B+ / 85</span></td>
-          <td><code>C:\Users\JANG\Documents\Codex\voice\models\orpheus\Orpheus-3b-FT-Q4_K_M.gguf</code></td>
         </tr>
         <tr>
           <td>Kokoro 82M PyTorch</td>
@@ -710,15 +692,6 @@
           <td><code>C:\ComfyUI-Zluda\models\layer_model\vae_transparent_decoder.safetensors</code></td>
         </tr>
         <tr>
-          <td>SNAC 24kHz</td>
-          <td>Audio codec</td>
-          <td><ul><li>Speech/audio token decoding</li><li>Orpheus-style workflows</li></ul></td>
-          <td><ul><li>Neural audio codec support</li></ul></td>
-          <td><ul><li>Support model only</li></ul></td>
-          <td><span class="quality tier-na">N/A</span></td>
-          <td><code>C:\Users\JANG\Documents\Codex\voice\models\snac-24khz\pytorch_model.bin</code></td>
-        </tr>
-        <tr>
           <td>Qwen Speech Tokenizer</td>
           <td>TTS support</td>
           <td><ul><li>Qwen TTS speech tokens</li><li>Custom voice pipeline</li></ul></td>
@@ -734,7 +707,7 @@
   <section>
     <h2>Scan Notes</h2>
     <p class="note">
-      Searched C:\AI-Models, C:\ComfyUI-Zluda, C:\Voicebox, the Hugging Face cache, Ollama manifests, LM Studio models, the U2Net folder, the old Codex voice folder, and model-like files across C:, D:, and E:. Verified Hunyuan3D 2.1 and TripoSplat on 2026-07-23. Browser, Office, AMD driver, game, developer-test, and cache artifacts were excluded. No additional user-facing STT, TTS, image-recognition, or captioning checkpoints were found.
+      Searched C:\AI-Models, C:\ComfyUI-Zluda, C:\Voicebox, the Hugging Face cache, Ollama manifests, LM Studio models, the U2Net folder, the old Codex voice folder, and model-like files across C:, D:, and E:. On 2026-07-23, TripoSplat, Hunyuan3D Mini, DINOv3 ViT-H, and the FLUX.2 VAE were confirmed absent. BiRefNet remains available. Browser, Office, AMD driver, game, developer-test, lock, log, and cache-metadata artifacts were excluded.
     </p>
   </section>
 </main>
