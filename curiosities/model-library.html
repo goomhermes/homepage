@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local AI Model Library</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #e8edf3;
+      --muted: #a9b4c0;
+      --line: #2c3644;
+      --bg: #0c1117;
+      --panel: #141b24;
+      --panel-2: #192231;
+      --strong: #a7f3d0;
+      --warn: #fbbf24;
+    }
+
+    body {
+      margin: 0;
+      font-family: Segoe UI, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    main {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 30px 0 12px;
+      font-size: 22px;
+    }
+
+    p {
+      margin: 0 0 10px;
+      color: var(--muted);
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin: 18px 0 20px;
+    }
+
+    .metric {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 22px;
+      color: var(--strong);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      background: var(--panel-2);
+      color: #dbeafe;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      color: #c4b5fd;
+      overflow-wrap: anywhere;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    li {
+      margin: 0 0 4px;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+
+    .quality {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-weight: 750;
+      white-space: nowrap;
+      letter-spacing: 0;
+    }
+
+    .tier-s {
+      color: #bfdbfe;
+      border: 1px solid rgba(96, 165, 250, 0.48);
+      background: rgba(37, 99, 235, 0.16);
+    }
+
+    .tier-a {
+      color: #bbf7d0;
+      border: 1px solid rgba(74, 222, 128, 0.45);
+      background: rgba(22, 163, 74, 0.14);
+    }
+
+    .tier-b {
+      color: #fed7aa;
+      border: 1px solid rgba(251, 146, 60, 0.42);
+      background: rgba(234, 88, 12, 0.14);
+    }
+
+    .tier-c {
+      color: #fecaca;
+      border: 1px solid rgba(248, 113, 113, 0.44);
+      background: rgba(220, 38, 38, 0.13);
+    }
+
+    .tier-na {
+      color: #cbd5e1;
+      border: 1px solid rgba(148, 163, 184, 0.42);
+      background: rgba(148, 163, 184, 0.1);
+    }
+
+    .note {
+      border-left: 4px solid var(--warn);
+      background: rgba(251, 191, 36, 0.1);
+      padding: 12px 14px;
+      border-radius: 6px;
+      color: #fde68a;
+    }
+
+    .small {
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Local AI Model Library</h1>
+    <p>Checked on 2026-07-20 after cleanup. This report lists model files that are actually present in the searched local model locations.</p>
+    <p class="small">Quality uses S/A/B/C with plus/minus and the original numeric score. Support components are marked as N/A because they are not complete standalone generators.</p>
+  </header>
+
+  <section class="summary" aria-label="Summary">
+    <div class="metric"><strong>10</strong>Image generation models</div>
+    <div class="metric"><strong>6</strong>TTS models</div>
+    <div class="metric"><strong>5</strong>STT models</div>
+    <div class="metric"><strong>3</strong>Audio/video generation groups</div>
+    <div class="metric"><strong>4</strong>Local LLMs</div>
+    <div class="metric"><strong>2</strong>Vision/embedding models</div>
+    <div class="metric"><strong>7</strong>Support components</div>
+  </section>
+
+  <section>
+    <h2>Image Recognition / Segmentation</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>U2Net</td>
+          <td>Salient-object segmentation</td>
+          <td><ul><li>Background removal</li><li>Object masks</li><li>Foreground extraction</li></ul></td>
+          <td><ul><li>Useful for cutouts and compositing</li><li>Works with image tools</li></ul></td>
+          <td><ul><li>Not image captioning</li><li>Not general visual understanding</li></ul></td>
+          <td><span class="quality tier-a">A- / 86</span></td>
+          <td><code>C:\Users\JANG\.u2net\u2net.onnx</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Embeddings / Retrieval</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File / Folder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nomic Embed Text v1.5 Q4_K_M</td>
+          <td>Text embedding model</td>
+          <td><ul><li>Semantic search</li><li>RAG retrieval</li><li>Document clustering</li></ul></td>
+          <td><ul><li>Compact local embeddings</li><li>Available in LM Studio stack</li></ul></td>
+          <td><ul><li>Not a chat model</li><li>Text-only embedding</li></ul></td>
+          <td><span class="quality tier-b">B+ / 84</span></td>
+          <td><code>C:\Program Files\LM Studio\resources\app\.webpack\bin\bundled-models\nomic-ai\nomic-embed-text-v1.5-GGUF</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Image Generation</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FLUX.1 Krea Dev Q4_K_M</td>
+          <td>Flux GGUF quantized</td>
+          <td><ul><li>Final-quality creative images</li><li>Complex prompts</li><li>Stylized realism</li></ul></td>
+          <td><ul><li>Best overall aesthetics</li><li>Strong composition</li></ul></td>
+          <td><ul><li>More complex workflow</li><li>Slower than SDXL</li></ul></td>
+          <td><span class="quality tier-s">S / 94</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\unet\flux1-krea-dev-Q4_K_M.gguf</code></td>
+        </tr>
+        <tr>
+          <td>FLUX.1-dev Q4_K_S</td>
+          <td>Flux GGUF quantized</td>
+          <td><ul><li>Premium general images</li><li>Natural scenes</li><li>Prompt-following tests</li></ul></td>
+          <td><ul><li>Very strong detail</li><li>Good 16 GB fit</li></ul></td>
+          <td><ul><li>Not Load Checkpoint</li><li>Needs Flux node setup</li></ul></td>
+          <td><span class="quality tier-s">S- / 92</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\unet\flux1-dev-Q4_K_S.gguf</code></td>
+        </tr>
+        <tr>
+          <td>Juggernaut XL v9 RunDiffusionPhoto v2</td>
+          <td>SDXL checkpoint</td>
+          <td><ul><li>Portraits</li><li>Lifestyle scenes</li><li>Product-style images</li></ul></td>
+          <td><ul><li>Best simple photoreal model</li><li>Polished outputs</li></ul></td>
+          <td><ul><li>Can look glossy</li><li>Less flexible than Flux</li></ul></td>
+          <td><span class="quality tier-a">A+ / 90</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>RealVisXL v5.0 Baked VAE</td>
+          <td>SDXL checkpoint</td>
+          <td><ul><li>Realistic people</li><li>Natural photography</li><li>Documentary-style scenes</li></ul></td>
+          <td><ul><li>Cleaner realism</li><li>Less over-styled than Juggernaut</li></ul></td>
+          <td><ul><li>Less cinematic punch</li><li>Can need prompt tuning</li></ul></td>
+          <td><span class="quality tier-a">A / 88</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\realvisxlV50_v50Bakedvae.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Stable Diffusion 3.5 Medium FP8 all-in-one</td>
+          <td>SD3.5 checkpoint</td>
+          <td><ul><li>Prompt-heavy scenes</li><li>Base-model experiments</li><li>Modern composition tests</li></ul></td>
+          <td><ul><li>Better prompt interpretation</li><li>Less checkpoint style lock</li></ul></td>
+          <td><ul><li>Heavier model</li><li>Less predictable workflows</li></ul></td>
+          <td><span class="quality tier-a">A- / 87</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\sd3.5_medium_incl_clips_t5xxlfp8scaled.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Animagine XL 3.1</td>
+          <td>SDXL checkpoint</td>
+          <td><ul><li>Anime characters</li><li>Illustration</li><li>Stylized portraits</li></ul></td>
+          <td><ul><li>Clean linework</li><li>Strong anime style</li></ul></td>
+          <td><ul><li>Poor fit for realism</li><li>Style-specific prompting</li></ul></td>
+          <td><span class="quality tier-a">A- / 87</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\animagine-xl-3.1.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>DreamShaper XL alpha2</td>
+          <td>SDXL checkpoint</td>
+          <td><ul><li>Fantasy art</li><li>Characters</li><li>Semi-real scenes</li></ul></td>
+          <td><ul><li>Cinematic/painterly look</li><li>Good concept art base</li></ul></td>
+          <td><ul><li>Older SDXL tuning</li><li>Less realistic faces</li></ul></td>
+          <td><span class="quality tier-b">B+ / 84</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\dreamshaperXL_alpha2Xl10.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>EpicRealism Natural Sin RC1 VAE</td>
+          <td>SD 1.5 checkpoint</td>
+          <td><ul><li>Fast portraits</li><li>Older LoRA workflows</li><li>ControlNet workflows</li></ul></td>
+          <td><ul><li>Efficient SD 1.5 realism</li><li>Good compatibility</li></ul></td>
+          <td><ul><li>Lower native detail</li><li>Needs upscaling for finals</li></ul></td>
+          <td><span class="quality tier-b">B / 78</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\epicrealism_naturalSinRC1VAE.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Realistic Vision v6.0 B1 VAE</td>
+          <td>SD 1.5 checkpoint</td>
+          <td><ul><li>SD 1.5 photorealism</li><li>Quick drafts</li><li>Legacy workflows</li></ul></td>
+          <td><ul><li>Reliable older ecosystem</li><li>Good LoRA support</li></ul></td>
+          <td><ul><li>Behind SDXL/Flux quality</li><li>Lower composition strength</li></ul></td>
+          <td><span class="quality tier-b">B- / 76</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\realisticVisionV60B1_v60B1VAE.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>SDXL Lightning 4-step</td>
+          <td>SDXL fast checkpoint</td>
+          <td><ul><li>Fast drafts</li><li>Thumbnails</li><li>Prompt iteration</li></ul></td>
+          <td><ul><li>Very fast generation</li><li>Good rough ideation</li></ul></td>
+          <td><ul><li>Lower final quality</li><li>Can lose fine detail</li></ul></td>
+          <td><span class="quality tier-c">C+ / 74</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\checkpoints\sdxl_lightning_4step.safetensors</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>TTS / Voice Generation</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File / Folder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Qwen3 TTS 12Hz 1.7B CustomVoice</td>
+          <td>TTS / custom voice</td>
+          <td><ul><li>Custom voice generation</li><li>Voicebox workflows</li><li>Expressive speech</li></ul></td>
+          <td><ul><li>Large modern voice model</li><li>Dedicated speech tokenizer</li></ul></td>
+          <td><ul><li>Separate Voicebox stack</li><li>Heavier than Kokoro/F5</li></ul></td>
+          <td><span class="quality tier-s">S- / 92</span></td>
+          <td><code>C:\Voicebox\models\models--Qwen--Qwen3-TTS-12Hz-1.7B-CustomVoice</code></td>
+        </tr>
+        <tr>
+          <td>F5-TTS v1 Base</td>
+          <td>Neural TTS / voice cloning</td>
+          <td><ul><li>Voice cloning</li><li>Natural narration</li><li>Reference-voice speech</li></ul></td>
+          <td><ul><li>Best general local TTS</li><li>High naturalness</li></ul></td>
+          <td><ul><li>Needs reference audio</li><li>Setup is heavier</li></ul></td>
+          <td><span class="quality tier-a">A+ / 90</span></td>
+          <td><code>C:\AI-Models\f5-tts\F5TTS_v1_Base\model_1250000.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Chatterbox TTS</td>
+          <td>Neural TTS</td>
+          <td><ul><li>Conversational speech</li><li>Expressive voices</li><li>Multilingual tests</li></ul></td>
+          <td><ul><li>Personality and expression</li><li>Large local model set</li></ul></td>
+          <td><ul><li>More experimental</li><li>May need workflow tuning</li></ul></td>
+          <td><span class="quality tier-a">A / 88</span></td>
+          <td><code>C:\AI-Models\chatterbox</code></td>
+        </tr>
+        <tr>
+          <td>XTTS v2</td>
+          <td>Multilingual TTS / voice cloning</td>
+          <td><ul><li>Multilingual speech</li><li>Voice cloning fallback</li><li>General TTS</li></ul></td>
+          <td><ul><li>Broad compatibility</li><li>Known stable model</li></ul></td>
+          <td><ul><li>Less natural than F5/Qwen</li><li>Can sound synthetic</li></ul></td>
+          <td><span class="quality tier-a">A- / 86</span></td>
+          <td><code>C:\AI-Models\xtts-v2\model.pth</code></td>
+        </tr>
+        <tr>
+          <td>Orpheus 3B FT Q4_K_M</td>
+          <td>LLM-style TTS GGUF</td>
+          <td><ul><li>Character voices</li><li>Dialogue</li><li>Expressive experiments</li></ul></td>
+          <td><ul><li>Performance-style speech</li><li>Runs through GGUF stack</li></ul></td>
+          <td><ul><li>Heavier runtime</li><li>Less predictable</li></ul></td>
+          <td><span class="quality tier-b">B+ / 85</span></td>
+          <td><code>C:\Users\JANG\Documents\Codex\voice\models\orpheus\Orpheus-3b-FT-Q4_K_M.gguf</code></td>
+        </tr>
+        <tr>
+          <td>Kokoro 82M PyTorch</td>
+          <td>Lightweight TTS</td>
+          <td><ul><li>Alternate Kokoro runtime</li><li>Fast narration</li><li>Simple speech tasks</li></ul></td>
+          <td><ul><li>PyTorch checkpoint available</li><li>Useful outside ONNX app</li></ul></td>
+          <td><ul><li>Duplicate capability</li><li>Runtime-dependent</li></ul></td>
+          <td><span class="quality tier-b">B+ / 82</span></td>
+          <td><code>C:\AI-Models\kokoro-82m\kokoro-v1_0.pth</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>STT / Transcription</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File / Folder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Faster-Whisper Large v3</td>
+          <td>STT / transcription</td>
+          <td><ul><li>Highest-accuracy transcription</li><li>Multilingual audio</li><li>Subtitle cleanup</li></ul></td>
+          <td><ul><li>Best STT quality here</li><li>Dedicated local copy</li></ul></td>
+          <td><ul><li>Slowest Whisper option</li><li>Heavier memory use</li></ul></td>
+          <td><span class="quality tier-s">S- / 92</span></td>
+          <td><code>C:\AI-Models\faster-whisper-large-v3\model.bin</code></td>
+        </tr>
+        <tr>
+          <td>Faster-Whisper Large v3 Turbo</td>
+          <td>STT / transcription</td>
+          <td><ul><li>Fast high-quality transcription</li><li>Long recordings</li><li>Practical daily STT</li></ul></td>
+          <td><ul><li>Best speed/quality balance</li><li>Large-class model</li></ul></td>
+          <td><ul><li>Slightly less accurate than full large v3</li><li>Cache-only location</li></ul></td>
+          <td><span class="quality tier-a">A+ / 90</span></td>
+          <td><code>C:\Users\JANG\.cache\huggingface\hub\models--mobiuslabsgmbh--faster-whisper-large-v3-turbo</code></td>
+        </tr>
+        <tr>
+          <td>Faster-Whisper Medium</td>
+          <td>STT / transcription</td>
+          <td><ul><li>Balanced transcription</li><li>Medium-length clips</li><li>CPU-friendly fallback</li></ul></td>
+          <td><ul><li>Good accuracy/speed tradeoff</li><li>Smaller than large</li></ul></td>
+          <td><ul><li>Lower accuracy than large</li><li>Cache-only location</li></ul></td>
+          <td><span class="quality tier-b">B+ / 84</span></td>
+          <td><code>C:\Users\JANG\.cache\huggingface\hub\models--Systran--faster-whisper-medium</code></td>
+        </tr>
+        <tr>
+          <td>Faster-Whisper Small</td>
+          <td>STT / transcription</td>
+          <td><ul><li>Quick drafts</li><li>Short voice notes</li><li>Low-resource STT</li></ul></td>
+          <td><ul><li>Fast and light</li><li>Good rough transcripts</li></ul></td>
+          <td><ul><li>More mistakes</li><li>Weaker accents/noise handling</li></ul></td>
+          <td><span class="quality tier-b">B- / 76</span></td>
+          <td><code>C:\Users\JANG\.cache\huggingface\hub\models--Systran--faster-whisper-small</code></td>
+        </tr>
+        <tr>
+          <td>Faster-Whisper Base</td>
+          <td>STT / transcription</td>
+          <td><ul><li>Very fast rough drafts</li><li>Testing STT pipelines</li><li>Low-end CPU use</li></ul></td>
+          <td><ul><li>Smallest available Whisper</li><li>Easy fallback</li></ul></td>
+          <td><ul><li>Lowest accuracy</li><li>Not ideal for final transcripts</li></ul></td>
+          <td><span class="quality tier-c">C+ / 72</span></td>
+          <td><code>C:\Users\JANG\.cache\huggingface\hub\models--Systran--faster-whisper-base</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Audio / Music / Video-Audio Generation</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File / Folder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Stable Audio 3 Medium</td>
+          <td>Text-to-audio / music</td>
+          <td><ul><li>Music clips</li><li>Sound design</li><li>Prompted audio generation</li></ul></td>
+          <td><ul><li>Highest-end audio model here</li><li>Includes T5Gemma text encoder</li></ul></td>
+          <td><ul><li>Large model</li><li>Workflow-dependent</li></ul></td>
+          <td><span class="quality tier-a">A / 88</span></td>
+          <td><code>C:\AI-Models\stable-audio-3-medium</code></td>
+        </tr>
+        <tr>
+          <td>Stable Audio Open 1.0</td>
+          <td>Text-to-audio / sound effects</td>
+          <td><ul><li>Open audio generation</li><li>Sound effects</li><li>Short musical ideas</li></ul></td>
+          <td><ul><li>Complete diffusers-style folder</li><li>Good open baseline</li></ul></td>
+          <td><ul><li>Older/lower ceiling than SA3</li><li>Not TTS</li></ul></td>
+          <td><span class="quality tier-b">B+ / 84</span></td>
+          <td><code>C:\AI-Models\stable-audio-open-1.0</code></td>
+        </tr>
+        <tr>
+          <td>MMAudio 44k</td>
+          <td>Video-to-audio / audio generation</td>
+          <td><ul><li>Add sound to video</li><li>Foley-style generation</li><li>Audio-visual experiments</li></ul></td>
+          <td><ul><li>Large and small 44k weights</li><li>Includes sync/codec support weights</li></ul></td>
+          <td><ul><li>Specialized workflow</li><li>Not for speech/music alone</li></ul></td>
+          <td><span class="quality tier-b">B+ / 83</span></td>
+          <td><code>C:\AI-Models\mmaudio</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Local LLMs</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File / Folder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Gemma 4 e4b</td>
+          <td>Ollama LLM</td>
+          <td><ul><li>Local chat</li><li>Writing help</li><li>General reasoning</li></ul></td>
+          <td><ul><li>Larger local Gemma option</li><li>Runs through Ollama</li></ul></td>
+          <td><ul><li>Not image/audio</li><li>Opaque Ollama blob storage</li></ul></td>
+          <td><span class="quality tier-b">B+ / 84</span></td>
+          <td><code>C:\Users\JANG\.ollama\models\manifests\registry.ollama.ai\library\gemma4\e4b</code></td>
+        </tr>
+        <tr>
+          <td>Gemma 4 e2b</td>
+          <td>Ollama LLM</td>
+          <td><ul><li>Fast local chat</li><li>Simple writing</li><li>Light local tasks</li></ul></td>
+          <td><ul><li>Smaller/faster Gemma option</li><li>Runs through Ollama</li></ul></td>
+          <td><ul><li>Lower reasoning ceiling</li><li>Opaque Ollama blob storage</li></ul></td>
+          <td><span class="quality tier-b">B / 80</span></td>
+          <td><code>C:\Users\JANG\.ollama\models\manifests\registry.ollama.ai\library\gemma4\e2b</code></td>
+        </tr>
+        <tr>
+          <td>Gemma 4 12B-it Q4_K_M</td>
+          <td>LM Studio GGUF multimodal LLM</td>
+          <td><ul><li>Local chat</li><li>Writing and coding</li><li>Image-aware prompts with projector</li></ul></td>
+          <td><ul><li>Balanced quality and memory use</li><li>Vision projector included</li></ul></td>
+          <td><ul><li>Slower than smaller models</li><li>Requires LM Studio-compatible runtime</li></ul></td>
+          <td><span class="quality tier-a">A- / 87</span></td>
+          <td><code>C:\Users\JANG\.lmstudio\models\lmstudio-community\gemma-4-12B-it-GGUF</code></td>
+        </tr>
+        <tr>
+          <td>Gemma 4 26B A4B-it QAT Q4_0</td>
+          <td>LM Studio GGUF multimodal LLM</td>
+          <td><ul><li>Higher-quality local chat</li><li>Complex reasoning</li><li>Image-aware prompts with projector</li></ul></td>
+          <td><ul><li>Strongest local general model found</li><li>Vision projector included</li></ul></td>
+          <td><ul><li>Large memory footprint</li><li>Slower and more demanding</li></ul></td>
+          <td><span class="quality tier-a">A / 90</span></td>
+          <td><code>C:\Users\JANG\.lmstudio\models\lmstudio-community\gemma-4-26B-A4B-it-QAT-GGUF</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Support / Utility Model Components</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Category</th>
+          <th>Use Cases</th>
+          <th>Specialty</th>
+          <th>Downsides</th>
+          <th>Quality</th>
+          <th>Ready File / Folder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Flux CLIP-L</td>
+          <td>Image text encoder</td>
+          <td><ul><li>Flux workflows</li><li>Prompt encoding</li></ul></td>
+          <td><ul><li>Required Flux support</li></ul></td>
+          <td><ul><li>Not standalone</li></ul></td>
+          <td><span class="quality tier-na">N/A</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\clip\clip_l.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Flux T5 XXL FP8</td>
+          <td>Image text encoder</td>
+          <td><ul><li>Flux workflows</li><li>Longer prompt understanding</li></ul></td>
+          <td><ul><li>Required Flux support</li></ul></td>
+          <td><ul><li>Large support file</li><li>Not standalone</li></ul></td>
+          <td><span class="quality tier-na">N/A</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\clip\t5xxl_fp8_e4m3fn.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Flux AE VAE</td>
+          <td>Image VAE</td>
+          <td><ul><li>Flux image decode/encode</li></ul></td>
+          <td><ul><li>Required Flux support</li></ul></td>
+          <td><ul><li>Not standalone</li></ul></td>
+          <td><span class="quality tier-na">N/A</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\vae\ae.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Transparent Layer XL</td>
+          <td>Image utility model</td>
+          <td><ul><li>Transparent image workflows</li><li>Layer-aware generation</li></ul></td>
+          <td><ul><li>Alpha/transparent output support</li></ul></td>
+          <td><ul><li>Requires matching nodes</li><li>Not a checkpoint</li></ul></td>
+          <td><span class="quality tier-na">N/A</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\layer_model\layer_xl_transparent_attn.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>Transparent VAE Decoder</td>
+          <td>Image utility model</td>
+          <td><ul><li>Transparent image decoding</li><li>Alpha workflows</li></ul></td>
+          <td><ul><li>Pairs with transparent layer model</li></ul></td>
+          <td><ul><li>Not standalone</li></ul></td>
+          <td><span class="quality tier-na">N/A</span></td>
+          <td><code>C:\ComfyUI-Zluda\models\layer_model\vae_transparent_decoder.safetensors</code></td>
+        </tr>
+        <tr>
+          <td>SNAC 24kHz</td>
+          <td>Audio codec</td>
+          <td><ul><li>Speech/audio token decoding</li><li>Orpheus-style workflows</li></ul></td>
+          <td><ul><li>Neural audio codec support</li></ul></td>
+          <td><ul><li>Support model only</li></ul></td>
+          <td><span class="quality tier-na">N/A</span></td>
+          <td><code>C:\Users\JANG\Documents\Codex\voice\models\snac-24khz\pytorch_model.bin</code></td>
+        </tr>
+        <tr>
+          <td>Qwen Speech Tokenizer</td>
+          <td>TTS support</td>
+          <td><ul><li>Qwen TTS speech tokens</li><li>Custom voice pipeline</li></ul></td>
+          <td><ul><li>Required by Qwen TTS</li></ul></td>
+          <td><ul><li>Support model only</li></ul></td>
+          <td><span class="quality tier-na">N/A</span></td>
+          <td><code>C:\Voicebox\models\models--Qwen--Qwen3-TTS-12Hz-1.7B-CustomVoice\snapshots\0c0e3051f131929182e2c023b9537f8b1c68adfe\speech_tokenizer\model.safetensors</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Scan Notes</h2>
+    <p class="note">
+      Searched C:\AI-Models, C:\ComfyUI-Zluda, C:\Voicebox, the Hugging Face cache, Ollama manifests, LM Studio models, the U2Net folder, the old Codex voice folder, and model-like files across C:, D:, and E:. Browser, Office, AMD driver, game, developer-test, and cache artifacts were excluded. No additional user-facing STT, TTS, image-recognition, or captioning checkpoints were found.
+    </p>
+  </section>
+</main>
+</body>
+</html>
