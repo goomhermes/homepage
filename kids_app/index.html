@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#5f56e8" />
+    <meta name="description" content="A playful bilingual number-learning app for children." />
+    <title>Number Garden</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <svg class="svg-library" aria-hidden="true">
+      <defs>
+        <linearGradient id="starGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffe75c" />
+          <stop offset="1" stop-color="#ff9f1c" />
+        </linearGradient>
+        <linearGradient id="gemGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#74e8ff" />
+          <stop offset="1" stop-color="#6254e7" />
+        </linearGradient>
+        <symbol id="object-star" viewBox="0 0 64 64">
+          <path d="M32 5.5 39.7 21l17.1 2.5-12.4 12 2.9 17L32 44.4l-15.3 8.1 2.9-17-12.4-12L24.3 21Z" fill="url(#starGradient)" stroke="#e98914" stroke-width="3" stroke-linejoin="round" />
+          <path d="M22 24c4-7 11-9 18-5" fill="none" stroke="#fff7ae" stroke-width="4" stroke-linecap="round" opacity=".8" />
+        </symbol>
+        <symbol id="object-apple" viewBox="0 0 64 64">
+          <path d="M33 18c0-7 4-11 10-13" fill="none" stroke="#6b9d25" stroke-width="4" stroke-linecap="round" />
+          <path d="M35 13c6-6 14-4 17 0-4 5-11 7-17 0Z" fill="#78c83e" />
+          <path d="M32 17c-15-9-26 3-24 17 2 13 11 24 20 21 3-1 5-1 8 0 9 3 18-8 20-21 2-14-9-26-24-17Z" fill="#ff5267" stroke="#cf2c4b" stroke-width="3" />
+          <ellipse cx="20" cy="28" rx="5" ry="8" fill="#ff9baa" opacity=".75" transform="rotate(30 20 28)" />
+        </symbol>
+        <symbol id="object-fish" viewBox="0 0 64 64">
+          <path d="M15 32 4 20v24Z" fill="#f05ac2" stroke="#c637a0" stroke-width="3" stroke-linejoin="round" />
+          <path d="M12 32c8-17 31-20 47 0-16 20-39 17-47 0Z" fill="#55d7ed" stroke="#1da9cb" stroke-width="3" />
+          <path d="M31 18c-2 7 0 12 5 15-5 3-7 8-5 14" fill="none" stroke="#fff" stroke-width="3" opacity=".85" />
+          <circle cx="48" cy="27" r="3.5" fill="#313167" />
+          <circle cx="49" cy="26" r="1" fill="#fff" />
+        </symbol>
+        <symbol id="object-flower" viewBox="0 0 64 64">
+          <path d="M32 35v24" stroke="#52ad49" stroke-width="5" stroke-linecap="round" />
+          <path d="M32 49c-8-8-15-4-16 1 5 5 11 6 16 2m0-9c8-8 15-4 16 1-5 5-11 6-16 2" fill="#75ce58" />
+          <g fill="#ff75bc" stroke="#e8469d" stroke-width="2">
+            <ellipse cx="32" cy="15" rx="8" ry="12" />
+            <ellipse cx="32" cy="15" rx="8" ry="12" transform="rotate(72 32 27)" />
+            <ellipse cx="32" cy="15" rx="8" ry="12" transform="rotate(144 32 27)" />
+            <ellipse cx="32" cy="15" rx="8" ry="12" transform="rotate(216 32 27)" />
+            <ellipse cx="32" cy="15" rx="8" ry="12" transform="rotate(288 32 27)" />
+          </g>
+          <circle cx="32" cy="27" r="9" fill="#ffd84f" stroke="#e7a92b" stroke-width="2" />
+        </symbol>
+        <symbol id="object-gem" viewBox="0 0 64 64">
+          <path d="M9 23 20 8h24l11 15-23 34Z" fill="url(#gemGradient)" stroke="#4539b6" stroke-width="3" stroke-linejoin="round" />
+          <path d="m9 23 14 1L32 57l9-33 14-1M20 8l3 16L32 8l9 16 3-16" fill="none" stroke="#d8f8ff" stroke-width="2.5" opacity=".8" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="object-balloon" viewBox="0 0 64 64">
+          <path d="M32 47c-2 6 4 8 0 14" fill="none" stroke="#8e6a64" stroke-width="2.5" stroke-linecap="round" />
+          <path d="m27 48 5-6 5 6Z" fill="#df3c78" />
+          <path d="M49 25c0 12-8 22-17 22S15 37 15 25 22 4 32 4s17 9 17 21Z" fill="#ff6399" stroke="#d83774" stroke-width="3" />
+          <ellipse cx="25" cy="16" rx="5" ry="8" fill="#ffc0d7" opacity=".75" transform="rotate(25 25 16)" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="app-shell">
+      <div class="sky-decoration" aria-hidden="true">
+        <span class="cloud cloud-a"></span>
+        <span class="cloud cloud-b"></span>
+        <span class="spark spark-a">✦</span>
+        <span class="spark spark-b">✦</span>
+        <span class="spark spark-c">●</span>
+      </div>
+
+      <main id="app" class="app" aria-live="off">
+        <section id="screen-menu" class="screen screen-menu is-active" data-screen="menu">
+          <div class="menu-scroll">
+            <header class="hero-card">
+              <div class="hero-copy">
+                <span class="sun-badge" aria-hidden="true">123</span>
+                <p class="eyebrow" data-i18n="welcome">Welcome, little counter!</p>
+                <h1 data-i18n="appTitle">Number Garden</h1>
+                <p class="hero-tagline" data-i18n="tagline">Let’s count, listen, and play!</p>
+              </div>
+              <div class="hero-characters" aria-hidden="true">
+                <span class="character-glow character-glow-pink"></span>
+                <span class="character-glow character-glow-yellow"></span>
+                <img class="hero-character hero-character-main" src="assets/characters/character1-welcome.png" alt="" />
+                <img class="hero-character hero-character-friend" src="assets/characters/character2-welcome.png" alt="" />
+              </div>
+              <span class="hero-rainbow" aria-hidden="true"></span>
+            </header>
+
+            <section class="menu-section level-section" aria-labelledby="level-heading">
+              <div class="section-heading-row">
+                <div>
+                  <p class="section-kicker" data-i18n="startHere">Start here</p>
+                  <h2 id="level-heading" data-i18n="chooseLevel">Choose a level</h2>
+                </div>
+                <span class="tiny-stars" aria-hidden="true">★ ✦</span>
+              </div>
+              <div class="level-grid">
+                <button class="level-card level-easy is-selected" type="button" aria-pressed="true">
+                  <span class="level-number">1–10</span>
+                  <span class="level-copy">
+                    <strong data-i18n="easyTitle">Easy</strong>
+                    <small data-i18n="easyRange">First numbers</small>
+                  </span>
+                  <span class="level-status" data-i18n="ready">Let’s play!</span>
+                  <span class="level-check" aria-hidden="true">✓</span>
+                </button>
+                <button class="level-card level-hard" type="button" disabled aria-disabled="true">
+                  <span class="level-number">11–100</span>
+                  <span class="level-copy">
+                    <strong data-i18n="hardTitle">Big Numbers</strong>
+                    <small data-i18n="hardRange">More numbers</small>
+                  </span>
+                  <span class="level-status" data-i18n="comingLater">Coming later</span>
+                  <span class="level-lock" aria-hidden="true">★</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="menu-section activity-section" aria-labelledby="activity-heading">
+              <div class="section-heading-row">
+                <div>
+                  <p class="section-kicker" data-i18n="easyActivities">Easy · 1–10</p>
+                  <h2 id="activity-heading" data-i18n="chooseActivity">What shall we play?</h2>
+                </div>
+              </div>
+              <div class="activity-list">
+                <button class="activity-card activity-learn" type="button" data-route="read-learn">
+                  <span class="activity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64"><rect x="8" y="11" width="48" height="42" rx="10" fill="#fff" /><path d="M18 24h28M18 33h18M18 42h23" stroke="#5e55df" stroke-width="5" stroke-linecap="round" /><circle cx="49" cy="42" r="9" fill="#ffe04f" /></svg>
+                  </span>
+                  <span class="activity-copy"><strong data-i18n="readLearn">Learn to Read</strong><small data-i18n="readLearnDesc">Tap a number and listen</small></span>
+                  <span class="activity-arrow" aria-hidden="true">›</span>
+                </button>
+                <button class="activity-card activity-listen" type="button" data-route="read-quiz">
+                  <span class="activity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64"><path d="M14 31a18 18 0 0 1 36 0" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" /><rect x="8" y="29" width="12" height="22" rx="6" fill="#fff" /><rect x="44" y="29" width="12" height="22" rx="6" fill="#fff" /><path d="M28 25 42 34 28 43Z" fill="#ffe153" /></svg>
+                  </span>
+                  <span class="activity-copy"><strong data-i18n="readQuiz">Listening Quiz</strong><small data-i18n="readQuizDesc">Listen, then find the number</small></span>
+                  <span class="activity-arrow" aria-hidden="true">›</span>
+                </button>
+                <button class="activity-card activity-count" type="button" data-route="count-quiz">
+                  <span class="activity-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64"><use href="#object-star" x="2" y="2" width="38" height="38" /><use href="#object-star" x="26" y="24" width="34" height="34" /></svg>
+                  </span>
+                  <span class="activity-copy"><strong data-i18n="countQuiz">Counting Quiz</strong><small data-i18n="countQuizDesc">Count the pictures</small></span>
+                  <span class="activity-arrow" aria-hidden="true">›</span>
+                </button>
+              </div>
+            </section>
+
+            <footer class="language-footer">
+              <span data-i18n="appLanguage">App language</span>
+              <div class="language-switch" role="group" aria-label="App language">
+                <button class="language-button is-active" type="button" data-app-language="en" aria-pressed="true">En</button>
+                <button class="language-button" type="button" data-app-language="ko" aria-pressed="false">한</button>
+              </div>
+            </footer>
+          </div>
+        </section>
+
+        <section id="screen-read-learn" class="screen activity-screen learn-screen" data-screen="read-learn" hidden>
+          <header class="top-bar">
+            <button class="back-button" type="button" data-route="menu"><span aria-hidden="true">‹</span><span class="visually-hidden" data-i18n="back">Back</span></button>
+            <div class="top-title"><span data-i18n="readLearn">Learn to Read</span><small>1–10</small></div>
+            <span class="top-mascot"><img src="assets/characters/character2-welcome.png" alt="" /></span>
+          </header>
+
+          <div class="activity-scroll">
+            <div class="mode-picker" role="group" aria-label="Counting language">
+              <button class="mode-button is-active" type="button" data-counting-mode="en" aria-pressed="true"><span>one</span><span>two</span></button>
+              <button class="mode-button" type="button" data-counting-mode="ko-sino" aria-pressed="false"><span>일</span><span>이</span></button>
+              <button class="mode-button" type="button" data-counting-mode="ko-native" aria-pressed="false"><span>하나</span><span>둘</span></button>
+            </div>
+
+            <div class="instruction-bubble learn-instruction">
+              <span class="instruction-icon" aria-hidden="true">☝</span>
+              <div><strong data-i18n="tapANumber">Tap a number</strong><small data-i18n="hearIt">and hear how it sounds!</small></div>
+            </div>
+
+            <div id="learn-number-grid" class="number-grid" aria-label="Numbers 1 through 10"></div>
+
+            <div class="character-peek learn-character" aria-hidden="true">
+              <span class="speech-chip" data-i18n="yourTurn">Your turn!</span>
+              <img src="assets/characters/character1-listen.png" data-fallback="assets/characters/character1-welcome.png" alt="" />
+            </div>
+          </div>
+        </section>
+
+        <section id="screen-read-quiz" class="screen activity-screen listen-screen" data-screen="read-quiz" hidden>
+          <header class="top-bar">
+            <button class="back-button" type="button" data-route="menu"><span aria-hidden="true">‹</span><span class="visually-hidden" data-i18n="back">Back</span></button>
+            <div class="top-title"><span data-i18n="readQuiz">Listening Quiz</span><small>1–10</small></div>
+            <span class="top-mascot"><img src="assets/characters/character2-welcome.png" alt="" /></span>
+          </header>
+
+          <div class="activity-scroll quiz-layout">
+            <div class="mode-picker" role="group" aria-label="Counting language">
+              <button class="mode-button is-active" type="button" data-counting-mode="en" aria-pressed="true"><span>one</span><span>two</span></button>
+              <button class="mode-button" type="button" data-counting-mode="ko-sino" aria-pressed="false"><span>일</span><span>이</span></button>
+              <button class="mode-button" type="button" data-counting-mode="ko-native" aria-pressed="false"><span>하나</span><span>둘</span></button>
+            </div>
+
+            <div class="quiz-prompt">
+              <p><strong data-i18n="listenCarefully">Listen carefully!</strong><span data-i18n="whichNumber">Which number do you hear?</span></p>
+              <button id="quiz-play-button" class="big-play-button" type="button" aria-label="Play number">
+                <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M25 17 48 32 25 47Z" fill="currentColor" /></svg>
+                <span class="sound-wave wave-one"></span><span class="sound-wave wave-two"></span>
+              </button>
+              <small class="play-label" data-i18n="tapToListen">Tap to listen</small>
+            </div>
+
+            <div id="read-quiz-feedback" class="feedback-space" aria-live="polite"></div>
+            <div id="read-quiz-choices" class="answer-grid read-answer-grid" aria-label="Answer choices"></div>
+
+            <img class="quiz-side-character" src="assets/characters/character1-thinking.png" data-fallback="assets/characters/character1-welcome.png" alt="" aria-hidden="true" />
+          </div>
+        </section>
+
+        <section id="screen-count-quiz" class="screen activity-screen count-screen" data-screen="count-quiz" hidden>
+          <header class="top-bar">
+            <button class="back-button" type="button" data-route="menu"><span aria-hidden="true">‹</span><span class="visually-hidden" data-i18n="back">Back</span></button>
+            <div class="top-title"><span data-i18n="countQuiz">Counting Quiz</span><small>1–10</small></div>
+            <span class="top-mascot"><img src="assets/characters/character2-welcome.png" alt="" /></span>
+          </header>
+
+          <div id="count-question-panel" class="activity-scroll count-layout">
+            <div class="quiz-progress-row">
+              <strong id="count-progress-text">Question 1 of 10</strong>
+              <span id="count-score-chip" class="score-chip"><span aria-hidden="true">★</span> 0</span>
+            </div>
+            <div class="progress-track" aria-hidden="true"><span id="count-progress-bar"></span></div>
+
+            <div class="count-card">
+              <p class="count-prompt" data-i18n="howMany">How many can you see?</p>
+              <div id="object-stage" class="object-stage" aria-label="Objects to count"></div>
+            </div>
+
+            <div id="count-feedback" class="feedback-space" aria-live="polite"></div>
+            <div id="count-answer-choices" class="answer-grid count-answer-grid" aria-label="Answer choices"></div>
+            <img class="count-side-character" src="assets/characters/character2-encourage.png" data-fallback="assets/characters/character2-welcome.png" alt="" aria-hidden="true" />
+          </div>
+
+          <div id="count-result-panel" class="activity-scroll result-layout" hidden>
+            <div id="confetti-field" class="confetti-field" aria-hidden="true"></div>
+            <p class="result-kicker" data-i18n="allDone">All done!</p>
+            <h2 id="result-title">Amazing counting!</h2>
+            <div class="score-medallion"><span id="result-score">10</span><small>/ 10</small></div>
+            <div id="result-stars" class="result-stars" aria-label="Score"></div>
+            <p id="result-message" class="result-message"></p>
+            <div class="result-characters" aria-hidden="true">
+              <img id="result-character-main" src="assets/characters/character1-celebrate.png" data-fallback="assets/characters/character1-welcome.png" alt="" />
+              <img id="result-character-friend" src="assets/characters/character2-celebrate.png" data-fallback="assets/characters/character2-welcome.png" alt="" />
+            </div>
+            <div class="result-actions">
+              <button id="play-again-button" class="primary-button" type="button"><span aria-hidden="true">↻</span><span data-i18n="playAgain">Play again</span></button>
+              <button class="secondary-button" type="button" data-route="menu" data-i18n="mainMenu">Main menu</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      <audio id="speech-player" preload="none"></audio>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
