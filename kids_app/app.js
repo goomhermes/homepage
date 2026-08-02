@@ -65,6 +65,7 @@
   const readProgressTrack = document.getElementById("read-progress-track");
   const readScoreChip = document.getElementById("read-score-chip");
   const readDanceVideo = document.getElementById("read-result-dance-video");
+  const readFriendDanceVideo = document.getElementById("read-result-friend-dance-video");
   const countPanel = document.getElementById("count-question-panel");
   const resultPanel = document.getElementById("count-result-panel");
   const objectStage = document.getElementById("object-stage");
@@ -75,6 +76,7 @@
   const progressTrack = document.getElementById("count-progress-track");
   const scoreChip = document.getElementById("count-score-chip");
   const countDanceVideo = document.getElementById("count-result-dance-video");
+  const countFriendDanceVideo = document.getElementById("count-result-friend-dance-video");
   const fullscreenButton = document.getElementById("fullscreen-button");
   const fullscreenLabel = document.getElementById("fullscreen-label");
   const answerEffectLayer = document.getElementById("answer-effect-layer");
@@ -144,7 +146,7 @@
   }
 
   function stopDanceVideos() {
-    [readDanceVideo, countDanceVideo].forEach((video) => {
+    [readDanceVideo, readFriendDanceVideo, countDanceVideo, countFriendDanceVideo].forEach((video) => {
       if (!video) return;
       video.pause();
       try { video.currentTime = 0; } catch (_) { /* Metadata may not be ready yet. */ }
@@ -341,6 +343,7 @@
     readResultPanel.hidden = false;
     renderReadResult();
     playDanceVideo(readDanceVideo);
+    playDanceVideo(readFriendDanceVideo);
     if (state.readQuiz.score >= 8) {
       document.body.classList.add("celebrating");
       createConfetti("read-confetti-field");
@@ -359,13 +362,6 @@
     document.getElementById("read-result-message").textContent = high ? t("amazingListenMessage") : medium ? t("greatListenMessage") : t("practiceListenMessage");
     const stars = Math.max(1, Math.ceil(score / 2));
     document.getElementById("read-result-stars").innerHTML = Array.from({ length: 5 }, (_, index) => `<span class="${index < stars ? "earned" : ""}" style="--i:${index}">★</span>`).join("");
-    const friend = document.getElementById("read-result-character-friend");
-    delete friend.dataset.fallbackUsed;
-    if (high) {
-      friend.src = "assets/characters/character2-celebrate.png";
-    } else {
-      friend.src = "assets/characters/character2-encourage.png";
-    }
   }
 
   function startCountQuiz() {
@@ -460,6 +456,7 @@
     resultPanel.hidden = false;
     renderCountResult();
     playDanceVideo(countDanceVideo);
+    playDanceVideo(countFriendDanceVideo);
     if (state.countQuiz.score >= 8) {
       document.body.classList.add("celebrating");
       createConfetti("confetti-field");
@@ -478,15 +475,6 @@
     document.getElementById("result-message").textContent = high ? t("amazingMessage") : medium ? t("greatMessage") : t("practiceMessage");
     const stars = Math.max(1, Math.ceil(score / 2));
     document.getElementById("result-stars").innerHTML = Array.from({ length: 5 }, (_, index) => `<span class="${index < stars ? "earned" : ""}" style="--i:${index}">★</span>`).join("");
-    const friend = document.getElementById("result-character-friend");
-    delete friend.dataset.fallbackUsed;
-    if (high) {
-      friend.src = "assets/characters/character2-celebrate.png";
-      friend.dataset.fallback = "assets/characters/character2-welcome.png";
-    } else {
-      friend.src = "assets/characters/character2-encourage.png";
-      friend.dataset.fallback = "assets/characters/character2-welcome.png";
-    }
   }
 
   function makeAnswerButton(number) {
