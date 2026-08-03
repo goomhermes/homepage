@@ -77,6 +77,7 @@
   const scoreChip = document.getElementById("count-score-chip");
   const countDanceVideo = document.getElementById("count-result-dance-video");
   const countFriendDanceVideo = document.getElementById("count-result-friend-dance-video");
+  const appShell = document.querySelector(".app-shell");
   const fullscreenButton = document.getElementById("fullscreen-button");
   const fullscreenLabel = document.getElementById("fullscreen-label");
   const answerEffectLayer = document.getElementById("answer-effect-layer");
@@ -91,6 +92,8 @@
     toastTimer: null,
     transitionTimer: null
   };
+
+  let appHeightSyncTimer = null;
 
   function t(key, values) {
     let value = translations[key] || key;
@@ -122,7 +125,12 @@
 
   function scheduleAppHeightSync() {
     syncAppHeight();
-    window.requestAnimationFrame(syncAppHeight);
+    window.requestAnimationFrame(() => {
+      syncAppHeight();
+      window.requestAnimationFrame(syncAppHeight);
+    });
+    window.clearTimeout(appHeightSyncTimer);
+    appHeightSyncTimer = window.setTimeout(syncAppHeight, 250);
   }
 
   function fullscreenElement() {
@@ -706,6 +714,11 @@
   window.addEventListener("resize", scheduleAppHeightSync, { passive: true });
   window.addEventListener("orientationchange", scheduleAppHeightSync, { passive: true });
   if (window.visualViewport) window.visualViewport.addEventListener("resize", scheduleAppHeightSync, { passive: true });
+  if (appShell) {
+    appShell.addEventListener("touchmove", (event) => {
+      if (event.cancelable) event.preventDefault();
+    }, { passive: false });
+  }
   document.addEventListener("fullscreenchange", updateFullscreenButton);
   document.addEventListener("webkitfullscreenchange", updateFullscreenButton);
   document.addEventListener("fullscreenchange", scheduleAppHeightSync);

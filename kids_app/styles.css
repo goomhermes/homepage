@@ -31,10 +31,14 @@
 
 html,
 body {
+  position: fixed;
+  inset: 0;
   width: 100%;
   height: var(--app-height);
   min-height: 0;
   overflow: hidden;
+  overflow: clip;
+  overscroll-behavior: none;
 }
 
 body {
@@ -71,6 +75,7 @@ button:focus-visible {
   height: var(--app-height);
   min-height: 0;
   overflow: hidden;
+  touch-action: pan-x;
   background:
     radial-gradient(circle at 13% 10%, rgba(255, 255, 255, 0.92) 0 4px, transparent 5px),
     radial-gradient(circle at 89% 16%, rgba(255, 255, 255, 0.74) 0 3px, transparent 4px),
