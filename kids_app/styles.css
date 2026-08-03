@@ -19,13 +19,23 @@
   --small-shadow: 0 7px 16px rgba(64, 50, 145, 0.12);
   --safe-top: max(10px, env(safe-area-inset-top));
   --safe-bottom: max(12px, env(safe-area-inset-bottom));
+  --app-height: 100vh;
   font-family: "Arial Rounded MT Bold", "Nunito", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@supports (height: 100dvh) {
+  :root { --app-height: 100dvh; }
 }
 
 * { box-sizing: border-box; }
 
 html,
-body { min-height: 100%; }
+body {
+  width: 100%;
+  height: var(--app-height);
+  min-height: 0;
+  overflow: hidden;
+}
 
 body {
   margin: 0;
@@ -58,7 +68,8 @@ button:focus-visible {
 .app-shell {
   position: relative;
   width: 100%;
-  min-height: 100dvh;
+  height: var(--app-height);
+  min-height: 0;
   overflow: hidden;
   background:
     radial-gradient(circle at 13% 10%, rgba(255, 255, 255, 0.92) 0 4px, transparent 5px),
@@ -70,7 +81,8 @@ button:focus-visible {
   position: relative;
   z-index: 2;
   width: min(100%, 540px);
-  min-height: 100dvh;
+  height: 100%;
+  min-height: 0;
   margin: 0 auto;
   background: rgba(248, 248, 255, 0.92);
   box-shadow: 0 0 55px rgba(65, 73, 144, 0.15);
@@ -78,7 +90,9 @@ button:focus-visible {
 
 .screen {
   width: 100%;
-  min-height: 100dvh;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
   animation: screen-in 250ms ease both;
 }
 
@@ -103,7 +117,8 @@ button:focus-visible {
 
 .menu-scroll,
 .activity-scroll {
-  min-height: 100dvh;
+  height: 100%;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -111,7 +126,7 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   padding: var(--safe-top) 15px var(--safe-bottom);
-  overflow-y: auto;
+  overflow: hidden;
   background:
     radial-gradient(circle at 91% 35%, rgba(255, 216, 77, .12), transparent 24%),
     linear-gradient(180deg, #f3f0ff 0%, #fff 44%, #f9fbff 100%);
@@ -204,7 +219,7 @@ button:focus-visible {
 .activity-copy small { margin-top: 4px; color: var(--muted); font-family: system-ui, sans-serif; font-size: 11px; font-weight: 700; }
 .activity-arrow { display: grid; place-items: center; width: 27px; height: 27px; border-radius: 50%; color: var(--purple); background: var(--purple-soft); font-size: 26px; line-height: 1; }
 
-.menu-footer { margin-top: auto; padding: 24px 4px 3px; }
+.menu-footer { display: flex; flex: 1 1 auto; align-items: flex-end; min-height: 64px; padding: clamp(6px, 2.8dvh, 24px) 4px 3px; }
 .fullscreen-button {
   display: flex;
   align-items: center;
@@ -226,7 +241,7 @@ button:focus-visible {
 .fullscreen-icon { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
 
 /* Activity shell */
-.activity-screen { position: relative; background: linear-gradient(180deg, #efecff 0%, #fff 48%, #f7fbff 100%); }
+.activity-screen { position: relative; display: grid; grid-template-rows: auto minmax(0, 1fr); background: linear-gradient(180deg, #efecff 0%, #fff 48%, #f7fbff 100%); }
 .top-bar {
   position: relative;
   z-index: 8;
@@ -246,7 +261,7 @@ button:focus-visible {
 .top-mascot { align-self: end; display: block; width: 52px; height: 56px; overflow: hidden; }
 .top-mascot img { width: 100%; height: 76px; object-fit: contain; object-position: center top; filter: drop-shadow(0 3px 3px rgba(37,27,97,.23)); }
 
-.activity-scroll { position: relative; min-height: calc(100dvh - 75px); padding: 18px 16px calc(20px + var(--safe-bottom)); overflow: hidden; }
+.activity-scroll { position: relative; height: auto; min-height: 0; padding: clamp(10px, 2.1dvh, 18px) 16px calc(clamp(10px, 2.4dvh, 20px) + var(--safe-bottom)); overflow: hidden; }
 .mode-picker { position: relative; z-index: 5; display: flex; justify-content: center; gap: 15px; margin-bottom: 19px; }
 .mode-button {
   display: flex;
@@ -390,7 +405,7 @@ button:focus-visible {
 .count-side-character { position: absolute; z-index: 1; right: -30px; bottom: -45px; width: 132px; height: 160px; object-fit: contain; opacity: .25; transform: rotate(-7deg); }
 
 /* Result */
-.result-layout { display: flex; flex-direction: column; align-items: center; min-height: calc(100dvh - 75px); padding-top: 26px; text-align: center; background: radial-gradient(circle at 50% 25%, #fff 0 17%, transparent 40%); }
+.result-layout { display: flex; flex-direction: column; align-items: center; height: auto; min-height: 0; padding-top: clamp(12px, 3.1dvh, 26px); text-align: center; background: radial-gradient(circle at 50% 25%, #fff 0 17%, transparent 40%); }
 .result-kicker { color: var(--pink); font-size: 12px; }
 .result-layout h2 { position: relative; z-index: 2; max-width: 330px; margin: 8px 0 12px; color: var(--purple-dark); font-size: clamp(28px, 9vw, 40px); line-height: 1; letter-spacing: -.04em; }
 .score-medallion { position: relative; z-index: 2; display: flex; justify-content: center; align-items: baseline; width: 123px; height: 123px; padding-top: 29px; border: 7px solid #fff; border-radius: 50%; color: #fff; background: linear-gradient(145deg, #ff73b6, #ec3f91); box-shadow: 0 9px 0 #c72a78, 0 16px 28px rgba(207,45,124,.25); }
@@ -487,10 +502,21 @@ button:focus-visible {
   .count-object svg { width: 50px; height: 50px; }
 }
 
+@media (max-height: 700px) {
+  .menu-section { margin-top: 16px; }
+  .section-heading-row { margin-bottom: 8px; }
+  .menu-footer { min-height: 56px; padding-top: 4px; }
+  .activity-scroll { padding-top: 8px; padding-bottom: calc(8px + var(--safe-bottom)); }
+  .mode-picker { margin-bottom: 6px; }
+  .read-progress-block { margin-bottom: 5px; padding-top: 6px; }
+  .quiz-prompt p { margin-bottom: 6px; }
+  .play-label { margin-top: 6px; }
+  .feedback-space { margin-block: 4px; }
+}
+
 @media (min-width: 700px) {
   body { padding: 22px 0; }
-  .app-shell { width: 560px; min-height: calc(100dvh - 44px); margin: 0 auto; border-radius: 34px; box-shadow: 0 24px 80px rgba(49,55,112,.22); }
-  .app, .screen, .menu-scroll { min-height: calc(100dvh - 44px); }
+  .app-shell { width: 560px; height: calc(var(--app-height) - 44px); margin: 0 auto; border-radius: 34px; box-shadow: 0 24px 80px rgba(49,55,112,.22); }
   .app-shell, .app { border-radius: 34px; }
   .top-bar { border-radius: 34px 34px 28px 28px; }
 }
@@ -504,7 +530,7 @@ html:fullscreen .menu-scroll,
 html:-webkit-full-screen .app-shell,
 html:-webkit-full-screen .app,
 html:-webkit-full-screen .screen,
-html:-webkit-full-screen .menu-scroll { width: 100%; min-height: 100dvh; border-radius: 0; }
+html:-webkit-full-screen .menu-scroll { width: 100%; height: var(--app-height); min-height: 0; border-radius: 0; }
 html:fullscreen .app-shell,
 html:-webkit-full-screen .app-shell { max-width: none; margin: 0; }
 html:fullscreen .top-bar,

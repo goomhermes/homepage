@@ -114,6 +114,17 @@
     updateFullscreenButton();
   }
 
+  function syncAppHeight() {
+    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    if (!Number.isFinite(viewportHeight) || viewportHeight <= 0) return;
+    document.documentElement.style.setProperty("--app-height", `${Math.floor(viewportHeight)}px`);
+  }
+
+  function scheduleAppHeightSync() {
+    syncAppHeight();
+    window.requestAnimationFrame(syncAppHeight);
+  }
+
   function fullscreenElement() {
     return document.fullscreenElement || document.webkitFullscreenElement || null;
   }
@@ -692,9 +703,15 @@
     startCountQuiz();
   });
   window.addEventListener("hashchange", () => showScreen(window.location.hash));
+  window.addEventListener("resize", scheduleAppHeightSync, { passive: true });
+  window.addEventListener("orientationchange", scheduleAppHeightSync, { passive: true });
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", scheduleAppHeightSync, { passive: true });
   document.addEventListener("fullscreenchange", updateFullscreenButton);
   document.addEventListener("webkitfullscreenchange", updateFullscreenButton);
+  document.addEventListener("fullscreenchange", scheduleAppHeightSync);
+  document.addEventListener("webkitfullscreenchange", scheduleAppHeightSync);
 
+  syncAppHeight();
   installImageFallbacks();
   renderLearnGrid();
   applyTranslations();
